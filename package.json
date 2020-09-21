@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx concurrently -n backend,frontend 'npm run start:backend' 'npm run start:frontend'",
+    "start:backend": "cd ./backend && node app.js",
+    "start:frontend": "cd ./frontend && echo TODO"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  }
 }
