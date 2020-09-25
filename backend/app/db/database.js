@@ -4,7 +4,7 @@ const dbDir = require('../config/config');
 const db = new sqlite3.Database(dbDir.DB_DIR, err => {
     if(err) {
         console.error(err.message);
-        return;
+        process.exit(1);
     }
 
     console.log('Connected to the SQlite database.');

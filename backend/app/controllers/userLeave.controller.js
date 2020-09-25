@@ -1,9 +1,9 @@
 const UserLeave = require('../domain/entities/userLeave.entity.js');
-const UserLeaveRepository = require('../repository/userLeave.repository');
 const DeleteViewModel = require('../models/viewmodels/delete.view.model');
+const UserLeaveService = require('../services/userLeave.service');
 
-//Maybe singleton
-const userLeaveRepository = new UserLeaveRepository;
+//Init services
+const userLeaveService = new UserLeaveService;
 
 exports.insert = (req, resp) => {
     if(Object.keys(req.body).length === 0) {
@@ -21,14 +21,25 @@ exports.insert = (req, resp) => {
         endDate: req.body.endDate,
     });
 
-    userLeaveRepository.insert(userLeave);
+    userLeaveService.isValidate(userLeave, result => {
+        if(result.size > 0) {
+            const errors = Object.fromEntries(result);
+            resp.send({
+                errors
+            });
+            return;
+        }
+
+    });
+
+    userLeaveService.add(userLeave);
     resp.send({
-        success: 'You"re information was successfully saved'
+        success: 'Yours information was successfully saved'
     });
 }
 
 exports.findAll = (req,res) => {
-    userLeaveRepository.findAll((err, result) => {
+    userLeaveService.findAll((err, result) => {
         if(err) {
                 res.status(500).send({
                 error: 'Database problem, try again later ' || err.message
@@ -52,7 +63,7 @@ exports.delete = (req, res) => {
         id: req.body.id,
     })
 
-   userLeaveRepository.delete(userViewModel.id, (err) => {
+   userLeaveService.delete(userViewModel.id, (err) => {
        console.log(err)
        if(err) {
            res.status(500).send({

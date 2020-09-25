@@ -39,5 +39,7 @@ module.exports = class UserLeaveRepository {
             }
             result(null, null);
         });
+
+        //close db
     }
 }
