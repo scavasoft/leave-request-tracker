@@ -22,7 +22,7 @@ function initializeTables() {
     //Initialize tables
     const user_leaves = `CREATE TABLE IF NOT EXISTS user_leaves (
         id INTEGER PRIMARY KEY AUTOINCREMENT, reason TEXT, type TEXT,
-        name TEXT, date_start TEXT, date_end TEXT
+        name TEXT, date_start TEXT, date_end TEXT, is_approved NUMERIC
     )`;
 
     db.run(user_leaves, err => {

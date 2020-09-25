@@ -3,9 +3,9 @@ const db = require('../db/database');
 module.exports = class UserLeaveRepository {
     
     insert(object) {
-        let stmt = db.prepare('INSERT INTO user_leaves VALUES (?,?,?,?,?,?)');
+        let stmt = db.prepare('INSERT INTO user_leaves VALUES (?,?,?,?,?,?,?)');
 
-        stmt.run(null, object.reason, object.type, object.name, object.startDate, object.endDate, err => {
+        stmt.run(null, object.reason, object.type, object.name, object.startDate, object.endDate, 0, err => {
             if(err) {
                 console.log("Query was rejected, try again", err);
                 return;
@@ -14,6 +14,17 @@ module.exports = class UserLeaveRepository {
         console.log('Query is successfully added');
 
         //close db
+    }
+
+    findById = (id, result) => {
+        db.get('SELECT * FROM user_leaves WHERE id = ?', [id], (err, row) => {
+            if(err) {
+                result(err, null);
+                return;
+            }
+
+            if(row != null) result(null, row);
+        });
     }
 
     findAll = result => {

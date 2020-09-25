@@ -38,6 +38,22 @@ exports.insert = (req, resp) => {
     });
 }
 
+exports.findById = (req, res) => {
+    const id = req.query['userLeaveId'];
+    userLeaveService.findById(id, (err, result) => {
+        if(err) {
+            res.status(500).send({
+               error: 'Database problem, try again later ' || err.message
+            });
+            return;
+        }
+
+        res.status(200).send({
+            ...result
+        });
+    });
+}
+
 exports.findAll = (req,res) => {
     userLeaveService.findAll((err, result) => {
         if(err) {

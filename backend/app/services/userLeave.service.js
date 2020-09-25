@@ -10,6 +10,10 @@ module.exports = class UserLeaveService {
         this.userLeaveRepository.insert(userLeave);
     }
 
+    findById(id, result) {
+        this.userLeaveRepository.findById(id, result);
+    }
+
     findAll(result) {
         this.userLeaveRepository.findAll(result);
     }
