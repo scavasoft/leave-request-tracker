@@ -16,39 +16,39 @@ module.exports = class UserLeaveRepository {
         //close db
     }
 
-    findById = (id, result) => {
+    findById = (id, callback) => {
         db.get('SELECT * FROM user_leaves WHERE id = ?', [id], (err, row) => {
             if(err) {
-                result(err, null);
+                callback(err, null);
                 return;
             }
 
-            if(row != null) result(null, row);
+            if(row != null) callback(null, row);
         });
     }
 
-    findAll = result => {
+    findAll = callback => {
         db.all('SELECT * FROM user_leaves', (err, rows) => {
             if(err) {
-                result(err, null);
+                callback(err, null);
                 return;
             }
 
             if(rows !== null || rows.length > 0) {
-                result(null, rows);
+                callback(null, rows);
             }
         });
 
         //close db
     }
 
-    delete = (id, result) => {
+    delete = (id, callback) => {
         db.run('DELETE FROM user_leaves WHERE id = ?', [id], err => {
             if(err) {
-                result(err, null);
+                callback(err, null);
                 return;
             }
-            result(null, null);
+            callback(null, null);
         });
 
         //close db

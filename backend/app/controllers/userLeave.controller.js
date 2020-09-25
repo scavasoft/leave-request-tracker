@@ -21,9 +21,9 @@ exports.insert = (req, resp) => {
         endDate: req.body.endDate,
     });
 
-    userLeaveService.isValidate(userLeave, result => {
-        if(result.size > 0) {
-            const errors = Object.fromEntries(result);
+    userLeaveService.validate(userLeave, callback => {
+        if(callback.size > 0) {
+            const errors = Object.fromEntries(callback);
             resp.send({
                 errors
             });
@@ -40,7 +40,7 @@ exports.insert = (req, resp) => {
 
 exports.findById = (req, res) => {
     const id = req.query['userLeaveId'];
-    userLeaveService.findById(id, (err, result) => {
+    userLeaveService.findById(id, (err, callback) => {
         if(err) {
             res.status(500).send({
                error: 'Database problem, try again later ' || err.message
@@ -49,13 +49,13 @@ exports.findById = (req, res) => {
         }
 
         res.status(200).send({
-            ...result
+            ...callback
         });
     });
 }
 
 exports.findAll = (req,res) => {
-    userLeaveService.findAll((err, result) => {
+    userLeaveService.findAll((err, callback) => {
         if(err) {
                 res.status(500).send({
                 error: 'Database problem, try again later ' || err.message
@@ -63,7 +63,7 @@ exports.findAll = (req,res) => {
             return;
         }
 
-        res.send(result);
+        res.send(callback);
     });
 }
 

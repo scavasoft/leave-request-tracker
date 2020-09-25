@@ -22,7 +22,12 @@ module.exports = class UserLeaveService {
         this.userLeaveRepository.delete(id, result);
     }
 
-    isValidate = (object, result) => {
+    /***
+     * Validate all properties(fields)
+     * @param object
+     * @param callback
+     */
+    validate = (object, callback) => {
         let errors = new Map();
         if(object.reason.trim().length === 0) {
             errors.set('reason: ', 'Reason field cannot be empty');
@@ -53,20 +58,16 @@ module.exports = class UserLeaveService {
         }
 
         //Check types with ours
-        let isTypeVerified = false;
-        Object.values(type.TYPE).forEach((value) => {
-           if(value === object.type) {
-               isTypeVerified = true;
-               return;
-           }
-        });
-        if(!isTypeVerified) errors.set('type: ', 'This type is not contained in our database ');
+        let obj = type.TYPE.find(o => o.NAME === object.type);
+        if(obj === undefined || obj === null) {
+            errors.set('type: ', 'This type is not contained in our database ');
+        }
 
         //Parse dates to long and check them
         if(Date.parse(object.startDate) >= Date.parse(object.endDate)) {
             errors.set('dateError: ', 'Start date can\'t be larger than end date');
         }
 
-        result(errors, null);
+        callback(errors, null);
     }
 }
