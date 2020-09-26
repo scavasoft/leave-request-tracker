@@ -1,9 +1,10 @@
 import React from 'react';
+import Calendar from './components/basic/Calendar';
 
 class InitializationLayer extends React.Component {
     render() {
-        return(
-            <div>test</div>
+        return (
+            <Calendar />
         );
     }
 }
