@@ -1,7 +1,7 @@
 import React from 'react';
 import Calendar from 'react-calendar';
 
-// Old CSS styling, deprecated due being unmodifiable.
+// Old CSS styling, deprecated due to being unmodifiable.
 // import 'react-calendar/dist/Calendar.css';
 
 import './Calendar.scss'
