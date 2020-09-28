@@ -1,12 +1,12 @@
 import React from 'react';
-import Calendar from './components/basic/Calendar';
+import Renderer from './modules/dashboard/index'
 
 class InitializationLayer extends React.Component {
     render() {
         return (
-            <Calendar />
-        );
+            <Renderer />
+        )
     }
 }
 
-export default (InitializationLayer);
+export default InitializationLayer;
