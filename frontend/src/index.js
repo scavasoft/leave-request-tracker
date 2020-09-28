@@ -6,7 +6,7 @@ import InitializationLayer from './initializationLayer';
 
 ReactDOM.render(
   <React.StrictMode>
-      <InitializationLayer/>
+    <InitializationLayer />
   </React.StrictMode>,
   document.getElementById('root')
 );
