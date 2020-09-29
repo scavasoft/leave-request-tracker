@@ -41,6 +41,11 @@ exports.insert = (req, resp) => {
 
 exports.findById = (req, res) => {
     const id = req.query['userLeaveId'];
+    if(!id){
+        res.status(404).send({
+            error: "User not found",
+        });
+    }
     userLeaveService.findById(id, (err, callback) => {
         if(err) {
             res.status(500).send({
