@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx concurrently -n backend,frontend 'npm run start:backend' 'npm run start:frontend'",
-    "start:backend": "cd ./backend && node app.js",
-    "start:frontend": "cd ./frontend && echo TODO"
+    "start:backend": "cd ./backend && nodemon app.js",
+    "start:frontend": "cd ./frontend && npm run start"
   },
   "keywords": [],
   "author": "",
