@@ -1,8 +1,12 @@
 .container-mainPanel {
-    display: 'flex';
+    display: flex;
+    height: 100vh;
 }
 
 .container-leftPanel {
-    width: 17%;
-    float: left;
+    width: 16%; 
+}
+
+.container-rightPanel {
+    width: 84%;
 }

@@ -2,6 +2,11 @@
   background: rgb(255, 255, 255);
   border-bottom: 0.1em dotted rgb(0, 0, 0);
   font-family: Arial, Helvetica, sans-serif;
+  transition: .5s;
+}
+
+.react-calendarEnlarged {
+  width: 84%;
 }
 
 .react-calendar--doubleView {
@@ -98,7 +103,7 @@
   text-align: center;
   padding: 0.75em 0.5em;
   background: none;
-  font-size: 1.3em;
+  font-size: 1.4em;
 }
 
 .react-calendar__tile:disabled {
