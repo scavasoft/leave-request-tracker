@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx concurrently -n backend,frontend 'npm run start:backend' 'npm run start:frontend'",
-    "start:backend": "cd ./backend && node app.js",
-    "start:frontend": "cd ./frontend && echo TODO"
+    "start:backend": "cd ./backend && nodemon app.js",
+    "start:frontend": "cd ./frontend && npm run start"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "sqlite3": "^5.0.0"
   },
