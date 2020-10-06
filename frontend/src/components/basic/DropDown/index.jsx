@@ -5,20 +5,25 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import themes from '../../../utils/themes';
 
 //css for material ui drop down menu
 const useStyles = makeStyles((theme) => ({
     button: {
         display: 'block',
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(1),
     },
     formControl: {
-        margin: theme.spacing(1),
+        marginBottom: theme.spacing(4),
         // display: 'flex',
         // justifyContent: 'center',
-        // width: 50,
-        minWidth: 120,
+        width: 100,
     },
+    // InputLabel: {
+    //     '&:focus': {
+    //         color: 'red',
+    //     }
+    // },
 }));
 
 const DropDown = React.forwardRef((props, ref) => {

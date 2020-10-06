@@ -5,7 +5,7 @@ import { ButtonWrapper, ContainedButton } from './styles';
 
 const Button = React.forwardRef((props, ref) => {
     const {
-        text, size, color, backgroundColor, ...moreProps
+        text, padding, color, backgroundColor, ...moreProps
     } = props;
 
     const { onClick, onClose } = moreProps;
@@ -14,7 +14,7 @@ const Button = React.forwardRef((props, ref) => {
         text: text,
         onClickCapture: onClick,
         onCloseCapture: onClose,
-        size: size,
+        padding: padding,
         color: color,
         backgroundColor: backgroundColor,
     }), [text, onClick]);
@@ -29,7 +29,7 @@ const Button = React.forwardRef((props, ref) => {
 //Check the types
 Button.propTypes = {
     text: PropTypes.string,
-    size: PropTypes.number,
+    padding: PropTypes.number,
     color: PropTypes.string,
     backgroundColor: PropTypes.string,
 }

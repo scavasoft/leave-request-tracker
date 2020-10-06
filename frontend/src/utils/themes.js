@@ -5,9 +5,9 @@ export default {
     [BASE_THEME]: {
         primary: '#57199E', // rgbToHex(87, 25, 158);
         secondary: '#36393F',
+        onSecondary: '#4B4B4B',
         surface: '#e0f5f8',
         onSurface: '#65586F',
-        onSecondary: '#4B4B4B',
         disabled: '#9F9F9F',
         error: '#B00020',
         isDark: false,

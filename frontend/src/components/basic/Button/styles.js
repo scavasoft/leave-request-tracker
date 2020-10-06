@@ -5,12 +5,13 @@ export const ButtonWrapper = styled.div`
     align-items: center;
     width: 100%;
     height: auto;
-    padding: 150px;
 `;
 
 export const ContainedButton = styled.button`
-    padding: ${props => props.size}px; 
+    padding: ${props => props.padding}px; 
     border-radius: 8px;
+    margin: auto;
+    display: block;
     outline: none;
     border: 0;
     color: ${props => props.color};
