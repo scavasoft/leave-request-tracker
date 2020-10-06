@@ -1,7 +1,6 @@
 import React from 'react'
 import Calendar from '../../components/Calendar'
 import Menu from '../../components/Menu'
-import Modal from '../../components/Modal'
 import './style.scss'
 
 const Container = () => {
@@ -15,7 +14,6 @@ const Container = () => {
                     <Calendar />
                 </div>
                 <div className='container-modal'>
-                    <Modal />
                 </div>
             </div>
         </div>

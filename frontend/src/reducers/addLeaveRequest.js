@@ -28,10 +28,6 @@ export default (state = initialState, action) => {
 }
 
 export const attemptLeaveRequest = (data) => dispatch => {
-    console.group('Data is: ');
-    console.log(data);
-    console.groupEnd();
-
     LeaveRequestAPI.addNewRequest(data).then(res => {
            console.log(res);
 

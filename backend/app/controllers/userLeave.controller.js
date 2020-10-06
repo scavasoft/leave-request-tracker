@@ -24,17 +24,18 @@ exports.insert = (req, resp) => {
     userLeaveService.validate(userLeave, callback => {
         if(callback.size > 0) {
             const errors = Object.fromEntries(callback);
-            resp.send({
+            console.log(errors);
+            resp.status(400).send({
                 errors
             });
             return;
         }
 
-    });
+        userLeaveService.add(userLeave);
+        resp.send({
+            success: 'Yours information was successfully saved'
+        });
 
-    userLeaveService.add(userLeave);
-    resp.send({
-        success: 'Yours information was successfully saved'
     });
 }
 

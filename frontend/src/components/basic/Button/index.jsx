@@ -10,10 +10,6 @@ const Button = React.forwardRef((props, ref) => {
 
     const { onClick, onClose } = moreProps;
 
-    // console.group('Button props');
-    // console.log(props);
-    // console.groupEnd();
-
     const ButtonProps = useMemo(() => ({
         text: text,
         onClickCapture: onClick,
@@ -24,7 +20,7 @@ const Button = React.forwardRef((props, ref) => {
     }), [text, onClick]);
 
     return (
-        <ButtonWrapper {...ButtonProps} >
+        <ButtonWrapper>
             <ContainedButton {...ButtonProps}>{text}</ContainedButton>
         </ButtonWrapper>
     );

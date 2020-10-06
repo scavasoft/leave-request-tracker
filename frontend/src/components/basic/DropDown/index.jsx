@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         margin: theme.spacing(1),
+        // display: 'flex',
+        // justifyContent: 'center',
+        // width: 50,
         minWidth: 120,
     },
 }));
@@ -29,17 +32,12 @@ const DropDown = React.forwardRef((props, ref) => {
     const items = []; // That means react elements
 
     for (let i = 0; i < values.length; i++) {
-        //Look for safely ref
-        console.log(ref);
+        //Look for safely ref (Warning)
         items.push(<MenuItem ref={ref} key={i} value={values[i]}>{values[i]}</MenuItem>)
     }
 
     const [value, setValue] = React.useState(''); //The type of leave ('Vacation'..)
     const [open, setOpen] = React.useState(false); // open value, setOpen(function)
-
-    console.group('Dropdown props')
-    console.log(props)
-    console.groupEnd()
 
     const handleChange = useCallback(event => {
         setValue(event.target.value);

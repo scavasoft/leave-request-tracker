@@ -1,19 +1,20 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { InputWrapper, InputContained } from "./styles";
+import { InputWrapper, InputContained, TextBox } from "./styles";
+
+
 
 const Input = React.forwardRef((props, ref) => {
    const {
       label, helperText, errorText, value: preFilledText = '',
-      placeholder, withIconOnError,
       onChange, onChangeCapture, disabled, type,
       withCharacterCount, maxCharacterCount, ...rest
    } = props;
 
+   const [focus, setFocus] = useState(false);
    const [value, setValue] = useState(preFilledText);
    //const [error, setError] = useState(errorText);
-
 
    const textChanges = useCallback(e => {
       const { value: text } = e.target;
@@ -34,20 +35,37 @@ const Input = React.forwardRef((props, ref) => {
       e.persist();
    }, [])
 
+   const hasFocus = () => {
+      if(!focus)
+         setFocus(true);
+   }
+   console.log(focus)
+
+   const hasBlur = () => {
+      if(focus && value.length === 0) setFocus(false)
+   }
+
    const inputProps = useMemo(() => ({
       // hasError: !!error,
       onChange: textChanges,
       disabled, label,
       //withIconOnError,
-      placeholder, value, type,
-   }), [disabled, label, withIconOnError, placeholder, value, type])
+      value, type, focus
+   }), [disabled, label, value, type, focus])
+
+
 
    return(
        <InputWrapper>
           <InputContained
               ref={ref}
               {...inputProps}
+              onFocus={hasFocus} //Inner prop
+              onBlur={hasBlur} //Inner prop
           />
+          <TextBox focus={focus}>
+             {label}
+          </TextBox>
        </InputWrapper>
    );
 });
@@ -62,6 +80,7 @@ Input.propTypes = {
    disabled: PropTypes.bool,
    withCharacterCount: PropTypes.bool,
    maxCharacterCount: PropTypes.number,
+   focus: PropTypes.bool,
 };
 
 Input.defaultProps = {
@@ -69,6 +88,7 @@ Input.defaultProps = {
    disabled: false,
    withCharacterCount: false,
    maxCharacterCount: 255,
+   focus: false,
 };
 
 export default Input;

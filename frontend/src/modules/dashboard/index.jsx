@@ -7,16 +7,9 @@ import Button from '../../components/basic/Button';
 import themes from '../../utils/themes';
 import DropDown from "../../components/basic/DropDown";
 import {TYPE} from "../../config";
-const Renderer = React.memo( () => {
-    //const selector = useSelector(state => state.attemp);
-    const dispatch = useDispatch();
 
-    // const reason = 'I gonna be married';
-    //const type = 'Weeding';
-    // const name = 'Stoyan Ivanov';
-    // const startDate = '12-10-2020';
-    // const endDate = '14-10-2020';
-    // const { reason, type, name, startDate, endDate } = useState('');
+const Renderer = React.memo( () => {
+    const dispatch = useDispatch();
 
     const [reason, setReason] = useState('');
     const [type, setType] = useState('');
@@ -31,14 +24,13 @@ const Renderer = React.memo( () => {
     const startDateChanged = useCallback(e => setStartDate(e.target.value), []);
     const endDateChanged = useCallback(e => setEndDate(e.target.value), []);
 
-    console.log(type)
-
     const handleClose = () => {
         setOpen(false);
     };
 
     function request(e) {
         e.preventDefault();
+
         dispatch(attemptLeaveRequest({
             reason,
             type,
@@ -52,54 +44,9 @@ const Renderer = React.memo( () => {
         <div>
             <Container />
 
-            <Input
-                onChange={nameChanged}
-                label='Name'
-                type='text'
-            />
-
-            <div>Name: {name}</div>
-
-            <Input
-                onChange={reasonChanged}
-                label='Reason'
-                type='text'
-            />
-
-            <div>Reason: {reason}</div>
-
-            <DropDown
-                values={[TYPE.VACATION, TYPE.SICK_DAY, TYPE.WEEDING, TYPE.DEAD]}
-                onChange={typeChanged}
-            />
-
-            <div>Type: {type}</div>
-
-            <Input
-                onChange={startDateChanged}
-                label='startDate'
-                type='date'
-            />
-
-            <div>start date: {startDate}</div>
-
-            <Input
-                onChange={endDateChanged}
-                label='endDate'
-                type='date'
-            />
-
-            <div>end date: {endDate}</div>
-
-            <Button
-                text='Send request'
-                onClick={request}
-                onClose={handleClose}
-                size={20}
-                color={themes.BASE_THEME.surface}
-                backgroundColor={themes.BASE_THEME.secondary}
-            />
         </div>
+
+
     )
 });
 

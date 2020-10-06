@@ -7,7 +7,7 @@ import Calendar from 'react-calendar';
 import './style.scss'
 
 // React Component which initializes the imported Calendar.
-const NewCalendar = () => {
+const NewCalendar = (props) => {
     return (
         <div>
             {/* The selectRange property is responsible for the ability to
