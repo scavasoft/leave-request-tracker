@@ -7,9 +7,27 @@ export const InputWrapper = styled.div`
     position: relative;
 `;
 
-export const InputContained = styled.input`
+export const InputFilled = styled.input`${props => {
+    const { width, height, padding, transition } = props;
+    return `
+     ${width !== null &&
+            `
+                width: ${width};
+            `
+    }
+    ${height !== null &&
+            `
+                height: ${height};
+            `
+    }
+    ${padding !== null &&
+            `
+                padding: ${padding};
+            `
+    }
     border: none;
     border-bottom: 1px solid gray;
+    transition: ${transition};
     
     &:hover{
         border-bottom: 2px solid black;
@@ -19,7 +37,43 @@ export const InputContained = styled.input`
         outline: none;
         border-bottom: 2px solid black;
     }
-    
+`;
+}}
+`;
+
+export const MultiLineInput = styled.textarea`${props => {
+    const { width, height, padding, transition, resize } = props;
+    return`
+        ${width !== null &&
+            `
+                width: ${width};
+            `
+        }
+        ${height !== null &&
+            `
+                height: ${height};
+            `
+        }
+        ${padding !== null &&
+            `
+                padding: ${padding};
+            `
+        }
+        border: none;
+        border-bottom: 1px solid gray;
+        resize: ${resize};
+        transition: ${transition};
+        
+        &:hover{
+            border-bottom: 2px solid black;
+        }
+        
+        &:focus{
+            outline: none;
+            border-bottom: 2px solid black;
+        }
+    `;
+}}
 `;
 
 export const TextBox = styled.h6`${props => {
@@ -29,13 +83,13 @@ export const TextBox = styled.h6`${props => {
         position: absolute;
         bottom: 0;
         left: 0;
-        color: ${themes.BASE_THEME.secondary};
+        color: ${themes.onSecondary};
       
         ${focus &&
             `
-                bottom: 13px;
+                bottom: 85%;
                 font-size: 10px;
-                color: ${themes.BASE_THEME.surface};
+                color: ${themes.surface};
             `
         };
     `;

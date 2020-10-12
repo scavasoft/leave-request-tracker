@@ -1,59 +1,82 @@
 import React, {useCallback, useState} from 'react';
-import {useDispatch} from "react-redux";
-import {attemptLeaveRequest} from "../../reducers/addLeaveRequest";
+import { useDispatch, useSelector } from "react-redux";
+import { attemptLeaveRequest } from "../../reducers/addLeaveRequestReducer";
+import { createSelector } from 'reselect';
 import Input from '../../components/basic/Input';
 import Button from '../../components/basic/Button';
-import themes from '../../utils/themes';
 import DropDown from "../../components/basic/DropDown";
-import {TYPE} from "../../config";
+import { TYPE } from "../../config";
 
 import './style.scss';
 
+const selector = createSelector(
+    store => store.calendarReducer.calendar.startDate,
+    store => store.calendarReducer.calendar.endDate,
+    (startDate, endDate) => ({
+        startDate,
+        endDate,
+    })
+)
+
+const errorSelector = createSelector(
+    store => store.addLeaveRequestReducer.requestErrors,
+    (errors) => ({
+        errors
+    })
+)
 const Sidebar = () => {
     const dispatch = useDispatch();
 
     const [reason, setReason] = useState('');
     const [type, setType] = useState('');
     const [name, setName] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const [onClose, setOpen] = useState(false);
 
     const reasonChanged = useCallback(e => setReason(e.target.value), []);
     const typeChanged = useCallback(e => setType(e.target.value), []);
     const nameChanged = useCallback(e => setName(e.target.value), []);
-    const startDateChanged = useCallback(e => setStartDate(e.target.value), []);
-    const endDateChanged = useCallback(e => setEndDate(e.target.value), []);
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+    //Get calendar state from the Redux store
+    const { startDate, endDate } = useSelector(selector);
+    const { errors } = useSelector(errorSelector);
 
     function request(e) {
         e.preventDefault();
 
         dispatch(attemptLeaveRequest({
+            name,
             reason,
             type,
-            name,
             startDate,
             endDate,
-        }, [reason, type, name, startDate, endDate]));
+        }, [name, reason, type]));
+    }
+
+    //Render list with errors if we have
+    const errorItems = [];
+    if(Object.keys(errors).length > 0) {
+        for (const object in errors) {
+            errorItems.push(<li key={object}>{errors[object]}</li>)
+        }
     }
 
     return (
         <div className='sidebar' >
-            <form>
+            <form id='sideBarForm'>
                 <Input
-                    onChange={nameChanged}
-                    label='Name'
+                    helperText='Name'
                     type='text'
+                    inComingValue={name}
+                    onChange={nameChanged}
                 />
 
                 <Input
-                    onChange={reasonChanged}
-                    label='Reason'
+                    helperText='Reason'
                     type='text'
+                    inputType={'textarea'}
+                    width={'100%'}
+                    withCharacterCount={true}
+                    inComingValue={reason}
+                    onChange={reasonChanged}
                 />
 
                 <DropDown
@@ -61,24 +84,30 @@ const Sidebar = () => {
                     onChange={typeChanged}
                 />
 
-
-                <Input
-                    onChange={startDateChanged}
+                < Input
                     type='date'
+                    inComingValue={startDate || ' '}
                 />
 
                 <Input
-                    onChange={endDateChanged}
                     type='date'
+                    inComingValue={endDate || ' '}
                 />
 
                 <Button
                     text='Send request'
+                    padding={'15px'}
+                    borderRadius={8}
+                    boxShadow={'2px 2px 2px black'}
                     onClick={request}
-                    padding={15}
-                    color={themes.BASE_THEME.surface}
-                    backgroundColor={themes.BASE_THEME.secondary}
                 />
+
+                {errors !== 'undefined' && (
+                    <ul>
+                        {errorItems}
+                    </ul>
+                )
+                }
             </form>
         </div>
     )

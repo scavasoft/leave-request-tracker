@@ -29,6 +29,7 @@ module.exports = class UserLeaveService {
      */
     validate = (object, callback) => {
         let errors = new Map();
+        console.log(object)
         if(object.reason.trim().length === 0) {
             errors.set('reason: ', 'Reason field cannot be empty');
         }

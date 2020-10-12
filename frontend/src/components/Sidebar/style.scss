@@ -8,7 +8,7 @@
     z-index: 1;
     transition: .5s;
     // TODO: Toggle smooth transitioning.
-    padding: 1em;
+    padding: 2em 1em 1em 1em;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -27,45 +27,12 @@
     margin-left: auto;
 }
 
-//.sidebar-topelement {
-//    margin-top: 8%;
-//}
-//
-//.sidebar-buttons {
-//    display: flex;
-//    justify-content: space-evenly;
-//
-//    button {
-//        padding: 0.25em 1em;
-//        border-radius: 4px;
-//    }
-//}
+.sidebar form ul {
+    padding: 20px;
+    justify-content: center;
+}
 
-//input, select, textarea {
-//    font-weight: 400;
-//}
-//
-//input {
-//    width: 90%;
-//}
-//
-//textarea  {
-//    width: 100%;
-//    height: 15vh;
-//    resize: none;
-//}
-//
-//select, input, textarea {
-//    color: black;
-//    display: block;
-//}
-//
-//select {
-//    width: 90%;
-//}
-//
-//label {
-//    color: white;
-//    text-shadow: 1px 1px black;
-//    display: block;
-//}
+.sidebar form ul li {
+    color: red;
+    margin: auto;
+}

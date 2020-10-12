@@ -5,7 +5,7 @@ const REQUEST_FAILED = 'REQUEST_FAILED';
 
 const initialState = {
   userLeaveRequest: { },
-  requestError: { },
+  requestErrors: { },
 };
 
 //Actions
@@ -21,27 +21,27 @@ export default (state = initialState, action) => {
         case REQUEST_FAILED:
             return {
                 ...state,
-                registerError: payload,
+                requestErrors: payload,
             };
         default: return state;
     }
 }
 
 export const attemptLeaveRequest = (data) => dispatch => {
-    LeaveRequestAPI.addNewRequest(data).then(res => {
-           console.log(res);
-
-           if(data.error) {
+    LeaveRequestAPI.addNewRequest(data)
+        .then(res => {
+           const { data } = res;
+           if(data.errors) {
                dispatch({
                    type: REQUEST_FAILED,
-                   payload: data.error,
+                   payload: data.errors,
                });
-           }else {
+           }
+           else {
                dispatch({
                    type: REQUEST_SUCCESS,
                    payload: data,
                })
            }
-
         });
 }

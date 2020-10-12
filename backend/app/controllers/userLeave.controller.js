@@ -24,8 +24,8 @@ exports.insert = (req, resp) => {
     userLeaveService.validate(userLeave, callback => {
         if(callback.size > 0) {
             const errors = Object.fromEntries(callback);
-            console.log(errors);
-            resp.status(400).send({
+
+            resp.status(200).send({
                 errors
             });
             return;
