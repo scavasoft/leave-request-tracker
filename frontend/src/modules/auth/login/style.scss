@@ -1,7 +1,4 @@
-.container-loginScreen {
-    // background: linear-gradient(120deg, #3b5998, #FFFFFF);
-    // background: rgb(128,196,232);
-    // background: linear-gradient(150deg, rgba(128,196,232,1) 0%, rgba(90,137,235,1) 25%, rgba(82,128,222,1) 50%, rgba(90,137,235,1) 75%, rgba(128,196,232,1) 100%);
+.container-loginScreen {    
     background: #9059cf;
     background: linear-gradient(150deg, rgba(144,89,207,1) 0%, rgba(110,42,189,1) 30%, rgba(99,34,173,1) 50%, rgba(110,42,189,1) 70%, rgba(144,89,207,1) 100%);
     width: 100%;
@@ -17,29 +14,29 @@
     margin: auto;
     width: 36%;
     height: 55vh;
-    background-color: rgb(255, 255, 255);
+    background-color: #ffffff;
     box-shadow: 0px 0px 13px -5px rgba(0,0,0,0.75), inset 0 0 1px #000000;
     border-radius: 6px;
     display: flex;
     overflow: hidden;
 
     h1 {
-        margin-top: 0%;
-        margin-left: 17.5%;
-        // color: #4185F4;
+        margin: 0% 0% 0% 17.5%;
         color: #5d1da7;
         font-family: 'Poppins', sans-serif;
         text-transform: uppercase;
-        font-size: 3em;
+        font-size: 2.6em;
+        font-weight: 100;
     }
 
     button {
+        margin: 0 auto;
         width: 65%;
         border-radius: 5px;
         height: 4.5vh;
         background-color: #5d1da7;
         padding: 0px;
-        color: white;
+        color: #ffffff;
         transition: 0.5s all;
         border: none;
         text-transform: uppercase;
@@ -48,8 +45,8 @@
     }
     
     button:hover {
-    transition: 0.8s all;
-    background-color:#3C77DB;
+        transition: 0.8s all;
+        background-color:#7020cc;
     }
 }
 
@@ -79,26 +76,27 @@
         border-radius: 5px;
         height: 2em; 
         margin-top: 5px;
-        background-color: rgb(231, 231, 231);
+        background-color: #e7e7e7;
         border: none;
         padding: 0.3em;
     }
 
-    input:focus {
+    input:focus, input:hover {
         border: none;
     }
 
     label {
+        font-family: 'Poppins', sans-serif;
         text-transform: uppercase;
-        font-size: 0.71em;
+        font-size: 0.7em;
         font-weight: 700;
         letter-spacing: 0.65px;
-        font-family: 'Poppins', sans-serif;
     }
 
     label input {
-        font-size: 1.8em;
-        font-weight: 400;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.7em;
+        font-weight: 100;
     }
 }
 
@@ -111,17 +109,14 @@
     }
 
     a {
-        float: right;  
+        float: right;
+        text-decoration: none;
+        color: #145ab6;
     }
 
     label {
         font-weight: 400;
     }
-}
-
-.loginScreen-submit {
-    display: flex;
-    justify-content: center;
 }
 
 .loginScreen-rightPanel {

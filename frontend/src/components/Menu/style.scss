@@ -5,11 +5,12 @@
   * {
     -webkit-transition: all .35s;
     transition: all .35s;
+    margin: 0;
   }
 
   h2 {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.3em;
     padding: 1em;
     color: rgb(255, 255, 255);
     text-transform: uppercase;
@@ -20,25 +21,23 @@
   }
   
   h2:hover {
-    background-color: #621eb1;
-    font-size: 1.2em;
+    font-size: 1em;
     cursor: default;
   }
   
   ul {
     display: flex;
     flex-direction: column;
-    line-height: 2em;
     list-style-type: none;
+
+    li {
+      font-size: 1em;
+      text-transform: uppercase;
+      padding: 1em 1em 1em 0;
+    }
   }
   
-  li {
-    padding: 0.5em;
-    font-size: 1.15em;
-    text-transform: uppercase;
-  }
-  
-  li:hover {
+  a:hover {
     background-color: #621eb1;
   }
 
@@ -46,9 +45,10 @@
     text-decoration: none;
     color: rgb(255, 255, 255);
     font-size: 1.05em;
+
+    i {
+      margin: 0 1.6% 0 3%;
+    }
   }
 
-  i {
-    margin-right: 0.35em;
-  }
 }

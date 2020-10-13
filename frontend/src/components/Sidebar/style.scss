@@ -7,7 +7,6 @@
     background-color: #7020cc;
     z-index: 1;
     transition: .5s;
-    // TODO: Toggle smooth transitioning.
     padding: 2em 1em 1em 1em;
     display: flex;
     flex-direction: column;
@@ -17,22 +16,4 @@
 
 .sidebarShow {
     transform: translateX(20px);
-}
-
-.sidebar-element {
-    margin-bottom: 15%;
-}
-
-.sidebar form {
-    margin-left: auto;
-}
-
-.sidebar form ul {
-    padding: 20px;
-    justify-content: center;
-}
-
-.sidebar form ul li {
-    color: red;
-    margin: auto;
 }

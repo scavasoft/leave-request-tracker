@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import Calendar from 'react-calendar';
-import { attemptStoreDate} from "../../reducers/calendarReducer";
+import { attemptStoreDate } from "../../reducers/calendarReducer";
 
 // Old CSS styling, deprecated due to being unmodifiable.
 // import 'react-calendar/dist/Calendar.css';
@@ -43,7 +43,7 @@ class NewCalendar extends React.Component {
 
     handleChange = (data) => {
         //e.preventDefault();
-        const [startDate, endDate ] = data;
+        const [startDate, endDate] = data;
         this.startDate = startDate; //setState
         this.endDate = endDate; //setState
 
@@ -53,19 +53,14 @@ class NewCalendar extends React.Component {
             startDate: this.formatDate(this.startDate),
             endDate: this.formatDate(this.endDate),
 
-        },[this.startDate, this.endDate]));
+        }, [this.startDate, this.endDate]));
 
-        let sidebar = document.getElementsByClassName('sidebar')[0];
-        let calendar = document.getElementsByClassName('react-calendar')[0];
-        calendar.classList.toggle('resize');
-        sidebar.classList.add('sidebarShow')
+        document.getElementsByClassName('sidebar')[0].classList.add('sidebarShow')
+        document.getElementsByClassName('react-calendar')[0].classList.add('resize');
     }
 
     handleClick = () => {
-        let sidebar = document.getElementsByClassName('sidebar')[0];
-        let calendar = document.getElementsByClassName('react-calendar')[0];
-        calendar.style.width = '100%';
-        sidebar.classList.remove('sidebarShow')
+        document.getElementsByClassName('sidebar')[0].classList.remove('sidebarShow');
     }
 
     render() {

@@ -1,9 +1,13 @@
 .react-calendar {
   background: rgb(255, 255, 255);
   border-bottom: 0.1em dotted rgb(0, 0, 0);
-  font-family: Arial, Helvetica, sans-serif;
   transition: .5s;
   width: 100%;
+
+  * {
+    font-family: 'Poppins', sans-serif;
+    user-select: none;
+  }
 }
 
 .resize {
@@ -66,7 +70,8 @@
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: 1em;
+  cursor: default;
 }
 
 .react-calendar__month-view__weekdays__weekday {
@@ -149,9 +154,13 @@
 }
 
 .react-calendar__navigation__label{
-  font-size: 1.6em;
+  font-size: 1.4em;
 }
 
 .react-calendar__navigation__arrow {
   font-size: 1.4em;
+}
+
+.react-calendar__tile {
+  font-size: 1.25em;
 }

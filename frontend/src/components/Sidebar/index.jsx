@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { attemptLeaveRequest } from "../../reducers/addLeaveRequestReducer";
 import { createSelector } from 'reselect';
@@ -53,7 +53,7 @@ const Sidebar = () => {
 
     //Render list with errors if we have
     const errorItems = [];
-    if(Object.keys(errors).length > 0) {
+    if (Object.keys(errors).length > 0) {
         for (const object in errors) {
             errorItems.push(<li key={object}>{errors[object]}</li>)
         }
@@ -73,7 +73,7 @@ const Sidebar = () => {
                     helperText='Reason'
                     type='text'
                     inputType={'textarea'}
-                    width={'100%'}
+                    width={'80%'}
                     withCharacterCount={true}
                     inComingValue={reason}
                     onChange={reasonChanged}
@@ -82,6 +82,7 @@ const Sidebar = () => {
                 <DropDown
                     values={[TYPE.VACATION, TYPE.SICK_DAY, TYPE.WEEDING, TYPE.DEAD]}
                     onChange={typeChanged}
+                    width={'30%'}
                 />
 
                 < Input

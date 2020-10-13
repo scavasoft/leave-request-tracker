@@ -22,13 +22,15 @@ class RequestsTable extends React.Component {
         })
     }
     selectRange() {
-        alert('test');
+        alert('row selected');
     }
     render() {
         return (
             <div className='datatable'>
                 <div className='datatable-upperPanel'>
-                    <input id='filterInput' onChange={this.changeFilter} placeholder='Enter a filter: ' maxlength="23"></input>
+                    <input id='filterInput' onChange={this.changeFilter} placeholder='Enter a filter: ' maxlength="90"></input>
+                    {/* Search button - can be implemented if needed */}
+                    {/* <button onClick={this.selectRange}><i className='fas fa-search'></i></button> */}
                 </div>
                 <div className='datatable-lowerPanel'>
                     <table>
@@ -50,25 +52,18 @@ class RequestsTable extends React.Component {
                             </th>
                         </tr>
                         <tr>
-                            <td>Foo</td>
-                            <td>Bar</td>
-                            <td>12.10.2020</td>
-                            <td>15.10.2020</td>
-                            <td>prolly dead not sure</td>
-                        </tr>
-                        <tr>
-                            <td>Foo</td>
-                            <td>Bar</td>
-                            <td>12.10.2020</td>
-                            <td>15.10.2020</td>
-                            <td>prolly dead not sure</td>
+                            <td>{this.state.searchValue}</td>
+                            <td>exampleType</td>
+                            <td>exampleDate</td>
+                            <td>exampleDate</td>
+                            <td>exampleReason</td>
                         </tr>
                         <tr>
                             <td>{this.state.searchValue}</td>
-                            <td>Bar</td>
-                            <td>12.10.2020</td>
-                            <td>15.10.2020</td>
-                            <td>prolly dead not sure</td>
+                            <td>exampleType</td>
+                            <td>exampleDate</td>
+                            <td>exampleDate</td>
+                            <td>exampleReason</td>
                         </tr>
                     </table>
                 </div>

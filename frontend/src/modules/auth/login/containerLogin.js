@@ -27,14 +27,9 @@ const LoginScreen = () => {
                         <label for='rememberMe'>Remember me</label>
                         <a href='www.google.com' target='blank'>Forgotten password?</a>
                     </div>
-                    <div className='loginScreen-submit'>
-                        <button>Submit</button>
-                        {/* <Button
-                        text='Submit'   
-                        padding={18}
-                        color={'white'}
-                    /> */}
-                    </div>
+                    <Button
+                        text='Submit'
+                    />
                 </div>
                 <div className='loginScreen-rightPanel registrationHover'>
                     <Register />

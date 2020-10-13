@@ -19,30 +19,29 @@ const RegistrationScreen = () => {
                 </div>
                 <div className='registerScreen-mainPanel hidden'>
                     <div className='registerScreenInputs'>
-                        <label>username</label>
+                        {/* TODO: Add validation */}
+                        <label>username
                         <Input
-                            label=''
-                            type='text'
-                        />
-                        <label>email</label>
+                                label=''
+                                type='text'
+                            /></label>
+                        <label>email
                         <Input
-                            label=''
-                            type='text'
-                        />
-                        <label>password</label>
+                                label=''
+                                type='text'
+                            /></label>
+                        <label>password
                         <Input
-                            label=''
-                            type='password'
-                        />
-                        <label>confirm password</label>
+                                label=''
+                                type='password'
+                            /></label>
+                        <label>confirm password
                         <Input
-                            label=''
-                            type='password'
-                        />
+                                label=''
+                                type='password'
+                            /></label>
                         <Button
                             text='register'
-                        // padding prop doesn't work
-                        // padding={520}
                         />
                     </div>
                 </div>
