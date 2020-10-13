@@ -1,0 +1,96 @@
+.registerScreen {
+    // background-color: #4185F4;
+    background-color: #7020cc;
+    z-index: 1;
+    color: white;
+    height: 100vh;
+    display: flex;
+    font-family: 'Poppins', sans-serif;
+
+    h1 {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        margin: 0;
+        padding-top: 3px;
+        color: white;
+        font-size: 3em;
+    }
+}
+
+.registerScreen-leftPanel {
+    width: 100%;
+    cursor: pointer;
+}
+
+.registerScreen-mainPanel {
+    margin: 3% 0;
+    width: 60%;
+    transition: .3s all;
+    padding: 3%;
+}
+
+.registerScreen-rightPanel {
+    font-size: 1.5em;
+    width: 20%;
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+
+    button {
+        border-radius: 50%;
+        width: 30%;
+        background-color: #7020cc;
+        outline: none;
+    }
+
+    button:hover {
+        background-color: #5d1da7;
+    }   
+}
+
+.registerScreenInputs {
+    display: flex;
+    flex-direction: column;
+
+    // DEMO INPUTS
+    input {
+        width: 100%;
+        border-radius: 5px; 
+        height: 2em;
+        margin: 0 auto;
+        background-color: #5d1da7;
+        border: none;
+        padding: 5px;
+    }
+
+    button {
+        background-color: white;
+        color: #5d1da7;
+    }
+
+    button:hover {
+        // Remove after adding stylized components.
+        background-color: white;
+    }
+
+    label input {
+        font-size: 1.8em;
+        font-weight: 100;
+    }
+
+    label {
+        text-transform: uppercase;
+        font-size: 0.71em;
+        font-weight: 700;
+        letter-spacing: 0.65px;
+        font-family: 'Poppins', sans-serif;
+    }
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.togglePanel {
+    width: 20%;
+}

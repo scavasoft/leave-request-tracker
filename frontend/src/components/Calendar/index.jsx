@@ -57,12 +57,8 @@ class NewCalendar extends React.Component {
 
         let sidebar = document.getElementsByClassName('sidebar')[0];
         let calendar = document.getElementsByClassName('react-calendar')[0];
-        calendar.style.width = '82%';
-        // Change width changing method through class toggling.
-        // sidebar.classList.toggle('react-calendarEnlarged')
+        calendar.classList.toggle('resize');
         sidebar.classList.add('sidebarShow')
-        // document.getElementById('dateFrom').value = ''; // Set to range beginning date.
-        // document.getElementById('dateTo').value = ''; // Set to range end date.
     }
 
     handleClick = () => {

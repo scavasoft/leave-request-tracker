@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     right: 0;
-    background-color: rgb(87, 25, 158);
+    background-color: #7020cc;
     z-index: 1;
     transition: .5s;
     // TODO: Toggle smooth transitioning.
@@ -17,6 +17,7 @@
 
 .sidebarShow {
     transform: translateX(0px);
+    transform: translateX(20px);
 }
 
 .sidebar-element {

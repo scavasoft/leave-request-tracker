@@ -1,0 +1,17 @@
+.leaves-mainPanel {
+    display: flex;
+    height: 100vh;
+}
+
+.leaves-leftPanel {
+    width: 16%;
+    height: 100%;
+}
+
+.leaves-rightPanel {
+    width: 84%;
+}
+
+.leaves-leftPanel a:nth-of-type(2) {
+    background-color: #621eb1;
+}
