@@ -1,9 +1,9 @@
 import React from "react";
-import Dashboard from './containerDashboard';
+import Leaves from './containerLeaves';
 
 const Renderer = React.memo(() => {
     return (
-        <Dashboard />
+        <Leaves />
     )
 });
 

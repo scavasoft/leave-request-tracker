@@ -1,22 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './style.scss';
+
+// An inline style to clear the text-decoration for the <Link> element.
+const clearDecoration = {
+    textDecoration: 'none'
+}
 
 const Menu = () => {
     return (
         <div className='container-menu'>
-            {/* Beginning of exemplary menu. */}
             <h2>attendor-lite</h2>
             <ul>
-                <li><a href='www.google.com'><i className='fas fa-home'></i>dashboard</a></li>
-                <li><a href='www.google.com'><i className='fas fa-calendar-alt'></i>requests</a></li>
-                <li><a href='www.google.com'><i className='fas fa-user'></i>profile</a></li>
-                <li><a href='www.google.com'><i className='fas fa-users'></i>groups</a></li>
-                <li><a href='www.google.com'><i className='fas fa-wrench'></i>settings</a></li>
-                <li><a href='www.google.com#'><i className='fas fa-toolbox'></i>Ipsum</a></li>
-                <li><a href='www.google.com'><i className='fas fa-chart-line'></i>Lorem</a></li>
-                <li><a href='www.google.com'><i className='fas fa-trash'></i>Ipsum</a></li>
+                <Link style={clearDecoration} to='/'>
+                    <li><p><i className='fas fa-home'></i>dashboard</p></li>
+                </Link>
+                <Link style={clearDecoration} to='/requests'>
+                    <li><p><i className='fas fa-calendar-alt'></i>requests [A]</p></li>
+                </Link>
+                <li><p><i className='fas fa-user'></i>profile</p></li>
+                <li><p><i className='fas fa-sign-out-alt'></i>logout</p></li>
             </ul>
-            {/* End of exemplary menu. */}
         </div>
     )
 }

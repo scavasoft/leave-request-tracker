@@ -23,20 +23,12 @@ class NewCalendar extends React.Component {
     handleChange = () => {
         let sidebar = document.getElementsByClassName('sidebar')[0];
         let calendar = document.getElementsByClassName('react-calendar')[0];
-        calendar.style.width = '82%';
-        // Change width changing method through class toggling.
-        // sidebar.classList.toggle('react-calendarEnlarged')
+        calendar.classList.toggle('resize');
         sidebar.classList.add('sidebarShow')
-        // document.getElementById('dateFrom').value = ''; // Set to range beginning date.
-        // document.getElementById('dateTo').value = ''; // Set to range end date.
     }
     handleClick = () => {
         let sidebar = document.getElementsByClassName('sidebar')[0];
-        let calendar = document.getElementsByClassName('react-calendar')[0];
-        calendar.style.width = '100%';
-        sidebar.classList.remove('sidebarShow')
-        document.getElementsByTagName('form')[0].reset();
-        // TODO: Clear selected range.
+        sidebar.classList.remove('sidebarShow');
     }
     render() {
         return (

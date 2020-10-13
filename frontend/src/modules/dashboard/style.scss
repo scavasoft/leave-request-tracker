@@ -1,12 +1,16 @@
-.container-mainPanel {
+.dashboard-mainPanel {
     display: flex;
     height: 100vh;
 }
 
-.container-leftPanel {
-    width: 16%; 
+.dashboard-leftPanel {
+    width: 16%;
 }
 
-.container-rightPanel {
+.dashboard-rightPanel {
     width: 84%;
+}
+
+.dashboard-leftPanel a:first-child {
+    background-color: #621eb1;
 }
