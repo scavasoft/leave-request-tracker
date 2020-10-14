@@ -9,23 +9,24 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const ContainedButton = styled.button`${props => {
-    const { padding, border, borderRadius, boxShadow } = props;
+    const { padding, border, borderRadius, boxShadow, margin, 
+    width, height, transition, fontSize, textTransform } = props;
     return`
-        padding: ${padding};
-        border: ${border}; 
-        border-radius: ${borderRadius}px;
-        ${boxShadow !== null && 
-            `
-                box-shadow: ${boxShadow};
-            `
-        }
-        margin: auto;
         display: block;
         outline: none;
-        border: 0;
-        color: ${themes.surface};
+        padding: ${padding};
+        margin: ${margin};
+        border: ${border}; 
+        border-radius: ${borderRadius};
+        box-shadow: ${boxShadow};
+        width: ${width};
+        height: ${height};
+        transition: ${transition};
+        font-size: ${fontSize};
+        text-transform: ${textTransform};
         
-        background-color: #36393F;
+        color: ${themes.secondary};
+        background-color: ${themes.onSurface};
         
         &:hover{
             background-color: #282B34;

@@ -2,32 +2,24 @@ import styled from 'styled-components';
 import themes from '../../../utils/themes';
 
 export const InputWrapper = styled.div`
-    margin-bottom: 35px;
-    height: auto;
     position: relative;
+    margin: 20px 0 2px 0;
+    width: 100%;
+    height: auto;
 `;
 
 export const InputFilled = styled.input`${props => {
-    const { width, height, padding, transition } = props;
+    const { width, height, padding, transition, borderRadius } = props;
     return `
-     ${width !== null &&
-            `
-                width: ${width};
-            `
-    }
-    ${height !== null &&
-            `
-                height: ${height};
-            `
-    }
-    ${padding !== null &&
-            `
-                padding: ${padding};
-            `
-    }
-    border: none;
+    width: ${width};
+    height: ${height};
+    padding: ${padding};
+    margin: ${props.margin};
+    border: ${props.border};
+    border-radius: ${borderRadius};
     border-bottom: 1px solid gray;
     transition: ${transition};
+    font-size: ${props.fontSize};
     
     &:hover{
         border-bottom: 2px solid black;
@@ -44,25 +36,17 @@ export const InputFilled = styled.input`${props => {
 export const MultiLineInput = styled.textarea`${props => {
     const { width, height, padding, transition, resize } = props;
     return`
-        ${width !== null &&
-            `
-                width: ${width};
-            `
-        }
-        ${height !== null &&
-            `
-                height: ${height};
-            `
-        }
-        ${padding !== null &&
-            `
-                padding: ${padding};
-            `
-        }
-        border: none;
+          width: ${width};
+        height: ${height};
+        padding: ${padding};
+        margin: ${props.margin};
+        border: ${props.border};
+        border-radius: ${props.borderRadius};
         border-bottom: 1px solid gray;
-        resize: ${resize};
         transition: ${transition};
+        font-size: ${props.fontSize};
+        resize: ${resize};
+        
         
         &:hover{
             border-bottom: 2px solid black;

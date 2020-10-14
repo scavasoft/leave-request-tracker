@@ -10,8 +10,8 @@ import { ButtonWrapper, ContainedButton } from './styles';
 const Button = React.forwardRef((props, ref) => {
     //Custom props that which we give at initialize of the component
     const {
-        text, padding, border,
-        borderRadius, boxShadow,
+        text, padding, margin, border, borderRadius, boxShadow,
+        width, height, transition, fontSize, textTransform,
         ...rest
     } = props;
 
@@ -20,9 +20,9 @@ const Button = React.forwardRef((props, ref) => {
     //Set buttonProps for more readable
     //useMemo re-render an object only when one of the values is changed
     const ButtonProps = useMemo(() => ({
-        text, padding,
-        border, borderRadius,
-        boxShadow,
+        text, padding, margin,
+        border, borderRadius, boxShadow,
+        width, height, transition, fontSize, textTransform,
     }), [text, padding, border, borderRadius, boxShadow]);
 
     return (
@@ -36,17 +36,29 @@ const Button = React.forwardRef((props, ref) => {
 Button.propTypes = {
     text: PropTypes.string,
     padding: PropTypes.string,
+    margin: PropTypes.string,
     border: PropTypes.string,
-    borderRadius: PropTypes.number,
+    borderRadius: PropTypes.string,
     boxShadow: PropTypes.string,
+    width: PropTypes.string,
+    height: PropTypes.string,
+    transition: PropTypes.string,
+    fontSize: PropTypes.string,
+    textTransform: PropTypes.string,
 }
 
 //Default props
 Button.defaultProps = {
-    padding: null,
+    padding: '0',
+    margin: 'auto',
     border: 'none',
-    borderRadius: 0,
-    boxShadow: null,
+    borderRadius: '0',
+    boxShadow: 'none',
+    width: 'auto',
+    height: 'auto',
+    transition: 'none',
+    fontSize: '12px',
+    textTransform: 'none',
 }
 
 export default Button;

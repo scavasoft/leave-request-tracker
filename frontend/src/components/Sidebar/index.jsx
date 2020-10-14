@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { attemptLeaveRequest } from "../../reducers/addLeaveRequestReducer";
 import { createSelector } from 'reselect';
@@ -8,6 +8,7 @@ import DropDown from "../../components/basic/DropDown";
 import { TYPE } from "../../config";
 
 import './style.scss';
+import {attemptStoreDate} from "../../reducers/calendarReducer";
 
 const selector = createSelector(
     store => store.calendarReducer.calendar.startDate,
@@ -25,23 +26,38 @@ const errorSelector = createSelector(
     })
 )
 const Sidebar = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); //This is the only way to trigger a state change
 
+    //Init state variables
     const [reason, setReason] = useState('');
     const [type, setType] = useState('');
     const [name, setName] = useState('');
-
-    const reasonChanged = useCallback(e => setReason(e.target.value), []);
-    const typeChanged = useCallback(e => setType(e.target.value), []);
-    const nameChanged = useCallback(e => setName(e.target.value), []);
 
     //Get calendar state from the Redux store
     const { startDate, endDate } = useSelector(selector);
     const { errors } = useSelector(errorSelector);
 
-    function request(e) {
-        e.preventDefault();
+    //These callbacks call function textChanges which location is in our basic Input component
+    const reasonChanged = useCallback(e => setReason(e.target.value), []);
+    const typeChanged = useCallback(e => setType(e.target.value), []);
+    const nameChanged = useCallback(e => setName(e.target.value), []);
+    const startDateChanged = e => {
+        dispatch(attemptStoreDate({
+            startDate: e.target.value,
+        }), [e.target.value]);
+    };
 
+    const endDateChanged = e => {
+        dispatch(attemptStoreDate({
+            endDate: e.target.value
+        }), [e.target.value]);
+    };
+
+    function request(e) {
+        e.preventDefault(); //To don't refresh when we click on the button
+
+        //Dispatch the information from each field in the right drawer menu
+        //Look the function in reducers/addLeaveRequestReducer
         dispatch(attemptLeaveRequest({
             name,
             reason,
@@ -51,64 +67,68 @@ const Sidebar = () => {
         }, [name, reason, type]));
     }
 
-    //Render list with errors if we have
-    const errorItems = [];
-    if (Object.keys(errors).length > 0) {
-        for (const object in errors) {
-            errorItems.push(<li key={object}>{errors[object]}</li>)
-        }
-    }
-
     return (
         <div className='sidebar' >
             <form id='sideBarForm'>
                 <Input
                     helperText='Name'
                     type='text'
-                    inComingValue={name}
+                    value={name || ''}
                     onChange={nameChanged}
                 />
+                {errors.hasOwnProperty('name') && (
+                    <div className='error'>{errors['name']}</div>
+                    )
+                }
 
                 <Input
                     helperText='Reason'
                     type='text'
                     inputType={'textarea'}
-                    width={'80%'}
+                    width={'100%'}
+                    padding={'15px'}
+                    borderRadius={12}
                     withCharacterCount={true}
-                    inComingValue={reason}
                     onChange={reasonChanged}
+                    value={reason || ''}
                 />
+                {errors.hasOwnProperty('reason') && (
+                    <div className='error'>{errors['reason']}</div>
+                )
+                }
 
                 <DropDown
                     values={[TYPE.VACATION, TYPE.SICK_DAY, TYPE.WEEDING, TYPE.DEAD]}
                     onChange={typeChanged}
-                    width={'30%'}
                 />
-
-                < Input
-                    type='date'
-                    inComingValue={startDate || ' '}
-                />
+                {errors.hasOwnProperty('type') && (
+                    <div className='error'>{errors['type']}</div>
+                )
+                }
 
                 <Input
                     type='date'
-                    inComingValue={endDate || ' '}
+                    onChange={startDateChanged}
+                    value={startDate || ''}
+                />
+                {errors.hasOwnProperty('date') && (
+                    <div className='error'>{errors['date']}</div>
+                )
+                }
+
+                <Input
+                    type='date'
+                    onChange={endDateChanged}
+                    value={endDate || ''}
                 />
 
                 <Button
                     text='Send request'
-                    padding={'15px'}
-                    borderRadius={8}
-                    boxShadow={'2px 2px 2px black'}
+                    padding='15px'
+                    borderRadius='8px'
+                    boxShadow='2px 2px 2px black'
                     onClick={request}
                 />
-
-                {errors !== 'undefined' && (
-                    <ul>
-                        {errorItems}
-                    </ul>
-                )
-                }
             </form>
         </div>
     )

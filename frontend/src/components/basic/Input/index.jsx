@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, {useMemo, useState, useCallback, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import { InputWrapper, InputFilled, MultiLineInput, TextBox } from "./styles";
@@ -11,25 +11,27 @@ import { InputWrapper, InputFilled, MultiLineInput, TextBox } from "./styles";
 const Input = React.forwardRef((props, ref) => {
    //Custom props that which we give at initialize of the component
    const {
-      helperText, inComingValue,
+      helperText, value: preFilledText = '',
       onChange, onChangeCapture, disabled, type, inputType,
-      withCharacterCount, maxCharacterCount, padding, borderRadius,
-      transition, backgroundColor, width, height, resize, ...rest
+      withCharacterCount, maxCharacterCount, padding, margin, borderRadius,
+      transition, width, height, border, fontSize, resize, ...rest
    } = props;
 
    //useState is a Hook that allow us to have state variables in functional components
    const [focus, setFocus] = useState(false);
    const [value, setValue] = useState('');
 
+   useEffect(() => setValue(preFilledText), [preFilledText]);
+
    const textChanges = useCallback(e => {
       //Validation
-      const { value } = e.target; //get current text in the focused input -> value='Ivan'
-      if (withCharacterCount && value.length > maxCharacterCount) { //If has characters and length of the text is > from our default(255)
+      const { value: text } = e.target; //get current text in the focused input -> value='Ivan'
+      if (withCharacterCount && text.length > maxCharacterCount) { //If has characters and length of the text is > from our default(255)
          setValue(value.slice(0, maxCharacterCount)) // get characters to maxCharacterCount in our case 255
          e.preventDefault();
          return;
       }
-      setValue(value);
+      setValue(text);
       if(onChange)
          onChange(e)
       if(onChangeCapture)
@@ -45,7 +47,7 @@ const Input = React.forwardRef((props, ref) => {
 
    //hasBlur is an event which response when we are clicking outside our component
    const hasBlur = () => {
-      if(focus && value.length === 0) setFocus(false)
+      if(focus && preFilledText.length === 0) setFocus(false)
    }
 
    //Set inputProps for more readable
@@ -54,17 +56,16 @@ const Input = React.forwardRef((props, ref) => {
       onChange: textChanges,
       disabled, type,
       borderRadius, transition,
-      backgroundColor, padding,
-      width, height
-   }), [disabled, type, borderRadius, transition, backgroundColor, padding, width, height]);
+      padding, margin, width, height,
+      border, fontSize,
+   }), [disabled, type, borderRadius, transition, padding, width, height, margin, border, fontSize]);
 
    const multiLineProps = useMemo(() => ({
       onChange: textChanges,
       disabled, type,
-      padding, borderRadius, transition,
-      backgroundColor, resize,
-      width, height,
-   }), [disabled, type, padding, borderRadius, transition, backgroundColor, resize, width, height]);
+      padding, margin, borderRadius, transition,
+      resize, width, height, border, fontSize,
+   }), [disabled, type, padding, borderRadius, transition, resize, width, height, margin, border, fontSize]);
 
    const textBoxProps = useMemo(() => ({
       padding, focus
@@ -72,20 +73,26 @@ const Input = React.forwardRef((props, ref) => {
 
    return(
        <InputWrapper>
-          {inputType === 'filled' &&
+          {(inputType === 'filled' && type !== 'date' && type !== 'textarea') &&
           <InputFilled
               {...inputProps}
-              onFocus={hasFocus} //Inner prop
-              onBlur={hasBlur} //Inner prop
-              value={inComingValue}
+              onFocus={hasFocus}
+              onBlur={hasBlur}
+              value={preFilledText}
+          />
+          }
+          {type === 'date' &&
+          <InputFilled
+              {...inputProps}
+              value={value}
           />
           }
           {inputType === 'textarea' &&
             <MultiLineInput
                 {...multiLineProps}
-                onFocus={hasFocus} //Inner prop
-                onBlur={hasBlur} //Inner prop
-                value={inComingValue}
+                onFocus={hasFocus}
+                onBlur={hasBlur}
+                value={preFilledText}
              />
           }
           <TextBox {...textBoxProps}>
@@ -105,12 +112,14 @@ Input.propTypes = {
    maxCharacterCount: PropTypes.number,
    focus: PropTypes.bool,
    padding: PropTypes.string,
-   borderRadius: PropTypes.number,
+   margin: PropTypes.string,
+   borderRadius: PropTypes.string,
    transition: PropTypes.string,
-   backgroundColor: PropTypes.string,
    width: PropTypes.string,
    height: PropTypes.string,
    resize: PropTypes.string,
+   border: PropTypes.string,
+   fontSize: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -119,12 +128,15 @@ Input.defaultProps = {
    withCharacterCount: false,
    maxCharacterCount: 255,
    focus: false,
-   padding: null,
-   borderRadius: 0,
+   padding: '0',
+   margin: 'auto',
+   border: 'none',
+   borderRadius: '0',
    transition: 'none',
    resize: 'none',
-   width: null,
-   height: null,
+   width: 'auto',
+   height: 'auto',
+   fontSize: '12px',
 };
 
 export default Input;

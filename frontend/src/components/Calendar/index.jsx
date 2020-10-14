@@ -42,7 +42,6 @@ class NewCalendar extends React.Component {
     }
 
     handleChange = (data) => {
-        //e.preventDefault();
         const [startDate, endDate] = data;
         this.startDate = startDate; //setState
         this.endDate = endDate; //setState
@@ -68,7 +67,7 @@ class NewCalendar extends React.Component {
             <div>
                 {/* The selectRange property is responsible for the ability to
                 choose a range of multiple dates and the calendarType prop formats
-                the calendar according to the ISO 8601 standart. */}
+                the calendar according to the ISO 8601 standard. */}
                 <Calendar
                     selectRange={true}
                     calendarType={'ISO 8601'}
