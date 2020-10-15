@@ -1,7 +1,7 @@
 const db = require('../db/database');
 
 class UserRepository {
-    insert(object) {
+    insert = (object) => {
         let user = db.prepare('INSERT INTO users VALUES (?,?,?,?)');
 
         user.run(null, object.email, object.username, object.password, err => {
@@ -13,13 +13,13 @@ class UserRepository {
         console.log('Query is added successfully');
     }
 
-    findUserByNameAndPassword(username, password, callback) {
-        db.get('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (err, row) => {
+    auth(username, password, callback) {
+        db.get('SELECT * FROM users WHERE username=? AND password=?' , [username, password], (err, row) => {
             if (err) {
                 callback(err, null);
                 return;
             }
-            // console.log('row + ',row)
+
             if (row !== null) {
                 callback(null, row);
             }
@@ -32,7 +32,7 @@ class UserRepository {
                 callback(err, null);
                 return;
             }
-            if (row != null) {
+            if (row !== null) {
                 callback(null, row);
             }
         });
@@ -64,6 +64,31 @@ class UserRepository {
 
         // close db
     }
+
+    //find by username
+    findOne(username, callback) {
+        db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
+            if (err) {
+                callback(err, null);
+                return;
+            }
+            if (row !== null) {
+                callback(null, row);
+            }
+        });
+    }
+
+  findRole(authority, callback){
+        db.get('SELECT authority FROM roles WHERE authority = ?', [authority], (err, row) => {
+            if (err) {
+                callback(err, null);
+                return;
+            }
+            if (row !== null) {
+                callback(null, row);
+            }
+        });
+  }
 }
 
 module.exports = UserRepository;

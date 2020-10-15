@@ -8,6 +8,8 @@ module.exports = app => {
 
     app.get('/user/getUserById', userController.findById);
 
+    app.get('/admin/getByUsername', userController.findOne);
+
     app.get('/admin/getAllUsers', userController.findAllUsers);
 
     app.post('/admin/deleteUser', userController.delete);

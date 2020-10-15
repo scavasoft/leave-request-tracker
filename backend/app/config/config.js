@@ -7,7 +7,20 @@ exports.TYPE = [
     {NAME: 'Dead'},
 ]
 
+//user role types
 exports.ROLE = [
-    {ADMIN: 'admin'},
-    {USER: 'user'}
+    {ROLE: 'admin'},
+    {ROLE: 'user'},
+    {ROLE: 'supervisor'}
 ]
+
+
+//token expire time
+exports.EXPIRES_IN = [{
+    expiresIn: '24h'
+}]
+
+//token secret key
+exports.SECRET_TOKEN= [{
+    secretKey: 'mysecretKey'
+}]

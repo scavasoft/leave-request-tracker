@@ -1,4 +1,4 @@
-const UserLeave = require('../domain/entities/userLeave.entity.js');
+const UserLeave = require('../domain/entities/userLeave.entity');
 const DeleteViewModel = require('../models/viewmodels/delete.view.model');
 const UserLeaveService = require('../services/userLeave.service');
 
@@ -29,7 +29,6 @@ exports.insert = (req, resp) => {
             });
             return;
         }
-
     });
 
     userLeaveService.add(userLeave);
@@ -93,7 +92,7 @@ exports.delete = (req, res) => {
        }
 
        res.status(200).send({
-           success: 'User leave with id = ' + userViewModel.id + ' is successfully removed '
+           success: 'User leave with id = ' + userViewModel.id + ' is successfully removed'
        });
    });
 

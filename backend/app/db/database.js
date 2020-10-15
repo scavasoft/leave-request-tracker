@@ -27,25 +27,49 @@ function initializeTables() {
 
     const users = `CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, username TEXT,
-        password TEXT, jwttoken TEXT
+        password TEXT
     )`;
 
     const roles = `CREATE TABLE IF NOT EXISTS roles (
-        id INTEGER PRIMARY KEY AUTOINCREMENT, role TEXT
+        id INTEGER PRIMARY KEY AUTOINCREMENT, authority TEXT
+    )`;
+
+    const user_roles = `CREATE TABLE IF NOT EXISTS user_roles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, user_id NUMERIC,
+         authority_id NUMERIC 
     )`;
 
     db.run(user_leaves, err => {
         if (err) {
             console.log('user_leaves table was not created');
+            return;
         }
-
+        console.log('Table user_leaves is created successfully');
     });
 
     db.run(users, err => {
         if (err) {
             console.log('users table was not created');
+            return;
         }
+        console.log('Table users is created successfully');
     });
+
+    db.run(roles, err => {
+        if (err) {
+            console.log('roles table was not created');
+            return
+        }
+        console.log('Table roles is created successfully');
+    });
+
+    db.run(user_roles, err => {
+        if (err) {
+            console.log('user_roles table was not created');
+            return;
+        }
+        console.log('Table user_roles is created successfully');
+    })
 }
 
 initializeTables();

@@ -1,5 +1,5 @@
 const express = require('express');
-const jwt = require('jsonwebtoken'); //jwt
+//const jwt = require('jsonwebtoken'); //jwt
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -13,6 +13,7 @@ app.use((req, res, next) => {
 });
 
 //user routes
+// require('./app/routes/role.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/calendar.routes')(app);
 
