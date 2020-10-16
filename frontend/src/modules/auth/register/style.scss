@@ -60,14 +60,9 @@
         font-family: 'Poppins', sans-serif;
     }
 
-    button {
-        // commented props work on basic components
+    button, button:hover {
         background-color: #ffffff;
         color: #5d1da7;
-    }
-
-    button:hover {
-        background-color: #ffffff;
     }
 
     label {

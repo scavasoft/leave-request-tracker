@@ -1,0 +1,23 @@
+.container-notFound {
+    height: 100vh;
+    background: rgb(255,175,213);
+    background: linear-gradient(150deg, rgba(255,175,213,1) 0%, rgba(207,89,89,1) 50%, rgba(56,29,153,1) 100%);
+
+    * {
+        margin: 0;
+    }
+
+    .notFound {
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 90vh;
+        font-family: 'Poppins', 'sans-serif';
+        font-size: 2em;
+    }
+
+    span {
+        text-decoration: underline;
+    }
+}

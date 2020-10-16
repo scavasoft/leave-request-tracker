@@ -32,6 +32,8 @@
     button {
         background-color: #5d1da7;
         font-family: 'Syne', sans-serif;
+        cursor: pointer;
+        transition: .5s all;
     }
     
     button:hover {

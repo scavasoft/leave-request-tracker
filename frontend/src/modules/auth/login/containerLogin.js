@@ -14,6 +14,11 @@ const LoginScreen = () => {
     const nameChanged = useCallback(e => setUsername(e.target.value), []);
     const passwordChanged = useCallback(e => setPassword(e.target.value), []);
 
+    // Arrow function to handle the user login event
+    const handleLogin = () => {
+        //TODO: Login logic & redirection on succesful login to /dashboard
+    }
+
     return (
         <div className='container-loginScreen'>
             <div className='loginScreen'>
@@ -54,6 +59,7 @@ const LoginScreen = () => {
                         textTransform={'uppercase'}
                         fontSize={'1.05em'}
                         margin={'0 auto'}
+                        onClick={handleLogin}
                     />
                 </div>
                 <div className='loginScreen-rightPanel registrationHover'>

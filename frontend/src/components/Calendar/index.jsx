@@ -73,6 +73,7 @@ class NewCalendar extends React.Component {
                     calendarType={'ISO 8601'}
                     onChange={this.handleChange}
                     onClickDay={this.handleClick}
+                    locale={'en'}
                 />
             </div>
         )
