@@ -6,12 +6,9 @@ const UserService = require('../services/user.service');
 const AuthBindingModel = require('../models/bindingmodels/auth.binding.model');
 const jwtToken = require('jsonwebtoken');
 const Config = require('../config/config');
-const RegisterViewModel = require('../models/viewmodels/register.view.model');
-
 
 //Initialization services
 const userService = new UserService;
-
 
 //user authenticated login
 exports.auth = (req, res) => {
@@ -30,12 +27,26 @@ exports.auth = (req, res) => {
             }
 
             //working with alg: HS256
-            if(typeof callback !== 'undefined' ) {
-                jwtToken.sign({authBindingModel}, Config.SECRET_TOKEN, Config.EXPIRES_IN, (err, token) => {
-                    res.status(200).send({
-                        token: token
+            const currentUser = callback;
+            if(callback !== 'undefined' ) {
+                //Find role by id
+                userService.findRoleById(currentUser.role_id, (err, callback) => {
+                    if(err) {
+                        res.status(403).send({
+                            error: 'Forbidden'
+                        });
+                        return;
+                    }
+
+                    const role = callback; //An authority of the user
+                    jwtToken.sign({username: currentUser.username, role: role.authority}, Config.SECRET_TOKEN, Config.EXPIRES_IN, (err, token) => {
+                        res.status(200).send({
+                            token: token
+                        });
                     });
                 });
+
+
             }else {
                 res.status(404).send({
                     error: 'User is not exists'
@@ -53,74 +64,62 @@ exports.insert = (req, res) => {
         return;
     }
 
-    let registerBindingModel = new RegisterBindingModel({
+    const registerBindingModel = new RegisterBindingModel({
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
         confirmPassword: req.body.confirmPassword
     });
 
-    let allUsers = null;
-    userService.findAllUsers((err, callback) => {
+    userService.findByUsernameAndEmail(registerBindingModel.username, registerBindingModel.email, (err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Database problem, try again later ' || err.message
+                error: 'Find by username error, try again later ' || err.message
             });
-            return;
+        }else {
+            if(callback !== undefined) {
+                res.status(200).send({
+                    error: {
+                        user: 'User already exists with this email or username '
+                    },
+                });
+                return;
+            }
+
+            userService.findRoleByAuthority('USER', (err, callback) => {
+                if (err) {
+                    res.status(500).send({
+                        error: 'Database problem, try again later ' || err.message
+                    });
+                    return;
+                }
+                let role = new Role(callback);
+
+                userService.validation(registerBindingModel, callback => {
+                    if (callback.size > 0) {
+                        const errors = Object.fromEntries(callback);
+
+                        //Send errors in json array
+                        res.send({
+                            errors
+                        });
+                    }else {
+                        userService.insert(new UserEntity({
+                                email: registerBindingModel.email,
+                                username: registerBindingModel.username,
+                                password: registerBindingModel.password,
+                                role: role,
+                            })
+                        );
+
+                        res.status(200).send({
+                            success: 'Your information was saved successfully'
+                        });
+                    }
+                });
+            });
         }
-        allUsers = callback;
     });
-    // console.log(allUsers)
-
-    let role = null;
-    if (allUsers === null){
-        userService.findRole('admin', (err, callback) => {
-            if (err) {
-                res.status(500).send({
-                    error: 'Database problem, try again later ' || err.message
-                });
-                return;
-            }
-
-            //TODO: init role through callback
-            // console.log({...callback})
-            role = new Role(
-                callback
-           );
-        });
-    }else {
-        userService.findRole('user',(err, callback) => {
-            if (err) {
-                res.status(500).send({
-                    error: 'Database problem, try again later ' || err.message
-                });
-                return;
-            }
-
-            role = callback;
-        });
-    }
-
-    console.group('Role')
-    console.log(role);
-    console.groupEnd()
-
-
-    //
-    // userService.validation(user, callback => {
-    //     if (callback.size > 0) {
-    //         const errors = Object.fromEntries(callback);
-    //         res.send({
-    //             errors
-    //         });
-    //         return;
-    //     }
-    // });
-    //
-    // userService.insert(user);
-    // res.send({
-    //     success: 'Your information was saved successfully'
-    // });
 }
 
 //find user by id
@@ -170,7 +169,6 @@ exports.delete = (req, res) => {
     })
 
     userService.delete(userViewModel.id, (err) => {
-        console.log(err)
         if (err) {
             res.status(500).send({
                 error: 'Database problem, try again later ' || err

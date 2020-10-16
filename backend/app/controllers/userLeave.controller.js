@@ -84,7 +84,6 @@ exports.delete = (req, res) => {
     })
 
    userLeaveService.delete(userViewModel.id, (err) => {
-       console.log(err)
        if(err) {
            res.status(500).send({
                error: 'Database problem, try again later ' || err
@@ -95,8 +94,6 @@ exports.delete = (req, res) => {
            success: 'User leave with id = ' + userViewModel.id + ' is successfully removed'
        });
    });
-
-
 
 }
 

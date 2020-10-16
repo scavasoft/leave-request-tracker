@@ -5,6 +5,6 @@ module.exports = class User {
         this.email = user.email;
         this.username = user.username;
         this.password = user.password;
-        // this.role = new Role;
+        this.role = new Role(user.role);
     }
 }

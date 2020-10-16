@@ -16,11 +16,9 @@ exports.ROLE = [
 
 
 //token expire time
-exports.EXPIRES_IN = [{
+exports.EXPIRES_IN = {
     expiresIn: '24h'
-}]
+}
 
 //token secret key
-exports.SECRET_TOKEN= [{
-    secretKey: 'mysecretKey'
-}]
+exports.SECRET_TOKEN = 'mySecretKey';

@@ -1,6 +1,7 @@
 {
   "name": "attendor-lite",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "npx concurrently -n backend,frontend 'npm run start:backend' 'npm run start:frontend'",
@@ -16,6 +17,7 @@
     "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
     "connect-ensure-login": "^0.1.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-interceptor": "^1.2.0",
     "express-jwt": "^6.0.0",
@@ -27,6 +29,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "sqlite-async": "^1.1.0",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {
@@ -39,6 +42,5 @@
   "bugs": {
     "url": "https://github.com/scavasoft/attendor-lite/issues"
   },
-  "homepage": "https://github.com/scavasoft/attendor-lite#readme",
-  "description": ""
+  "homepage": "https://github.com/scavasoft/attendor-lite#readme"
 }

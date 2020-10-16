@@ -1,5 +1,6 @@
 module.exports = class Role{
-    constructor(authority) {
-        this.authority = authority;
+    constructor(role) {
+        this.id = role.id
+        this.authority = role.authority;
     }
 }

@@ -2,15 +2,14 @@ const db = require('../db/database');
 
 class UserRepository {
     insert = (object) => {
-        let user = db.prepare('INSERT INTO users VALUES (?,?,?,?)');
-
-        user.run(null, object.email, object.username, object.password, err => {
+        let user = db.prepare('INSERT INTO users VALUES (?,?,?,?,?)');
+        user.run(null, object.email, object.username, object.password, object.role.id, err => {
             if (err) {
                 console.log('Error by user creating', err);
                 return;
             }
         });
-        console.log('Query is added successfully');
+        console.log('Successfully is register ' + object.username);
     }
 
     auth(username, password, callback) {
@@ -49,8 +48,6 @@ class UserRepository {
                 callback(null, rows);
             }
         });
-
-        //close db
     }
 
     delete = (id, callback) => {
@@ -61,8 +58,6 @@ class UserRepository {
             }
             callback(null, null);
         });
-
-        // close db
     }
 
     //find by username
@@ -78,8 +73,9 @@ class UserRepository {
         });
     }
 
-  findRole(authority, callback){
-        db.get('SELECT authority FROM roles WHERE authority = ?', [authority], (err, row) => {
+    //find by username
+    findByUsernameOrEmail(username, email, callback) {
+        db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email], (err, row) => {
             if (err) {
                 callback(err, null);
                 return;
@@ -88,7 +84,31 @@ class UserRepository {
                 callback(null, row);
             }
         });
-  }
+    }
+
+    findRoleByAuthority(authority, callback){
+        db.get('SELECT * FROM roles WHERE authority = ?', [authority], (err, row) => {
+            if (err) {
+                callback(err, null);
+                return;
+            }
+            if (row !== null) {
+                callback(null, row);
+            }
+        });
+    }
+
+    findRoleById(roleId, callback){
+        db.get('SELECT * FROM roles WHERE id = ?', [roleId], (err, row) => {
+            if (err) {
+                callback(err, null);
+                return;
+            }
+            if (row !== null) {
+                callback(null, row);
+            }
+        });
+    }
 }
 
 module.exports = UserRepository;

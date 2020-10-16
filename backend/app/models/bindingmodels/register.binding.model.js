@@ -1,8 +1,8 @@
 module.exports = class RegisterBindingModel{
-    constructor() {
-        this.email = '';
-        this.username = '';
-        this.password = '';
-        this.confirmPassword = '';
+    constructor(register) {
+        this.email = register.email;
+        this.username = register.username;
+        this.password = register.password;
+        this.confirmPassword = register.confirmPassword;
     }
 }
