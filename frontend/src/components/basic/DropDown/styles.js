@@ -4,14 +4,13 @@ export const FormControl = styled.div`
     padding-bottom: 20px;
 `;
 
-export const InputLabel = styled.label`
-    color: #FFF;
-`;
-
-export const Select = styled.select`
+export const Select = styled.select`${props => {
+    const { width, height, fontSize } = props;
+    return `
     display: block;
-    width: 100%;
-    font-size: 12px;
+    width: ${width};
+    height: ${height};
+    font-size: ${fontSize};
     background: #FFFFFF;
     border: none;
     border-bottom: 1px solid gray;
@@ -24,9 +23,9 @@ export const Select = styled.select`
         outline: none;
         border-bottom: 2px solid black;
     }
-    
+    `;
+}}
 `;
-
 export const MenuItem = styled.option`
-    font-size: 12px;
+    font-size: 0.9em;
 `;

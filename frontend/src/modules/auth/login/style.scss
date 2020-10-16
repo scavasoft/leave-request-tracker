@@ -30,18 +30,8 @@
     }
 
     button {
-        margin: 0 auto;
-        width: 65%;
-        border-radius: 5px;
-        height: 4.5vh;
         background-color: #5d1da7;
-        padding: 0px;
-        color: #ffffff;
-        transition: 0.5s all;
-        border: none;
-        text-transform: uppercase;
         font-family: 'Syne', sans-serif;
-        font-size: 1.05em;
     }
     
     button:hover {
@@ -72,17 +62,9 @@
     margin: 0 auto;
 
     input {
-        width: 100%;
-        border-radius: 5px;
-        height: 2em; 
-        margin-top: 5px;
         background-color: #e7e7e7;
-        border: none;
-        padding: 0.3em;
-    }
-
-    input:focus, input:hover {
-        border: none;
+        color: black;
+        border-bottom: none;
     }
 
     label {

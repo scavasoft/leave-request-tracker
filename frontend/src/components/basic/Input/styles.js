@@ -3,9 +3,10 @@ import themes from '../../../utils/themes';
 
 export const InputWrapper = styled.div`
     position: relative;
-    margin: 20px 0 2px 0;
+    margin: 0;
     width: 100%;
     height: auto;
+    borderRadius: 0px;
 `;
 
 export const InputFilled = styled.input`${props => {
@@ -17,13 +18,9 @@ export const InputFilled = styled.input`${props => {
     margin: ${props.margin};
     border: ${props.border};
     border-radius: ${borderRadius};
-    border-bottom: 1px solid gray;
+    border-bottom: none;
     transition: ${transition};
     font-size: ${props.fontSize};
-    
-    &:hover{
-        border-bottom: 2px solid black;
-    }
     
     &:focus{
         outline: none;
@@ -35,8 +32,8 @@ export const InputFilled = styled.input`${props => {
 
 export const MultiLineInput = styled.textarea`${props => {
     const { width, height, padding, transition, resize } = props;
-    return`
-          width: ${width};
+    return `
+        width: ${width};
         height: ${height};
         padding: ${padding};
         margin: ${props.margin};
@@ -46,7 +43,6 @@ export const MultiLineInput = styled.textarea`${props => {
         transition: ${transition};
         font-size: ${props.fontSize};
         resize: ${resize};
-        
         
         &:hover{
             border-bottom: 2px solid black;
@@ -60,8 +56,9 @@ export const MultiLineInput = styled.textarea`${props => {
 }}
 `;
 
+// Helper Text
 export const TextBox = styled.h6`${props => {
-    
+
     const { focus } = props;
     return `
         position: absolute;
@@ -70,7 +67,7 @@ export const TextBox = styled.h6`${props => {
         color: ${themes.onSecondary};
       
         ${focus &&
-            `
+        `
                 bottom: 85%;
                 font-size: 10px;
                 color: ${themes.surface};

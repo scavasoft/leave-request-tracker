@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useCallback, useEffect} from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { InputWrapper, InputFilled, MultiLineInput, TextBox } from "./styles";
@@ -12,7 +12,7 @@ const Input = React.forwardRef((props, ref) => {
    //Custom props that which we give at initialize of the component
    const {
       helperText, value: preFilledText = '',
-      onChange, onChangeCapture, disabled, type, inputType,
+      onChange, disabled, type, inputType,
       withCharacterCount, maxCharacterCount, padding, margin, borderRadius,
       transition, width, height, border, fontSize, resize, ...rest
    } = props;
@@ -32,22 +32,20 @@ const Input = React.forwardRef((props, ref) => {
          return;
       }
       setValue(text);
-      if(onChange)
+      if (onChange)
          onChange(e)
-      if(onChangeCapture)
-         onChangeCapture(e)
 
       e.persist();
    }, [])
 
    const hasFocus = () => {
-      if(!focus)
+      if (!focus)
          setFocus(true);
    }
 
    //hasBlur is an event which response when we are clicking outside our component
    const hasBlur = () => {
-      if(focus && preFilledText.length === 0) setFocus(false)
+      if (focus && preFilledText.length === 0) setFocus(false)
    }
 
    //Set inputProps for more readable
@@ -71,34 +69,34 @@ const Input = React.forwardRef((props, ref) => {
       padding, focus
    }), [padding, focus]);
 
-   return(
-       <InputWrapper>
-          {(inputType === 'filled' && type !== 'date' && type !== 'textarea') &&
-          <InputFilled
-              {...inputProps}
-              onFocus={hasFocus}
-              onBlur={hasBlur}
-              value={preFilledText}
-          />
-          }
-          {type === 'date' &&
-          <InputFilled
-              {...inputProps}
-              value={value}
-          />
-          }
-          {inputType === 'textarea' &&
+   return (
+      <InputWrapper>
+         {(inputType === 'filled' && type !== 'date' && type !== 'textarea') &&
+            <InputFilled
+               {...inputProps}
+               onFocus={hasFocus}
+               onBlur={hasBlur}
+               value={preFilledText}
+            />
+         }
+         {type === 'date' &&
+            <InputFilled
+               {...inputProps}
+               value={value}
+            />
+         }
+         {inputType === 'textarea' &&
             <MultiLineInput
-                {...multiLineProps}
-                onFocus={hasFocus}
-                onBlur={hasBlur}
-                value={preFilledText}
-             />
-          }
-          <TextBox {...textBoxProps}>
-             {helperText}
-          </TextBox>
-       </InputWrapper>
+               {...multiLineProps}
+               onFocus={hasFocus}
+               onBlur={hasBlur}
+               value={preFilledText}
+            />
+         }
+         <TextBox {...textBoxProps}>
+            {helperText}
+         </TextBox>
+      </InputWrapper>
    );
 });
 

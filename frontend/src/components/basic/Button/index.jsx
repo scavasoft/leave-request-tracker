@@ -23,7 +23,7 @@ const Button = React.forwardRef((props, ref) => {
         text, padding, margin,
         border, borderRadius, boxShadow,
         width, height, transition, fontSize, textTransform,
-    }), [text, padding, border, borderRadius, boxShadow]);
+    }), [text, padding, margin, border, borderRadius, boxShadow, width, height, transition, fontSize, textTransform]);
 
     return (
         <ButtonWrapper>
@@ -50,7 +50,7 @@ Button.propTypes = {
 //Default props
 Button.defaultProps = {
     padding: '0',
-    margin: 'auto',
+    margin: '0',
     border: 'none',
     borderRadius: '0',
     boxShadow: 'none',
