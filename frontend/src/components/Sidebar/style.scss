@@ -1,19 +1,64 @@
 .sidebar {
-    width: 15%;
-    height: 100%;
+    width: 14em;
+    height: 100vh;
     position: fixed;
     top: 0;
     right: 0;
     background-color: #7020cc;
-    z-index: 1;
     transition: .5s;
-    padding: 2em 1em 1em 1em;
-    display: flex;
-    flex-direction: column;
+    padding: 0 1em;
     overflow: hidden;
     transform: translateX(300px);
+
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    label {
+        color: white;
+    }
+
+    input:focus, input:hover, textarea:focus, textarea:hover, select:focus, select:hover {
+        border: none;
+    }
 }
 
 .sidebarShow {
     transform: translateX(20px);
+}
+
+#sidebarForm {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    * {
+        // To clear the resizing effect on hover over element.
+        border-bottom: none ;
+    }
+
+    button {
+        background-color: #414141;
+        margin-top: 2em;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #4e4e4e;
+        box-shadow: none;
+    }
+
+    select, input[type='date'] {
+        cursor: pointer;
+    }
+
+    .error {
+        font-size: 0.8em;
+        color: white;
+    }
+
+    .error:nth-of-type(3) {
+        font-size: 0.6em;
+    }
 }
