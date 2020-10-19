@@ -1,0 +1,61 @@
+.datatable {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+
+    table {
+        float: right;
+        width: 99%;
+        border-collapse: collapse;
+        user-select: none;
+    }
+    
+    th {
+        color: rgb(255, 255, 255);
+        background-color: rgb(80, 80, 80);
+    }
+    
+    table, th, td {
+        border: 1px solid white;
+    }
+
+    tr {
+        transition: .35s all;
+    }
+
+    tr:hover {
+        transition: .35s all;
+        background-color: #8d2efa;
+    }
+}
+
+.datatable-upperPanel {
+    padding: 1%;
+    width: 100%;
+    border-right: 1px dotted black;
+
+    // Search button - can be implemented if needed
+    // button {
+    //     border: none;
+    //     outline: none;
+    //     background-color: rgba(255, 255, 255, 0);
+    //     font-size: 1.8em;
+    //     margin-left: -1.3em;
+    //     padding: 2px;
+    // }
+}
+
+.datatable-bottomPanel {
+    padding: 1%;
+    width: 75%;
+}
+
+#filterInput {
+    width: 40%;
+    font-size: 1.5em;
+    padding: 1px;
+    font-family: 'Poppins', sans-serif;
+}

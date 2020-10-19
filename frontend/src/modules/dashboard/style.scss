@@ -1,8 +1,17 @@
-.container-mainPanel {
-    display: 'flex';
+.dashboard-mainPanel {
+    display: flex;
+    height: 100vh;
+    overflow-y: hidden;
 }
 
-.container-leftPanel {
-    width: 17%;
-    float: left;
+.dashboard-leftPanel {
+    width: 16%;
+}
+
+.dashboard-rightPanel {
+    width: 84%;
+}
+
+.dashboard-leftPanel a:first-child {
+    background-color: #621eb1;
 }

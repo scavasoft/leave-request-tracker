@@ -1,0 +1,84 @@
+.registerScreen {
+    background-color: #7020cc;
+    z-index: 1;
+    color: #ffffff;
+    height: 100vh;
+    display: flex;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        margin: 0;
+        padding-top: 8px;
+        color: #ffffff;
+        font-size: 2em;
+    }
+}
+
+.registerScreen-leftPanel {
+    width: 100%;
+    cursor: pointer;
+}
+
+.registerScreen-mainPanel {
+    width: 60%;
+    transition: .3s all;
+    padding: 3%;
+
+    * {
+        color: #ffffff;
+    }
+}
+
+.registerScreen-rightPanel {
+    font-size: 1.5em;
+    width: 10%;
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+
+    button {
+        background-color: #7020cc;
+    }
+
+    button:hover {
+        background-color: #5d1da7;
+    }
+}
+
+.registerScreenInputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50vh;
+
+    input {
+        background-color: #5d1da7;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    button, button:hover {
+        background-color: #ffffff;
+        color: #5d1da7;
+    }
+
+    label {
+        text-transform: uppercase;
+        font-size: 0.7em;
+        font-weight: 700;
+        letter-spacing: 0.65px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 100;
+    }
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.togglePanel {
+    width: 10%;
+}
