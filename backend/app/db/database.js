@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const dbDir = require('../config/config');
 
 const db = new sqlite3.Database(dbDir.DB_DIR, err => {
-    if(err) {
+    if (err) {
         console.error(err.message);
         process.exit(1);
     }
@@ -13,7 +13,7 @@ const db = new sqlite3.Database(dbDir.DB_DIR, err => {
 //close the database connection
 db.close = ((err) => {
     if (err) {
-      return console.error(err.message);
+        return console.error(err.message);
     }
     console.log('Close the database connection.');
 });
@@ -25,11 +25,51 @@ function initializeTables() {
         name TEXT, date_start TEXT, date_end TEXT, is_approved NUMERIC
     )`;
 
+    const users = `CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, username TEXT,
+        password TEXT, role_id NUMERIC
+    )`;
+
+    const roles = `CREATE TABLE IF NOT EXISTS roles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, authority TEXT
+    )`;
+
+    const user_roles = `CREATE TABLE IF NOT EXISTS user_roles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, user_id NUMERIC,
+         authority_id NUMERIC 
+    )`;
+
     db.run(user_leaves, err => {
-        if(err) {
+        if (err) {
             console.log('user_leaves table was not created');
+            return;
         }
+        console.log('Table user_leaves is created successfully');
     });
+
+    db.run(users, err => {
+        if (err) {
+            console.log('users table was not created');
+            return;
+        }
+        console.log('Table users is created successfully');
+    });
+
+    db.run(roles, err => {
+        if (err) {
+            console.log('roles table was not created');
+            return
+        }
+        console.log('Table roles is created successfully');
+    });
+
+    db.run(user_roles, err => {
+        if (err) {
+            console.log('user_roles table was not created');
+            return;
+        }
+        console.log('Table user_roles is created successfully');
+    })
 }
 
 initializeTables();

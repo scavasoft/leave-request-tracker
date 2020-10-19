@@ -14,6 +14,7 @@ app.use((req, res, next) => {
     next();
 });
 
+require('./app/routes/user.routes')(app);
 require('./app/routes/calendar.routes')(app);
 
 app.listen(8090, () => {

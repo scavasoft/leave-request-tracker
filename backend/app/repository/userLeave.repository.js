@@ -11,9 +11,7 @@ module.exports = class UserLeaveRepository {
                 return;
             }
         });
-        console.log('Query is successfully added');
-
-        //close db
+        console.log('Successfully is added new request by ' + object.name);
     }
 
     findById = (id, callback) => {
@@ -38,8 +36,6 @@ module.exports = class UserLeaveRepository {
                 callback(null, rows);
             }
         });
-
-        //close db
     }
 
     delete = (id, callback) => {
@@ -50,7 +46,5 @@ module.exports = class UserLeaveRepository {
             }
             callback(null, null);
         });
-
-        //close db
     }
 }

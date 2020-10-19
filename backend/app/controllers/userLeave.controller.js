@@ -1,4 +1,4 @@
-const UserLeave = require('../domain/entities/userLeave.entity.js');
+const UserLeave = require('../domain/entities/userLeave.entity');
 const DeleteViewModel = require('../models/viewmodels/delete.view.model');
 const UserLeaveService = require('../services/userLeave.service');
 
@@ -30,12 +30,11 @@ exports.insert = (req, resp) => {
             });
             return;
         }
+    });
 
-        userLeaveService.add(userLeave);
-        resp.send({
-            success: 'Yours information was successfully saved'
-        });
-
+    userLeaveService.add(userLeave);
+    resp.send({
+        success: 'Yours information was successfully saved'
     });
 }
 
@@ -86,7 +85,6 @@ exports.delete = (req, res) => {
     })
 
    userLeaveService.delete(userViewModel.id, (err) => {
-       console.log(err)
        if(err) {
            res.status(500).send({
                error: 'Database problem, try again later ' || err
@@ -94,11 +92,9 @@ exports.delete = (req, res) => {
        }
 
        res.status(200).send({
-           success: 'User leave with id = ' + userViewModel.id + ' is successfully removed '
+           success: 'User leave with id = ' + userViewModel.id + ' is successfully removed'
        });
    });
-
-
 
 }
 
