@@ -1,8 +1,6 @@
-const UserRepository = require('../repository/user.repository');
-
 module.exports = class UserService {
-    constructor() {
-        this.userRepository = new UserRepository;
+    constructor(userRepository) {
+        this.userRepository = userRepository;
     }
 
     auth(username, password, callback) {

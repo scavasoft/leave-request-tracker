@@ -7,9 +7,11 @@ const AuthBindingModel = require('../models/bindingmodels/auth.binding.model');
 const jwtToken = require('jsonwebtoken');
 const Config = require('../config/config');
 const { ROLE } = require("../config/config");
+const UserRepository = require('../repository/user.repository');
 
-//Initialization services
-const userService = new UserService;
+//Initialization
+const userRepository = new UserRepository;
+const userService = new UserService(userRepository);
 
 //user authenticated login
 exports.auth = (req, res) => {
