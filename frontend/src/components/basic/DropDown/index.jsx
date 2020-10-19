@@ -1,7 +1,7 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import { FormControl, InputLabel, Select, MenuItem } from './styles';
+import { FormControl, Select, MenuItem } from './styles';
 
 /***
  * Ready component by Material design

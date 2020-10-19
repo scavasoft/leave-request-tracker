@@ -6,7 +6,10 @@ const NotFound = () => {
     return (
         <div className='container-notFound'>
             <div className='notFound'>
-                <h1>Page <span> not</span> found.</h1>
+                <div className='notFound-items'>
+                    <h1>Page <span> not</span> found.</h1>
+                    <p>...or you do not have permission ¯\_(ツ)_/¯</p>
+                </div>
             </div>
         </div >
     )

@@ -1,6 +1,7 @@
-import addLeaveRequestReducer from "./addLeaveRequestReducer";
-import calendarReducer from "./calendarReducer";
-import { combineReducers } from "redux";
+import addLeaveRequestReducer from './addLeaveRequestReducer';
+import calendarReducer from './calendarReducer';
+import authReducer from './authReducer';
+import { combineReducers } from 'redux';
 
 /***
  * This method combine all reducers
@@ -9,6 +10,7 @@ import { combineReducers } from "redux";
 const reducers = combineReducers({
     addLeaveRequestReducer,
     calendarReducer,
+    authReducer,
 });
 
 export default reducers;
