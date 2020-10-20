@@ -6,9 +6,12 @@ const UserService = require('../services/user.service');
 const AuthBindingModel = require('../models/bindingmodels/auth.binding.model');
 const jwtToken = require('jsonwebtoken');
 const Config = require('../config/config');
+const { ROLE } = require("../config/config");
+const UserRepository = require('../repository/user.repository');
 
-//Initialization services
-const userService = new UserService;
+//Initialization
+const userRepository = new UserRepository;
+const userService = new UserService(userRepository);
 
 //user authenticated login
 exports.auth = (req, res) => {
@@ -59,7 +62,9 @@ exports.auth = (req, res) => {
 exports.insert = (req, res) => {
     if (Object.keys(req.body).length === 0) {
         res.status(400).send({
-            error: 'Body content cannot be empty!'
+            errors: {
+                body: 'Body content cannot be empty!'
+            },
         });
         return;
     }
@@ -74,35 +79,45 @@ exports.insert = (req, res) => {
     userService.findByUsernameAndEmail(registerBindingModel.username, registerBindingModel.email, (err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Find by username error, try again later ' || err.message
+                errors: {
+                    databaseError: 'Find by username error, try again later '
+                },
             });
         }else {
             if(callback !== undefined) {
-                res.status(200).send({
-                    error: {
+                res.status(403).send({
+                    errors: {
                         user: 'User already exists with this email or username '
                     },
                 });
                 return;
             }
 
-            userService.findRoleByAuthority('USER', (err, callback) => {
+            userService.findRoleByAuthority(ROLE.USER, (err, callback) => {
                 if (err) {
                     res.status(500).send({
-                        error: 'Database problem, try again later ' || err.message
+                        errors: {
+                            databaseError: 'Database problem, try again later '
+                        },
                     });
                     return;
                 }
+                //Check if role exists in the database
                 let role = new Role(callback);
+                if(role === undefined || typeof role === undefined) {
+                    res.send({ errors: {
+                        role: 'This role doesn\'t exists in our database '
+                        }
+                    });
+                    return;
+                }
 
                 userService.validation(registerBindingModel, callback => {
                     if (callback.size > 0) {
                         const errors = Object.fromEntries(callback);
 
                         //Send errors in json array
-                        res.send({
-                            errors
-                        });
+                        res.status(402).send({errors});
                     }else {
                         userService.insert(new UserEntity({
                                 email: registerBindingModel.email,

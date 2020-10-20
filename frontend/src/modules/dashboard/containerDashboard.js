@@ -1,28 +1,25 @@
 import React from 'react'
 import Calendar from '../../components/Calendar'
 import Menu from '../../components/Menu'
-import ToDo from '../../components/ToDo'
-import Sidebar from '../../components/Sidebar'
+import Modal from '../../components/Modal'
 import './style.scss'
 
-const Dashboard = () => {
+const Container = () => {
     return (
-        <div className='dashboard-mainPanel'>
-            <div className='dashboard-leftPanel'>
+        <div className='container-mainPanel'>
+            <div className='container-leftPanel'>
                 <Menu />
             </div>
-            <div className='dashboard-rightPanel'>
-                <div className='dashboard-calendar'>
+            <div className='container-rightPanel'>
+                <div className='container-calendar'>
                     <Calendar />
                 </div>
-                <div className='dashboard-toDo'>
-                    <ToDo />
-                </div>
-                <div className='dashboard-sidebar'>
-                    <Sidebar />
+                <div className='container-modal'>
+                    <Modal />
                 </div>
             </div>
         </div>
     );
 }
-export default Dashboard;
+
+export default Container;

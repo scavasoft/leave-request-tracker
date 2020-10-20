@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { attemptLeaveRequest } from "../../reducers/addLeaveRequestReducer";
+import { createLeaveRequest } from "../../reducers/addLeaveRequestReducer";
 import { createSelector } from 'reselect';
 import Input from '../../components/basic/Input';
 import Button from '../../components/basic/Button';
@@ -58,7 +58,7 @@ const Sidebar = () => {
 
         //Dispatch the information from each field in the right drawer menu
         //Look the function in reducers/addLeaveRequestReducer
-        dispatch(attemptLeaveRequest({
+        dispatch(createLeaveRequest({
             name,
             reason,
             type,

@@ -1,9 +1,8 @@
 const type = require('../config/config');
-const UserLeaveRepository = require('../repository/userLeave.repository');
 
 module.exports = class UserLeaveService {
-    constructor() {
-        this.userLeaveRepository = new UserLeaveRepository;
+    constructor(userLeaveRepository) {
+        this.userLeaveRepository = userLeaveRepository;
     }
 
     add(userLeave){

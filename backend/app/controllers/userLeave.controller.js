@@ -1,9 +1,11 @@
 const UserLeave = require('../domain/entities/userLeave.entity');
 const DeleteViewModel = require('../models/viewmodels/delete.view.model');
 const UserLeaveService = require('../services/userLeave.service');
+const UserLeaveRepository = require('../repository/userLeave.repository');
 
-//Init services
-const userLeaveService = new UserLeaveService;
+//Initialization
+const userLeaveRepository = new UserLeaveRepository;
+const userLeaveService = new UserLeaveService(userLeaveRepository);
 
 exports.insert = (req, resp) => {
     if(Object.keys(req.body).length === 0) {
