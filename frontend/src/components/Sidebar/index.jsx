@@ -104,7 +104,7 @@ const Sidebar = () => {
                 )
                 }
 
-                <label>Reason
+                <label>Type
                 <DropDown
                         values={[TYPE.VACATION, TYPE.SICK_DAY, TYPE.WEDDING, TYPE.DEAD]}
                         onChange={typeChanged}

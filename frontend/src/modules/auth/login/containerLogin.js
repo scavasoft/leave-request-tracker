@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import Redux, { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { requestLogin } from '../../../reducers/authReducer';
+import { createSelector } from 'reselect';
 import { Link } from 'react-router-dom';
 import './style.scss';
 import Input from '../../../components/basic/Input/index';
@@ -22,12 +23,26 @@ const LoginScreen = () => {
     // Arrow function to handle the user login event
     const handleLogin = (event) => {
         event.preventDefault(); // used to disable the routing to /dashboard
-        // dispatch(requestLogin({
-        //     username: username,
-        //     password: password,
-        // }, [username, password]))
+        dispatch(requestLogin({
+            username: username,
+            password: password,
+        }, [username, password]))
         localStorage.setItem('token', username); // refactor
     };
+
+    // An errorSelector to capture and store a list of errors
+    const errorSelector = createSelector(
+        store => store.authReducer.errors,
+        (errors) => ({
+            errors
+        })
+    )
+
+    // Destructuring the errors from the errorSelector
+    const { errors } = useSelector(errorSelector);
+
+    // Known Issue: 
+    // After submitting the registration form, the errors will show up in the login panel.
 
     return (
         <div className='container-loginScreen'>
@@ -45,6 +60,11 @@ const LoginScreen = () => {
                                 type='text'
                                 margin={'5px 0px 2em 0px'}
                             /></label>
+                        {/* Displaying errors with the username */}
+                        {/* TODO: Refactor when the value is changed */}
+                        {errors.hasOwnProperty('username') && (
+                            <div className='error'>{errors['username']}</div>
+                        )}
                         <label>password
                         <Input
                                 value={password || ''}
@@ -55,6 +75,11 @@ const LoginScreen = () => {
                                 type='password'
                                 margin={'5px 0px 2em 0px'}
                             /></label>
+                        {/* Displaying errors with the password */}
+                        {/* TODO: Refactor when the value is changed */}
+                        {errors.hasOwnProperty('password') && (
+                            <div className='error'>{errors['password']}</div>
+                        )}
                     </div>
                     <div className='loginScreen-extras'>
                         <input id='rememberMe' name='rememberMe' type='checkbox'></input>

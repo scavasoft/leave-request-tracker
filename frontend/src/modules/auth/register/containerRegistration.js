@@ -18,8 +18,9 @@ const RegistrationScreen = () => {
         document.getElementsByClassName('registerScreen-mainPanel')[0].classList.toggle('hidden');
         document.getElementsByClassName('registerScreen-rightPanel')[0].classList.toggle('hidden');
 
-        // A querySelector to remove all existing errors when closing the panel.
-        document.querySelectorAll('.error').forEach(el => el.classList.toggle('hidden'));
+        // TODO: toggle the errors visibility on return to login panel & don't
+        // display errors with same name on login (username from register also enable
+        // the username error on login)
     }
 
     // Init state variables
@@ -54,6 +55,7 @@ const RegistrationScreen = () => {
             confirmPassword: confirmPassword,
         }, [username, email, password, confirmPassword]))
 
+        // TODO: On successful registration redirect the user to Login.
     };
 
     return (
