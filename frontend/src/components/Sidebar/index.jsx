@@ -71,7 +71,7 @@ const Sidebar = () => {
         <div className='sidebar' >
             <form id='sidebarForm'>
                 <label>Name
-                <Input
+                    <Input
                         value={name || ''}
                         onChange={nameChanged}
                         type={'text'}
@@ -87,7 +87,7 @@ const Sidebar = () => {
                 }
 
                 <label>Reason
-                <Input
+                    <Input
                         type={'text'}
                         inputType={'textarea'}
                         height={'6em'}
@@ -105,7 +105,7 @@ const Sidebar = () => {
                 }
 
                 <label>Type
-                <DropDown
+                    <DropDown
                         values={[TYPE.VACATION, TYPE.SICK_DAY, TYPE.WEDDING, TYPE.DEAD]}
                         onChange={typeChanged}
                         width={'90%'}
@@ -117,7 +117,7 @@ const Sidebar = () => {
                     }</label>
 
                 <label>Beginning Date
-                <Input
+                    <Input
                         type={'date'}
                         width={'90%'}
                         padding={'3px'}
@@ -131,7 +131,7 @@ const Sidebar = () => {
                     }</label>
 
                 <label>End Date
-                <Input
+                    <Input
                         type={'date'}
                         width={'90%'}
                         padding={'3px'}
