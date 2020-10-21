@@ -1,9 +1,15 @@
 import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestRegistration } from '../../../reducers/authReducer';
 import './style.scss';
 import Input from '../../../components/basic/Input/index';
 import Button from '../../../components/basic/Button/index';
+import { createSelector } from 'reselect';
 
 const RegistrationScreen = () => {
+
+    const dispatch = useDispatch();
+
     const toggleRegistrationScreen = () => {
         // Logic behind Registration pannel toggling
         document.getElementsByClassName('loginScreen-rightPanel')[0].classList.toggle('registrationHover');
@@ -11,11 +17,12 @@ const RegistrationScreen = () => {
         document.getElementsByClassName('registerScreen-leftPanel')[0].classList.toggle('togglePanel');
         document.getElementsByClassName('registerScreen-mainPanel')[0].classList.toggle('hidden');
         document.getElementsByClassName('registerScreen-rightPanel')[0].classList.toggle('hidden');
+
+        // TODO: toggle the errors visibility on return to login panel & don't
+        // display errors with same name on login (username from register also enable
+        // the username error on login)
     }
-    const validateUser = () => {
-        // TODO: Check whether user already exists
-        // TODO: User registration logic
-    }
+
     // Init state variables
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -28,6 +35,29 @@ const RegistrationScreen = () => {
     const passwordChanged = useCallback(e => setPassword(e.target.value), []);
     const confirmPasswordChanged = useCallback(e => setConfirmPassword(e.target.value), []);
 
+    // Check if any errors exist and render them later on if they do.
+    const errorSelector = createSelector(
+        store => store.authReducer.errors,
+        (errors) => ({
+            errors
+        })
+    )
+
+    // Using destructuring to store the selectors from the errorSelector.
+    const { errors } = useSelector(errorSelector);
+
+    const handleRegister = event => {
+        event.preventDefault();
+        dispatch(requestRegistration({
+            username: username,
+            email: email,
+            password: password,
+            confirmPassword: confirmPassword,
+        }, [username, email, password, confirmPassword]))
+
+        // TODO: On successful registration redirect the user to Login.
+    };
+
     return (
         <div className='container-registerScreen'>
             <div className='registerScreen'>
@@ -35,7 +65,7 @@ const RegistrationScreen = () => {
                     <h1>register</h1>
                 </div>
                 <div className='registerScreen-mainPanel hidden'>
-                    <div className='registerScreenInputs'>
+                    <form className='registerScreenInputs'>
                         <label>username
                         <Input
                                 value={username || ''}
@@ -49,6 +79,9 @@ const RegistrationScreen = () => {
                                 maxCharacterCount={20}
                                 withCharacterCount={true}
                             /></label>
+                        {errors.hasOwnProperty('username') && (
+                            <div className='error'>{errors['username']}</div>
+                        )}
                         <label>email
                         <Input
                                 value={email || ''}
@@ -61,6 +94,9 @@ const RegistrationScreen = () => {
                                 maxCharacterCount={30}
                                 withCharacterCount={true}
                             /></label>
+                        {errors.hasOwnProperty('email') && (
+                            <div className='error'>{errors['email']}</div>
+                        )}
                         <label>password
                         <Input
                                 value={password || ''}
@@ -73,6 +109,9 @@ const RegistrationScreen = () => {
                                 maxCharacterCount={255}
                                 withCharacterCount={true}
                             /></label>
+                        {errors.hasOwnProperty('password') && (
+                            <div className='error'>{errors['password']}</div>
+                        )}
                         <label>confirm password
                         <Input
                                 value={confirmPassword || ''}
@@ -87,14 +126,14 @@ const RegistrationScreen = () => {
                             /></label>
                         <Button
                             text={'register'}
-                            onClick={validateUser}
+                            onClick={handleRegister}
                             borderRadius={'5px'}
                             height={'4.5vh'}
                             width={'100%'}
                             textTransform={'uppercase'}
                             fontSize={'1.05em'}
                         />
-                    </div>
+                    </form>
                 </div>
                 <div className='registerScreen-rightPanel hidden'>
                     <Button

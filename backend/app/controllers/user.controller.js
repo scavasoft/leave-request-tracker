@@ -20,7 +20,7 @@ exports.auth = (req, res) => {
         password: req.body.password,
     });
 
-    userService.auth(authBindingModel.username,authBindingModel.password,
+    userService.auth(authBindingModel.username, authBindingModel.password,
         (err, callback) => {
             if (err) {
                 res.status(500).send({
@@ -31,10 +31,10 @@ exports.auth = (req, res) => {
 
             //working with alg: HS256
             const currentUser = callback;
-            if(callback !== 'undefined' ) {
+            if (callback !== 'undefined') {
                 //Find role by id
                 userService.findRoleById(currentUser.role_id, (err, callback) => {
-                    if(err) {
+                    if (err) {
                         res.status(403).send({
                             error: 'Forbidden'
                         });
@@ -42,7 +42,7 @@ exports.auth = (req, res) => {
                     }
 
                     const role = callback; //An authority of the user
-                    jwtToken.sign({username: currentUser.username, role: role.authority}, Config.SECRET_TOKEN, Config.EXPIRES_IN, (err, token) => {
+                    jwtToken.sign({ username: currentUser.username, role: role.authority }, Config.SECRET_TOKEN, Config.EXPIRES_IN, (err, token) => {
                         res.status(200).send({
                             token: token
                         });
@@ -50,7 +50,7 @@ exports.auth = (req, res) => {
                 });
 
 
-            }else {
+            } else {
                 res.status(404).send({
                     error: 'User is not exists'
                 });
@@ -83,8 +83,8 @@ exports.insert = (req, res) => {
                     databaseError: 'Find by username error, try again later '
                 },
             });
-        }else {
-            if(callback !== undefined) {
+        } else {
+            if (callback !== undefined) {
                 res.status(403).send({
                     errors: {
                         user: 'User already exists with this email or username '
@@ -104,9 +104,11 @@ exports.insert = (req, res) => {
                 }
                 //Check if role exists in the database
                 let role = new Role(callback);
-                if(role === undefined || typeof role === undefined) {
-                    res.send({ errors: {
-                        role: 'This role doesn\'t exists in our database '
+
+                if (role === undefined || typeof role === undefined) {
+                    res.send({
+                        errors: {
+                            role: 'This role doesn\'t exists in our database '
                         }
                     });
                     return;
@@ -117,14 +119,14 @@ exports.insert = (req, res) => {
                         const errors = Object.fromEntries(callback);
 
                         //Send errors in json array
-                        res.status(402).send({errors});
-                    }else {
+                        res.status(402).send({ errors });
+                    } else {
                         userService.insert(new UserEntity({
-                                email: registerBindingModel.email,
-                                username: registerBindingModel.username,
-                                password: registerBindingModel.password,
-                                role: role,
-                            })
+                            email: registerBindingModel.email,
+                            username: registerBindingModel.username,
+                            password: registerBindingModel.password,
+                            role: role,
+                        })
                         );
 
                         res.status(200).send({
