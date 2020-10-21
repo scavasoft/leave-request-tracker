@@ -1,8 +1,11 @@
 const jwt = require('jsonwebtoken');
 const Config = require('../config/config');
 const UserService = require('../services/user.service');
+const UserRepository = require('../repository/user.repository');
 
-const userService = new UserService;
+//Initialization
+const userRepository = new UserRepository;
+const userService = new UserService(userRepository);
 
 module.exports = class JwtRequestFilter {
     constructor(req, res, next) {
@@ -22,7 +25,7 @@ module.exports = class JwtRequestFilter {
                 }
                 username = user.username;
 
-                userService.findOne(username, (err, callback) => {
+                userService.findByUsername(username, (err, callback) => {
                    if(err) {
                        res.status(500).send({
                            errors: {

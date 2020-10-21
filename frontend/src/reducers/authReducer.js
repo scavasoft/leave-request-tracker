@@ -1,25 +1,28 @@
 import authAPI from '../api/authAPI';
 
 // Actions for Registration
-const REGISTER_REQUEST = 'REGISTER_REQUEST';
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const REGISTER_FAILURE = 'REGISTER_FAILURE';
 
 // Actions for login
-const LOGIN_REQUEST = 'LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'LOGIN_FAILURE';
+const LOGOUT = 'LOGOUT';
+
+const LOADING = 'LOADING';
 
 const initialState = {
-    isLoading: true,
+    isLoading: false,
     success: {},
     errors: {},
+    isLoggedIn: false,
+    user: {},
 }
 
 export default (state = initialState, action) => {
     const { payload, type } = action;
     switch (type) {
-        case REGISTER_REQUEST:
+        case LOADING:
             // An action which is always called when the user tries to register.
             return { ...state, isLoading: true };
         case REGISTER_SUCCESS:
@@ -30,17 +33,35 @@ export default (state = initialState, action) => {
             // On registration failure, the state is updated, errors are updated,
             // success is cleared and isLoading is set to false.
             return { ...state, success: {}, errors: payload, isLoading: false }
-        case LOGIN_REQUEST:
+        case LOADING:
             // An action called every time the user tries to login.
             return { ...state, isLoading: true };
         case LOGIN_SUCCESS:
             // On successful login the state is updated, success message returned,
             // errors cleaned and isLoading set to false.
-            return { ...state, success: payload.success, errors: {}, isLoading: false }
+            return { ...state,
+                errors: {},
+                isLoading: false,
+                isLoggedIn: true,
+                user: payload,
+            }
         case LOGIN_FAILURE:
             // On login failure the state is updated, sucess is cleared, errors
             // are updated and isLoaidng is set to false.
-            return { ...state, success: {}, errors: payload, isLoadng: false }
+            return { ...state,
+                success: {},
+                errors: payload,
+                isLoading: false,
+            }
+        case LOGOUT:
+            return {
+                ...state,
+                success: {},
+                errors: {},
+                isLoading: false,
+                isLoggedIn: false,
+                user: {},
+            }
         default:
             return state;
     }
@@ -48,7 +69,7 @@ export default (state = initialState, action) => {
 
 export const requestRegistration = (data) => dispatch => {
     dispatch({
-        type: REGISTER_REQUEST,
+        type: LOADING,
     })
     authAPI.createNewUser(data)
         .then(res => {
@@ -60,30 +81,55 @@ export const requestRegistration = (data) => dispatch => {
         })
         .catch(err => {
             const { errors } = err.response.data;
+            let res = errors;
+            if(errors === undefined)
+                res = err.response.data;
             dispatch({
                 type: REGISTER_FAILURE,
-                payload: errors,
-            })
-        })
+                payload: res,
+            });
+        });
 }
 
 export const requestLogin = (data) => dispatch => {
     dispatch({
-        type: LOGIN_REQUEST,
+        type: LOADING,
     })
     authAPI.login(data)
         .then(res => {
             const { data } = res;
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: data,
-            })
+            localStorage.setItem('token', data.token); // Save jwt in the local storage
+
+            authAPI.getUserByToken().then(res => {
+                const { data } = res;
+
+                if(data) {
+                    dispatch({
+                        type: LOGIN_SUCCESS,
+                        payload: data,
+                    })
+                }
+            });
         })
         .catch(err => {
             const { errors } = err.response.data;
+            let res = errors;
+            if(errors === undefined)
+                res = err.response.data;
             dispatch({
                 type: LOGIN_FAILURE,
-                payload: errors,
+                payload: res,
             })
         })
+}
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOADING,
+    })
+
+    localStorage.removeItem('token');
+    dispatch({
+        type: LOGOUT,
+    })
 }

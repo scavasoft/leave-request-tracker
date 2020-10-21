@@ -55,8 +55,12 @@
 
     .error {
         font-size: 0.8em;
-        margin-top: -1.6em;
         color: red;
+    }
+
+    .success {
+        font-size: 0.8em;
+        color: limegreen;
     }
 
     .error:nth-of-type(3) {
