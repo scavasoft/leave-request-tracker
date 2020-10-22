@@ -87,7 +87,6 @@ exports.delete = (req, res) => {
 }
 
 
-
 exports.findAll = (req, res) => {
 
     userLeaveService.findAll((err, callback) => {
@@ -101,21 +100,21 @@ exports.findAll = (req, res) => {
     });
 }
 
-exports.pagination = (req,res) => {
-    const page = parseInt(req.query.page);
-    const size = parseInt(req.query.size);
+exports.pagination = (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const size = parseInt(req.query.size) || 10;
 
     const startIndex = (page - 1) * size;
     const endIndex = page * size;
 
     const results = {}
 
-    userLeaveService.findAll((err,callback) =>{
+    userLeaveService.findAll((err, callback) => {
 
-       if (err){
-           res.status(500).send({error: 'DB problem, try again later' || err.message});
-           return;
-       }
+        if (err) {
+            res.status(500).send({error: 'DB problem, try again later' || err.message});
+            return;
+        }
 
         //taking the length of all the data
         const allLeaves = callback.length;
@@ -127,14 +126,26 @@ exports.pagination = (req,res) => {
             }
         }
 
-        if(endIndex < allLeaves) {
+        if ((startIndex == null || startIndex == 'undefined') || endIndex == null || endIndex == 'undefined') {
+            results.defaultPage = {
+                callback
+            }
+        }
+        else{
+            results.results = callback.slice(startIndex, endIndex);
+        }
 
-            results.next =  {
+
+        if (endIndex < allLeaves) {
+
+            results.next = {
                 page: page + 1,
                 size: size,
             }
         }
-        results.results =  callback.slice(startIndex,endIndex);
+
+
+        //results.results = callback.slice(startIndex, endIndex);
 
         res.send(results);
     });

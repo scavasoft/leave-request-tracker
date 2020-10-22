@@ -99,7 +99,7 @@ class UserRepository {
     }
 
     findRoleById(roleId, callback){
-        db.get('SELECT * FROM roles WHERE id = ?', [roleId], (err, row) => {
+        db.all('SELECT * FROM roles WHERE id = ?', [roleId], (err, row) => {
             if (err) {
                 callback(err, null);
                 return;
