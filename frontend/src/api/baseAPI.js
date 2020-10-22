@@ -33,24 +33,6 @@ class BaseAPI {
 
             return req;
         });
-
-        //TODO: Make interceptors.reponse
-        // this.api.interceptors.response.use(
-        //     (response) => {
-        //         return response;
-        //     }, err => {
-        //         return new Promise((resolve, reject) => {
-        //             if(err.response.status === 403 || err.response.status === 401) {
-        //                 localStorage.removeItem('token');
-        //
-        //                 resolve(err.response);
-        //             }
-        //             else {
-        //                 console.log('reject error')
-        //                 reject(err);
-        //             }
-        //         })
-        //     });
     }
 
     get = (url, options) => this.api.get(url, options);

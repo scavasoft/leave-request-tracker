@@ -33,9 +33,6 @@ export default (state = initialState, action) => {
             // On registration failure, the state is updated, errors are updated,
             // success is cleared and isLoading is set to false.
             return { ...state, success: {}, errors: payload, isLoading: false }
-        case LOADING:
-            // An action called every time the user tries to login.
-            return { ...state, isLoading: true };
         case LOGIN_SUCCESS:
             // On successful login the state is updated, success message returned,
             // errors cleaned and isLoading set to false.

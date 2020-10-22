@@ -25,9 +25,7 @@ exports.auth = (req, res) => {
 
     if(authBindingModel.username.trim().length <= 0 || authBindingModel.password.trim().length <= 0) {
         res.status(400).send({
-            errors: {
-                error: 'Username or/and password is empty'
-            }
+            error: 'Username or/and password is empty'
         });
         return;
     }
@@ -42,6 +40,12 @@ exports.auth = (req, res) => {
 
             //working with alg: HS256
             const currentUser = callback;
+            if(currentUser === undefined) {
+                res.status(404).send({
+                    error: 'Invalid credentials'
+                });
+                return;
+            }
             bcrypt.compare(authBindingModel.password, currentUser.password, (err, callback) => {
                 if(callback === false) {
                     res.status(404).send({
@@ -56,9 +60,7 @@ exports.auth = (req, res) => {
                     userService.findRoleById(currentUser.role_id, (err, callback) => {
                         if (err) {
                             res.status(403).send({
-                                errors: {
-                                    error: 'Forbidden'
-                                }
+                                error: 'Forbidden'
                             });
                             return;
                         }
@@ -72,9 +74,7 @@ exports.auth = (req, res) => {
                     });
                 } else {
                     res.status(404).send({
-                        errors: {
-                            error: 'Such a user does not exist'
-                        }
+                        error: 'Such a user does not exist'
                     });
                 }
             });
@@ -85,9 +85,7 @@ exports.auth = (req, res) => {
 exports.insert = (req, res) => {
     if (Object.keys(req.body).length === 0) {
         res.status(400).send({
-            errors: {
-                body: 'Body content cannot be empty!'
-            },
+            error: 'Body content cannot be empty!'
         });
         return;
     }
@@ -102,13 +100,12 @@ exports.insert = (req, res) => {
     userService.findByUsernameAndEmail(registerBindingModel.username, registerBindingModel.email, (err, callback) => {
         if (err) {
             res.status(500).send({
-                databaseError: 'Find by username error, try again later '
+                error: 'Find by username error, try again later '
             });
         } else {
             if (callback !== undefined) {
                 res.status(403).send({
-                    user: 'User already exists with this email or username '
-
+                    error: 'User already exists with this email or username '
                 });
                 return;
             }
@@ -116,7 +113,7 @@ exports.insert = (req, res) => {
             userService.findRoleByAuthority(ROLE.USER, (err, callback) => {
                 if (err) {
                     res.status(500).send({
-                        databaseError: 'Database problem, try again later '
+                        error: 'Database problem, try again later '
                     });
                     return;
                 }
@@ -125,7 +122,7 @@ exports.insert = (req, res) => {
 
                 if (role === undefined) {
                     res.status(403).send({
-                        role: 'This role doesn\'t exists in our database '
+                        error: 'This role doesn\'t exists in our database '
                     });
                     return;
                 }

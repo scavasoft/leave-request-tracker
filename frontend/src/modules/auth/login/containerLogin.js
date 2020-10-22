@@ -30,16 +30,12 @@ const LoginScreen = () => {
     // Destructuring the errors from the errorSelector
     const { errors } = useSelector(errorSelector);
 
-    // Arrow function to handle the user login event
     const handleLogin = () => {
         dispatch(requestLogin({
             username: username,
             password: password,
         }, [username, password]))
     };
-
-    // Known Issue: 
-    // After submitting the registration form, the errors will show up in the login panel.
 
     return (
         <div className='container-loginScreen'>
@@ -57,8 +53,6 @@ const LoginScreen = () => {
                                 type='text'
                                 margin={'5px 0px 2em 0px'}
                             /></label>
-                        {/* Displaying errors with the username */}
-                        {/* TODO: Refactor when the value is changed */}
                         {errors.hasOwnProperty('error') && (
                             <div className='error'>{errors['error']}</div>
                         )}
@@ -72,8 +66,6 @@ const LoginScreen = () => {
                                 type='password'
                                 margin={'5px 0px 2em 0px'}
                             /></label>
-                        {/* Displaying errors with the password */}
-                        {/* TODO: Refactor when the value is changed */}
                     </div>
                     <div className='loginScreen-extras'>
                         <input id='rememberMe' name='rememberMe' type='checkbox'></input>

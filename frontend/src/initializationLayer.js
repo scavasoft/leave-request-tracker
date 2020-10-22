@@ -18,7 +18,7 @@ class InitializationLayer extends React.Component {
 
         const authority = user.authority;
 
-        let isAdmin = false;
+        let isAdmin = true;
         if(authority === 'ADMIN') isAdmin = true;
 
         return (
