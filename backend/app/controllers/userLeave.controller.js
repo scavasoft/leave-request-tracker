@@ -107,9 +107,10 @@ exports.pagination = (req, res) => {
     if(req.query !== undefined && req.query.page !== undefined && req.query.size !== undefined){
         page = parseInt(req.query.page);
         size = parseInt(req.query.size);
-    } else { // setting new values if not declared
+    } else {
+        // setting new values if not declared for first default page setting size = 10
         page = 1;
-        size = 4;
+        size = 10;
     }
     //for slicing size
     const startIndex = (page - 1) * size;
@@ -132,6 +133,9 @@ exports.pagination = (req, res) => {
             }
         }
 
+        //slicing result in callback
+        results.results = callback.slice(startIndex, endIndex);
+
         //taking the length of all the data
         const allLeaves = callback.length;
 
@@ -143,8 +147,8 @@ exports.pagination = (req, res) => {
             }
         }
 
-        //slicing result in callback
-        results.results = callback.slice(startIndex, endIndex);
+
+
         //sending all the result
         res.send(results);
     });
