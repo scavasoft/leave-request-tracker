@@ -21,8 +21,10 @@ const selector = createSelector(
 
 const errorSelector = createSelector(
     store => store.addLeaveRequestReducer.requestErrors,
-    (errors) => ({
-        errors
+    store => store.addLeaveRequestReducer.success,
+    (errors, success) => ({
+        errors,
+        success,
     })
 )
 const Sidebar = () => {
@@ -35,7 +37,7 @@ const Sidebar = () => {
 
     //Get calendar state from the Redux store
     const { startDate, endDate } = useSelector(selector);
-    const { errors } = useSelector(errorSelector);
+    const { errors, success } = useSelector(errorSelector);
 
     //These callbacks call function textChanges which location is in our basic Input component
     const reasonChanged = useCallback(e => setReason(e.target.value), []);
@@ -139,9 +141,12 @@ const Sidebar = () => {
                         onChange={endDateChanged}
                         value={endDate || ''}
                     /></label>
-                {errors.hasOwnProperty('dateError') && (
+                {errors.hasOwnProperty('dateError') &&
                     <div className='error'>{errors['dateError']}</div>
-                )
+                }
+
+                {success &&
+                <div className='success'>{Object.values(success)}</div>
                 }
 
                 <Button

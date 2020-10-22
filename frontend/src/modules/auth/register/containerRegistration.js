@@ -6,6 +6,15 @@ import Input from '../../../components/basic/Input/index';
 import Button from '../../../components/basic/Button/index';
 import { createSelector } from 'reselect';
 
+// Check if any errors exist and render them later on if they do.
+const errorSelector = createSelector(
+    store => store.authReducer.errors,
+            store => store.authReducer.success,
+    (errors, success) => ({
+        errors,
+        success,
+    })
+)
 const RegistrationScreen = () => {
 
     const dispatch = useDispatch();
@@ -35,16 +44,8 @@ const RegistrationScreen = () => {
     const passwordChanged = useCallback(e => setPassword(e.target.value), []);
     const confirmPasswordChanged = useCallback(e => setConfirmPassword(e.target.value), []);
 
-    // Check if any errors exist and render them later on if they do.
-    const errorSelector = createSelector(
-        store => store.authReducer.errors,
-        (errors) => ({
-            errors
-        })
-    )
-
     // Using destructuring to store the selectors from the errorSelector.
-    const { errors } = useSelector(errorSelector);
+    const { errors, success } = useSelector(errorSelector);
 
     const handleRegister = event => {
         event.preventDefault();
@@ -124,6 +125,13 @@ const RegistrationScreen = () => {
                                 maxCharacterCount={255}
                                 withCharacterCount={true}
                             /></label>
+                        {errors.hasOwnProperty('user') &&
+                            <div className='error'>{errors['user']}</div>
+                        }
+
+                        {success &&
+                            <div className='success'>{Object.values(success)}</div>
+                        }
                         <Button
                             text={'register'}
                             onClick={handleRegister}

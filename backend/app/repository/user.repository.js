@@ -12,19 +12,6 @@ class UserRepository {
         console.log('Successfully is register ' + object.username);
     }
 
-    auth(username, password, callback) {
-        db.get('SELECT * FROM users WHERE username=? AND password=?' , [username, password], (err, row) => {
-            if (err) {
-                callback(err, null);
-                return;
-            }
-
-            if (row !== null) {
-                callback(null, row);
-            }
-        });
-    }
-
     findById(id, callback) {
         db.get('SELECT * FROM users WHERE id = ?', [id], (err, row) => {
             if (err) {
@@ -61,19 +48,20 @@ class UserRepository {
     }
 
     //find by username
-    findOne(username, callback) {
+    findByUsername(username, callback) {
         db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
             if (err) {
                 callback(err, null);
                 return;
             }
+
             if (row !== null) {
                 callback(null, row);
             }
         });
     }
 
-    //find by username
+    //find by username or email address
     findByUsernameOrEmail(username, email, callback) {
         db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email], (err, row) => {
             if (err) {

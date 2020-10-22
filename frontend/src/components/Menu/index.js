@@ -1,20 +1,23 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './style.scss';
+import {logout} from "../../reducers/authReducer";
 
 // An inline style to clear the text-decoration for the <Link> element.
 const clearDecoration = {
     textDecoration: 'none'
 }
 
-const handleLogout = () => {
-    // TODO: Logout Logic
-    localStorage.removeItem('token'); // remove the user account from Local Storage (refactor)
-}
-
-const isAdmin = true; // boolean to check whether the user has admin privilege (refactor logic)
-
 const Menu = () => {
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(logout());
+    }
+
+    const isAdmin = true; // boolean to check whether the user has admin privilege (refactor logic)
+
     return (
         <div className='container-menu'>
             <h2>attendor-lite</h2>

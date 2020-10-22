@@ -6,9 +6,9 @@ module.exports = app => {
 
     app.post('/user/register', userController.insert);
 
-    app.get('/user/getUserById', userController.findById);
+    app.get('/user/session', userController.getUserByToken);
 
-    app.get('/admin/getByUsername', userController.findOne);
+    app.get('/admin/getByUsername', userController.findByUsername);
 
     app.get('/admin/getAllUsers', userController.findAllUsers);
 

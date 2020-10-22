@@ -3,10 +3,6 @@ module.exports = class UserService {
         this.userRepository = userRepository;
     }
 
-    auth(username, password, callback) {
-        this.userRepository.auth(username, password, callback);
-    }
-
     insert(user) {
         this.userRepository.insert(user);
     }
@@ -24,16 +20,16 @@ module.exports = class UserService {
     }
 
     //Find by username
-    findOne(username,callback){
-        this.userRepository.findOne(username,callback);
+    findByUsername(username, callback) {
+        this.userRepository.findByUsername(username, callback);
     }
 
     //Find by username and email
-    findByUsernameAndEmail(username, email, callback){
+    findByUsernameAndEmail(username, email, callback) {
         this.userRepository.findByUsernameOrEmail(username, email, callback);
     }
 
-    findRoleByAuthority(authority, callback){
+    findRoleByAuthority(authority, callback) {
         this.userRepository.findRoleByAuthority(authority,callback);
     }
 
@@ -50,7 +46,11 @@ module.exports = class UserService {
         let errors = new Map();
 
         if (object.email.trim().length <= 0 || object.email.trim().length >= 30) {
-            errors.set('email', 'email field must not be empty and less than 20 symbols');
+            errors.set('email', 'email field must not be empty and less than 30 symbols');
+        }else {
+            const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!pattern.test(object.email))
+                errors.set('email', 'This email address is not valid');
         }
 
         if (object.username.trim().length <= 0 || object.username.trim().length >= 20) { // custom length VARCHAR(20)
