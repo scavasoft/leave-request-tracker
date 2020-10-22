@@ -48,7 +48,7 @@ exports.findById = (req, res) => {
     userLeaveService.findById(id, (err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Database problem, try again later ' || err.message
+                error: 'Database problem, try again later '
             });
             return;
         }
@@ -75,7 +75,7 @@ exports.delete = (req, res) => {
     userLeaveService.delete(userViewModel.id, (err) => {
         if (err) {
             res.status(500).send({
-                error: 'Database problem, try again later ' || err
+                error: 'Database problem, try again later '
             });
         }
 
@@ -92,7 +92,7 @@ exports.findAll = (req, res) => {
     userLeaveService.findAll((err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Database problem, try again later ' || err.message
+                error: 'Database problem, try again later '
             });
             return;
         }

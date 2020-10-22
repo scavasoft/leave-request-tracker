@@ -21,8 +21,7 @@ exports.auth = (req, res) => {
         (err, callback) => {
             if (err) {
                 res.status(500).send({
-                    error: 'Authentication error, try again later ' || err.message
-                });
+                    error: 'Authentication error, try again later '});
                 return;
             }
 
@@ -74,8 +73,7 @@ exports.insert = (req, res) => {
     userService.findByUsernameAndEmail(registerBindingModel.username, registerBindingModel.email, (err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Find by username error, try again later ' || err.message
-            });
+                error: 'Find by username error, try again later '});
         }else {
             if(callback !== undefined) {
                 res.status(200).send({
@@ -89,7 +87,7 @@ exports.insert = (req, res) => {
             userService.findRoleByAuthority('USER', (err, callback) => {
                 if (err) {
                     res.status(500).send({
-                        error: 'Database problem, try again later ' || err.message
+                        error: 'Database problem, try again later '
                     });
                     return;
                 }
@@ -132,7 +130,7 @@ exports.findById = (req, res) => {
     userService.findById(id, (err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Find by id error, try again later ' || err.message
+                error: 'Find by id error, try again later '
             });
             return;
         }
@@ -147,7 +145,7 @@ exports.findAllUsers = (req, res) => {
     userService.findAllUsers((err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Database problem, try again later ' || err.message
+                error: 'Database problem, try again later '
             });
             return;
         }
@@ -171,7 +169,7 @@ exports.delete = (req, res) => {
     userService.delete(userViewModel.id, (err) => {
         if (err) {
             res.status(500).send({
-                error: 'Database problem, try again later ' || err
+                error: 'Database problem, try again later '
             });
         }
 
@@ -190,7 +188,7 @@ exports.findOne = (req, res) => {
     userService.findOne(username, (err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Find by username error, try again later ' || err.message
+                error: 'Find by username error, try again later '
             });
             return;
         }
