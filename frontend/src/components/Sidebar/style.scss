@@ -21,6 +21,17 @@
     input:focus, input:hover, textarea:focus, textarea:hover, select:focus, select:hover {
         border: none;
     }
+
+    .closeFormButton {
+        position: absolute;
+        top: 0;
+        margin-top: 0.3em;
+        margin-left: 70%;
+        color: #ffffff;
+        cursor: pointer;
+        width: 5%;
+        font-size: 1.3em;
+    }
 }
 
 .sidebarShow {

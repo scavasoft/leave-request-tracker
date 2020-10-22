@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { attemptLeaveRequest } from "../../reducers/addLeaveRequestReducer";
 import { createSelector } from 'reselect';
@@ -47,6 +47,14 @@ const Sidebar = () => {
         }), [e.target.value]);
     };
 
+    useEffect((event) => {
+        document.addEventListener('keydown', event => {
+            if (event.keyCode === 27) {
+                closeForm();
+            }
+        })
+    })
+
     const endDateChanged = e => {
         dispatch(attemptStoreDate({
             endDate: e.target.value
@@ -67,9 +75,15 @@ const Sidebar = () => {
         }, [name, reason, type]));
     }
 
+    function closeForm() {
+        document.getElementsByClassName('sidebar')[0].classList.remove('sidebarShow');
+        document.getElementsByClassName('calendar')[0].classList.remove('resize');
+    }
+
     return (
         <div className='sidebar' >
             <form id='sidebarForm'>
+                <span className={'closeFormButton'} onClick={closeForm}>X</span>
                 <label>Name
                 <Input
                         value={name || ''}
