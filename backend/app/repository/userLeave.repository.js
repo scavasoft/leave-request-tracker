@@ -21,7 +21,7 @@ module.exports = class UserLeaveRepository {
                 return;
             }
 
-            if (row != null) callback(null, row);
+            if (row !== null) callback(null, row);
         });
     }
 
@@ -32,7 +32,7 @@ module.exports = class UserLeaveRepository {
                 return;
             }
 
-            if (rows != null || rows.length > 0) {
+            if (rows !== null || rows.length > 0) {
                 callback(null, rows);
             }
         });

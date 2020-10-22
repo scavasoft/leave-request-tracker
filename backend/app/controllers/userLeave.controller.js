@@ -101,24 +101,30 @@ exports.findAll = (req, res) => {
 }
 
 exports.pagination = (req, res) => {
-    const page = parseInt(req.query.page) || 1;
-    const size = parseInt(req.query.size) || 10;
 
+    let page, size;
+    //check for query values
+    if(req.query !== undefined && req.query.page !== undefined && req.query.size !== undefined){
+        page = parseInt(req.query.page);
+        size = parseInt(req.query.size);
+    } else { // setting new values if not declared
+        page = 1;
+        size = 4;
+    }
+    //for slicing size
     const startIndex = (page - 1) * size;
     const endIndex = page * size;
 
+    //store sliced data
     const results = {}
 
     userLeaveService.findAll((err, callback) => {
-
         if (err) {
-            res.status(500).send({error: 'DB problem, try again later' || err.message});
+            res.status(500).send({error: 'DB problem, try again later'});
             return;
         }
 
-        //taking the length of all the data
-        const allLeaves = callback.length;
-
+        //previous page condition
         if (startIndex > 0) {
             results.previous = {
                 page: page - 1,
@@ -126,27 +132,20 @@ exports.pagination = (req, res) => {
             }
         }
 
-        if ((startIndex == null || startIndex == 'undefined') || endIndex == null || endIndex == 'undefined') {
-            results.defaultPage = {
-                callback
-            }
-        }
-        else{
-            results.results = callback.slice(startIndex, endIndex);
-        }
+        //taking the length of all the data
+        const allLeaves = callback.length;
 
-
+        //next page condition
         if (endIndex < allLeaves) {
-
             results.next = {
                 page: page + 1,
                 size: size,
             }
         }
 
-
-        //results.results = callback.slice(startIndex, endIndex);
-
+        //slicing result in callback
+        results.results = callback.slice(startIndex, endIndex);
+        //sending all the result
         res.send(results);
     });
 }
