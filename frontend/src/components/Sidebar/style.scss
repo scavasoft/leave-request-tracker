@@ -4,7 +4,8 @@
     position: fixed;
     top: 0;
     right: 0;
-    background-color: #7020cc;
+    background: rgb(2,0,36);
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(82,32,139,1) 35%, rgba(112,32,204,1) 100%);
     transition: .5s;
     padding: 0 1em;
     overflow: hidden;

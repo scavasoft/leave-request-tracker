@@ -3,12 +3,9 @@ import { connect } from "react-redux";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import events from './events';
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import { attemptStoreDate } from "../../reducers/calendarReducer";
-
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import './style.scss';
-
-// import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 
 moment.locale('en-GB')
 const localizer = momentLocalizer(moment);
@@ -23,8 +20,42 @@ export class BigDNDCalendar extends React.Component {
         };
         this.handleSelectSlot = this.handleSelectSlot.bind(this);
         this.selectDateRange = this.selectDateRange.bind(this);
-
     }
+
+    componentDidMount() {
+        this.loadEvents();
+    }
+
+    loadEvents() {
+        // TODO: Load the events from the DB
+        this.setState({
+            events: [{
+                'title': 'Example Event 1',
+                'allDay': true,
+                'start': new Date(2020,
+                    9,
+                    0),
+                'end': new Date(2020,
+                    9,
+                    3)
+            }]
+        })
+    }
+
+    // deprecated event coloring function
+    // componentDidMount() {
+    //     setTimeout(() => {
+    //         // Obtain unique ID for each element and set it's color to a random HEX.
+    //         let leaves = document.getElementsByClassName('rbc-event')
+    //         let colors = [];
+    //         for (let i = 0; i < leaves.length; i++) {
+    //             colors.push(Math.floor(Math.random() * 16777215).toString(16));
+    //             leaves[i].style.backgroundColor = `#${colors[i]}`;
+    //             // leaves[i].classList.add('randomBackground');
+    //             // alert(leaves[i].innerHTML)
+    //         }
+    //     }, 100)
+    // }
 
     selectDateRange() {
         document.getElementsByClassName('sidebar')[0].classList.add('sidebarShow');

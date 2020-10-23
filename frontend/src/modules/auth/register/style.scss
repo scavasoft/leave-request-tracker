@@ -49,7 +49,7 @@
     }
 }
 
-.registerScreenInputs {
+.registerScreen-inputs {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -88,4 +88,42 @@
 
 .togglePanel {
     width: 10%;
+}
+
+@media only screen and (max-width: 1024px) {
+    .container-registerScreen {
+        .registerScreen {
+            height: 50vh;
+
+            h1 {
+                font-size: 2.3em;
+            }
+
+            .registerScreen-inputs {
+                label {
+                    font-size: 1em;
+                }   
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .container-registerScreen {
+        .registerScreen {
+            height: 50vh;
+
+            h1 {
+                font-size: 1.1em;
+            }
+
+            .registerScreen-inputs {
+                label {
+                    font-size: 0.3em;
+                }
+
+                height: 80%;
+            }
+        }
+    }
 }

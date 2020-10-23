@@ -20,17 +20,16 @@ const Menu = () => {
             <h2>attendor-lite</h2>
             <ul>
                 <Link to='/dashboard' style={clearDecoration}>
-                    <li><p><i className='fas fa-home'></i>dashboard</p></li>
+                    <li><p><i className='fas fa-home'></i><span>dashboard</span></p></li>
                 </Link>
                 {isAdmin &&
                     <Link to='/requests' style={clearDecoration}>
-                        <li><p><i className='fas fa-calendar-alt'></i>requests [A]</p></li>
+                        <li><p><i className='fas fa-calendar-alt'></i><span>requests [A]</span></p></li>
                     </Link>
                 }
                 {/* if isAdmin is set to true, the Requests Link will be visible to the user */}
-                <li><p><i className='fas fa-user'></i>profile</p></li>
                 <Link to='/' onClick={handleLogout} style={clearDecoration}>
-                    <li><p><i className='fas fa-sign-out-alt'></i>logout</p></li>
+                    <li><p><i className='fas fa-sign-out-alt'></i><span>logout</span></p></li>
                 </Link>
             </ul>
         </div>

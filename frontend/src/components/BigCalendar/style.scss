@@ -3,16 +3,17 @@
     width: 100%;
     font-family: 'Poppins', sans-serif;
     transition: .5s;
-  }
+}
   
   .resize {
     width: 84%;
 }
 
+@media only screen and (max-width: 1024px) {
+  .calendar {
 
-.rbc-event {
-  // Color behind events
-  .rbc-event-content {
-    // Holds title for the event
+    .rbc-btn-group {
+      max-width: 90%;
+    }
   }
 }

@@ -17,5 +17,23 @@ export default [
     'end': new Date(2020,
       9,
       17)
+  },
+  {
+    'title': 'Example Event 3',
+    'start': new Date(2020,
+      9,
+      19),
+    'end': new Date(2020,
+      9,
+      21)
+  },
+  {
+    'title': 'Example Event 4',
+    'start': new Date(2020,
+      9,
+      15),
+    'end': new Date(2020,
+      10,
+      2)
   }
 ]

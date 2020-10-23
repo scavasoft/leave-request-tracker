@@ -41,9 +41,6 @@ const LoginScreen = () => {
     // Destructuring the errors from the errorSelector
     const { errors } = useSelector(errorSelector);
 
-    // Known Issue: 
-    // After submitting the registration form, the errors will show up in the login panel.
-
     return (
         <div className='container-loginScreen'>
             <div className='loginScreen'>
@@ -80,11 +77,6 @@ const LoginScreen = () => {
                         {errors.hasOwnProperty('password') && (
                             <div className='error'>{errors['password']}</div>
                         )}
-                    </div>
-                    <div className='loginScreen-extras'>
-                        <input id='rememberMe' name='rememberMe' type='checkbox'></input>
-                        <label for='rememberMe'>Remember me</label>
-                        <a href='www.google.com' target='blank'>Forgotten password?</a>
                     </div>
                     <Link to='/dashboard' onClick={handleLogin} style={{ textDecoration: 'none' }}>
                         <Button

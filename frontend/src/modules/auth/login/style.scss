@@ -90,25 +90,6 @@
     }
 }
 
-.loginScreen-extras {
-    width: 65%;
-    margin: -5% auto 3% auto;
-
-    input {
-        margin-right: 0.25em;
-    }
-
-    a {
-        float: right;
-        text-decoration: none;
-        color: #145ab6;
-    }
-
-    label {
-        font-weight: 400;
-    }
-}
-
 .loginScreen-rightPanel {
     transition: .5s all;
 }
@@ -119,4 +100,62 @@
 
 .registrationHover:hover {
     width: 10%;
+}
+
+@media only screen and (max-width: 1024px) {
+    .loginScreen-rightPanel {
+        width: 10%;
+    }
+    .loginScreen {
+        width: 60%;
+        height: 50vh;
+
+        h1 {
+            font-size: 3.5em;
+        }
+
+        button {
+            font-size: 1.6em;
+        }
+
+        .loginScreen-inputs {
+
+            label {
+                font-size: 1.2em;
+            }
+
+            label input {
+                font-size: 2em;
+                padding: .2em;
+            }
+
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .loginScreen {
+        width: 60%;
+        height: 40vh;
+
+        h1 {
+            font-size: 1.3em;
+        }
+
+        button {
+            font-size: 0.8em;
+        }
+
+        .loginScreen-inputs {
+
+            label {
+                font-size: 0.7em;
+            }
+
+            label input {
+                font-size: 0.8em;
+                padding: 0.8em;
+            }
+        }
+    }
 }

@@ -30,7 +30,6 @@ class RequestsTable extends React.Component {
                 <div className='datatable-upperPanel'>
                     <input id='filterInput' onChange={this.changeFilter} placeholder='Enter a filter: ' maxlength="90"></input>
                     {/* Search button - can be implemented if needed */}
-                    {/* <button onClick={this.selectRange}><i className='fas fa-search'></i></button> */}
                 </div>
                 <div className='datatable-lowerPanel'>
                     <table>

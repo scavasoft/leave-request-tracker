@@ -1,6 +1,7 @@
 .container-menu {
   height: 100%;
-  background-color: #7020cc;
+  background: rgb(2,0,36);
+  background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(82,32,139,1) 35%, rgba(112,32,204,1) 100%);
 
   * {
     -webkit-transition: all .35s;
@@ -20,7 +21,7 @@
     margin: 0;
     user-select: none;
   }
-  
+
   h2:hover {
     font-size: 1em;
     cursor: default;
@@ -39,7 +40,7 @@
   }
   
   a:hover {
-    background-color: #621eb1;
+    background-color: #551d96;
   }
 
   p {
@@ -51,5 +52,45 @@
       margin: 0 1.6% 0 3%;
     }
   }
+}
 
+
+@media only screen and (max-width: 1024px) {
+  .dashboard-leftPanel, .leaves-leftPanel {
+    .container-menu {
+    h2 {
+      display: none;
+    }
+
+    ul {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      p {
+        text-align: center;
+
+        span {
+          display: none;
+        }
+      }
+
+      li {
+        padding: 0;
+
+        i {
+          font-size: 2em;
+          margin: 0;
+          text-align: center;
+          padding: 0.5em 0;
+        }
+
+        a {
+          text-align: center;
+        }
+      }
+    }
+  }
+}
 }
