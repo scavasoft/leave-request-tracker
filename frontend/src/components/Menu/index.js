@@ -17,16 +17,25 @@ const isAdmin = true; // boolean to check whether the user has admin privilege (
 const Menu = () => {
     return (
         <div className='container-menu'>
-            <h2>attendor-lite</h2>
+            <div className='container-menuTitle'>
+                <h2>
+                    <span>A</span>
+                    <i className='fas fa-calendar-alt'></i>
+                    <span>L</span>
+                </h2>
+            </div>
             <ul>
                 <Link to='/dashboard' style={clearDecoration}>
                     <li><p><i className='fas fa-home'></i><span>dashboard</span></p></li>
                 </Link>
                 {isAdmin &&
                     <Link to='/requests' style={clearDecoration}>
-                        <li><p><i className='fas fa-calendar-alt'></i><span>requests [A]</span></p></li>
+                        <li><p><i className='fas fa-location-arrow'></i><span>requests</span></p></li>
                     </Link>
                 }
+                <Link to='/' style={clearDecoration}>
+                    <li><p><i className="fas fa-user-plus"></i><span>Switch user</span></p></li>
+                </Link>
                 {/* if isAdmin is set to true, the Requests Link will be visible to the user */}
                 <Link to='/' onClick={handleLogout} style={clearDecoration}>
                     <li><p><i className='fas fa-sign-out-alt'></i><span>logout</span></p></li>
