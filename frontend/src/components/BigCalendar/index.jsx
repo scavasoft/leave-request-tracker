@@ -42,21 +42,6 @@ export class BigDNDCalendar extends React.Component {
         })
     }
 
-    // deprecated event coloring function
-    // componentDidMount() {
-    //     setTimeout(() => {
-    //         // Obtain unique ID for each element and set it's color to a random HEX.
-    //         let leaves = document.getElementsByClassName('rbc-event')
-    //         let colors = [];
-    //         for (let i = 0; i < leaves.length; i++) {
-    //             colors.push(Math.floor(Math.random() * 16777215).toString(16));
-    //             leaves[i].style.backgroundColor = `#${colors[i]}`;
-    //             // leaves[i].classList.add('randomBackground');
-    //             // alert(leaves[i].innerHTML)
-    //         }
-    //     }, 100)
-    // }
-
     selectDateRange() {
         document.getElementsByClassName('sidebar')[0].classList.add('sidebarShow');
         document.getElementsByClassName('calendar')[0].classList.add('resize');
