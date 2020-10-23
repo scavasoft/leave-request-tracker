@@ -22,7 +22,6 @@ module.exports = class UserLeaveService {
         this.userLeaveRepository.delete(id, result);
     }
 
-
     /***
      * Validate all properties(fields)
      * @param object
