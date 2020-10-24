@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
+import { obtainApprovedRequests } from '../../reducers/obtainLeaveRequestsReducer';
 import moment from 'moment';
-import events from './events';
 import { attemptStoreDate } from "../../reducers/calendarReducer";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import './style.scss';
@@ -14,7 +14,6 @@ export class BigDNDCalendar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            events: events,
             startDate: new Date(),
             endDate: new Date(),
         };
@@ -23,25 +22,10 @@ export class BigDNDCalendar extends React.Component {
     }
 
     componentDidMount() {
-        this.loadEvents();
+        this.props.obtainApprovedRequests();
     }
 
-    loadEvents() {
-        // TODO: Load the events from the DB
-        this.setState({
-            events: [{
-                'title': 'Example Event 1',
-                'allDay': true,
-                'start': new Date(2020,
-                    9,
-                    0),
-                'end': new Date(2020,
-                    9,
-                    3)
-            }]
-        })
-    }
-
+    // Toggling the sidebar and decreasing the size of the calendar.
     selectDateRange() {
         document.getElementsByClassName('sidebar')[0].classList.add('sidebarShow');
         document.getElementsByClassName('calendar')[0].classList.add('resize');
@@ -62,9 +46,9 @@ export class BigDNDCalendar extends React.Component {
         return [year, month, day].join('-');
     }
 
+    // Selecting a range of dates will dispatch the starting and
+    // ending date of the leave request to the Redux Store.
     handleSelectSlot({ start, end, resourceId }) {
-        console.log("Selected", start, end);
-
         this.startDate = start; //setState
         this.endDate = end; //setState
 
@@ -86,10 +70,23 @@ export class BigDNDCalendar extends React.Component {
                 onSelectSlot={this.handleSelectSlot}
                 selectable
                 localizer={localizer}
-                events={this.state.events}
+                events={this.props.success.map((leave) => ({
+                    'title': leave.name,
+                    'allDay': true,
+                    'start': new Date(leave.date_end),
+                    'end': new Date(leave.date_start),
+                })
+                )}
             />
         )
     }
 }
 
-export default connect()(BigDNDCalendar);
+// comment?
+const mapStateToProps = ({ obtainApprovedRequests: { success } }) => ({
+    success
+});
+
+//comment?
+const mapDispatchToProps = { obtainApprovedRequests }
+export default connect(mapStateToProps, mapDispatchToProps)(BigDNDCalendar);

@@ -1,11 +1,14 @@
 module.exports = app => {
     const UserLeave = require('../controllers/userLeave.controller');
 
-    app.post('/requestUserLeave', UserLeave.insert);
+    app.post('/leaveRequests/request', UserLeave.insert);
 
-    app.get('/getById', UserLeave.findById);
+    app.get('/leaveRequests/getById', UserLeave.findById);
 
-    app.get('/admin/findAll', UserLeave.findAll);
+    app.post('/leaveRequests/delete', UserLeave.delete);
 
-    app.post('/admin/deleteUserLeave', UserLeave.delete);
+    app.get('/leaveRequests/admin/findAll', UserLeave.findAll);
+
+    app.get('/leaveRequests/obtainApprovedLeaves', UserLeave.obtainApprovedLeaves);
+
 }

@@ -9,11 +9,11 @@ class UserRepository {
                 return;
             }
         });
-        console.log('Successfully is register ' + object.username);
+        console.log('Successfully registered user ' + object.username);
     }
 
     auth(username, password, callback) {
-        db.get('SELECT * FROM users WHERE username=? AND password=?' , [username, password], (err, row) => {
+        db.get('SELECT * FROM users WHERE username=? AND password=?', [username, password], (err, row) => {
             if (err) {
                 callback(err, null);
                 return;
@@ -86,7 +86,7 @@ class UserRepository {
         });
     }
 
-    findRoleByAuthority(authority, callback){
+    findRoleByAuthority(authority, callback) {
         db.get('SELECT * FROM roles WHERE authority = ?', [authority], (err, row) => {
             if (err) {
                 callback(err, null);
@@ -98,7 +98,7 @@ class UserRepository {
         });
     }
 
-    findRoleById(roleId, callback){
+    findRoleById(roleId, callback) {
         db.get('SELECT * FROM roles WHERE id = ?', [roleId], (err, row) => {
             if (err) {
                 callback(err, null);

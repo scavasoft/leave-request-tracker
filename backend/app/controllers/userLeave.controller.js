@@ -6,7 +6,7 @@ const UserLeaveService = require('../services/userLeave.service');
 const userLeaveService = new UserLeaveService;
 
 exports.insert = (req, resp) => {
-    if(Object.keys(req.body).length === 0) {
+    if (Object.keys(req.body).length === 0) {
         resp.status(400).send({
             error: 'Body content cannot be empty!'
         });
@@ -22,7 +22,7 @@ exports.insert = (req, resp) => {
     });
 
     userLeaveService.validate(userLeave, callback => {
-        if(callback.size > 0) {
+        if (callback.size > 0) {
             const errors = Object.fromEntries(callback);
 
             resp.status(200).send({
@@ -40,15 +40,15 @@ exports.insert = (req, resp) => {
 
 exports.findById = (req, res) => {
     const id = req.query['userLeaveId'];
-    if(!id){
+    if (!id) {
         res.status(404).send({
             error: "User not found",
         });
     }
     userLeaveService.findById(id, (err, callback) => {
-        if(err) {
+        if (err) {
             res.status(500).send({
-               error: 'Database problem, try again later ' || err.message
+                error: 'Database problem, try again later ' || err.message
             });
             return;
         }
@@ -59,10 +59,10 @@ exports.findById = (req, res) => {
     });
 }
 
-exports.findAll = (req,res) => {
+exports.findAll = (req, res) => {
     userLeaveService.findAll((err, callback) => {
-        if(err) {
-                res.status(500).send({
+        if (err) {
+            res.status(500).send({
                 error: 'Database problem, try again later ' || err.message
             });
             return;
@@ -72,8 +72,21 @@ exports.findAll = (req,res) => {
     });
 }
 
+exports.obtainApprovedLeaves = (req, res) => {
+    userLeaveService.obtainApprovedLeaves((err, callback) => {
+        if (err) {
+            res.status(500).send({
+                error: err.message
+            })
+            return;
+        }
+        res.send(callback);
+    })
+
+}
+
 exports.delete = (req, res) => {
-    if(Object.keys(req.body).length === 0) {
+    if (Object.keys(req.body).length === 0) {
         res.status(400).send({
             error: 'Body content cannot be empty!'
         });
@@ -84,17 +97,17 @@ exports.delete = (req, res) => {
         id: req.body.id,
     })
 
-   userLeaveService.delete(userViewModel.id, (err) => {
-       if(err) {
-           res.status(500).send({
-               error: 'Database problem, try again later ' || err
-           });
-       }
+    userLeaveService.delete(userViewModel.id, (err) => {
+        if (err) {
+            res.status(500).send({
+                error: 'Database problem, try again later ' || err
+            });
+        }
 
-       res.status(200).send({
-           success: 'User leave with id = ' + userViewModel.id + ' is successfully removed'
-       });
-   });
+        res.status(200).send({
+            success: 'User leave with id = ' + userViewModel.id + ' is successfully removed'
+        });
+    });
 
 }
 
