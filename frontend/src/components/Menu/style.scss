@@ -11,7 +11,7 @@
   }
 
   .container-menuTitle {
-
+    
     h2 {
       text-align: center;
       font-size: 1.5em;
@@ -46,10 +46,19 @@
   ul {
     display: flex;
     flex-direction: column;
-    // flex-flow: column;
     justify-content: flex-start;
     list-style-type: none;
     height: 84%;
+
+    span {
+      font-family: 'Poppins', 'sans-serif';
+    }
+
+    li:hover {
+      i {
+        animation: bob-on-hover 0.8s;
+      }
+    }
 
     a:last-of-type {
       // Placing the last element (logout) at the bottom of the menu.
@@ -85,6 +94,7 @@
   }
 }
 
+// Media query for mobile screens
 @media only screen and (max-width: 600px) {
   .dashboard-leftPanel, .leaves-leftPanel {
 
@@ -140,6 +150,7 @@
   }
 }
 
+// Media query for medium-sized screens (tablets & etc)
 @media only screen and (max-width: 1024px) {
   .container-menu {
     h2, span {
@@ -161,5 +172,12 @@
         }
       }
     }
+  }
+}
+
+// Animation for hover on menu item.
+@keyframes bob-on-hover {
+  50% {
+    transform: translateY(-4px);
   }
 }
