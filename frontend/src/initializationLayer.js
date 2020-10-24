@@ -1,36 +1,34 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { connect } from "react-redux";
 import Dashboard from './modules/dashboard/index';
 import Requests from './modules/leaves/index';
 import Login from './modules/auth/login/index';
-import NotFound from './components/NotFound/index';
-import { connect } from "react-redux";
+import history from './utils/history';
+import { getUserByToken } from './reducers/authReducer';
+import NotFound from './components/NotFound';
 
-const mapStateToProps = state => ({
-    isLoggedIn: state.authReducer.isLoggedIn,
-    user: state.authReducer.user,
-});
 class InitializationLayer extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        this.props.getUserByToken();
+    }
 
     render() {
 
-        const { isLoggedIn, user } = this.props;
-
-        const authority = user.authority;
-
-        let isAdmin = true;
-        if(authority === 'ADMIN') isAdmin = true;
-
         return (
             <div>
-                <Router >
+                <Router history={history}>
                     <Switch>
                         <Route path='/' exact component={Login} />
-                        {isAdmin && <Route path='/requests' component={Requests} />}
+                        {this.props.user.authority === 'ADMIN' && <Route path='/requests' component={Requests} />}
                         {/* if isAdmin is set to true, the user will be able to visit the /requests, no matter
                         whether the Requests is displayed in the menu or not. */}
-                        {isLoggedIn && <Route path='/dashboard' component={Dashboard} />}
-                        {/* All invalid address inputs will be redirected towards the NotFound component. */}
+                        {this.props.isLoggedIn && <Route path='/dashboard' component={Dashboard} />}
+
                         <Route component={Login} />
                     </Switch>
                 </Router>
@@ -38,5 +36,13 @@ class InitializationLayer extends React.Component {
         )
     }
 }
+const mapStateToProps = ({ authReducer: { isLoggedIn, user }}) => ({
+    isLoggedIn,
+    user
+});
 
-export default connect(mapStateToProps)(InitializationLayer);
+const mapDispatchToProps = {
+    getUserByToken,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InitializationLayer);

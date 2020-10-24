@@ -1,6 +1,7 @@
 import addLeaveRequestReducer from './addLeaveRequestReducer';
 import calendarReducer from './calendarReducer';
 import authReducer from './authReducer';
+import obtainApprovedRequests from './obtainLeaveRequestsReducer';
 import { combineReducers } from 'redux';
 
 /***
@@ -11,6 +12,7 @@ const reducers = combineReducers({
     addLeaveRequestReducer,
     calendarReducer,
     authReducer,
+    obtainApprovedRequests,
 });
 
 export default reducers;

@@ -1,0 +1,19 @@
+.calendar {
+    height: 100vh;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    transition: .5s;
+}
+  
+  .resize {
+    width: 84%;
+}
+
+@media only screen and (max-width: 1024px) {
+  .calendar {
+
+    .rbc-btn-group {
+      max-width: 90%;
+    }
+  }
+}

@@ -1,6 +1,8 @@
 .container-menu {
   height: 100%;
-  background-color: #7020cc;
+  background: rgb(2,0,36);
+  background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(82,32,139,1) 35%, rgba(112,32,204,1) 100%);
+  position: static;
 
   * {
     -webkit-transition: all .35s;
@@ -8,28 +10,64 @@
     margin: 0;
   }
 
-  h2 {
-    text-align: center;
-    font-size: 1.3em;
-    padding: 1em;
-    color: rgb(255, 255, 255);
-    text-transform: uppercase;
-    text-shadow: 1px 2px black;
-    font-family: 'Syne', sans-serif;
-    font-weight: 400;
-    margin: 0;
-    user-select: none;
-  }
+  .container-menuTitle {
+    
+    h2 {
+      text-align: center;
+      font-size: 1.5em;
+      padding: 1em;
+      color: rgb(255, 255, 255);
+      text-transform: uppercase;
+      text-shadow: 1px 2px black;
+      font-family: 'Syne', sans-serif;
+      font-weight: 400;
+      user-select: none;
 
-  h2:hover {
-    font-size: 1em;
-    cursor: default;
-  }
+      span, i {
+        font-size: 2.2em;
+        transition: .6s all;
+      }
 
+      i:hover {
+        transform: rotateY(360deg);
+        transition: .6s all;
+      }
+
+      span:first-of-type {
+        margin-right: 0.3em;
+      }
+
+      span:last-of-type {
+        margin-left: 0.3em;
+      }
+    }
+  }
+  
   ul {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     list-style-type: none;
+    height: 84%;
+
+    span {
+      font-family: 'Poppins', 'sans-serif';
+    }
+
+    li:hover {
+      i {
+        animation: bob-on-hover 0.8s;
+      }
+    }
+
+    a:last-of-type {
+      // Placing the last element (logout) at the bottom of the menu.
+      margin-top: auto;
+    }
+
+    a:last-of-type:hover {
+      background: none;
+    }
 
     li {
       font-size: 1em;
@@ -37,19 +75,109 @@
       padding: 1em 1em 1em 0;
     }
   }
-
+  
   a:hover {
-    background-color: #621eb1;
+    background-color: #551d96;
   }
 
   p {
     text-decoration: none;
     color: rgb(255, 255, 255);
     font-size: 1.05em;
+    text-align: center;
 
     i {
       margin: 0 1.6% 0 3%;
+      display: block;
+      font-size: 2em;
     }
   }
+}
 
+// Media query for mobile screens
+@media only screen and (max-width: 600px) {
+  .dashboard-leftPanel, .leaves-leftPanel {
+
+    .dashboard-calendar {
+      font-size: 1em;
+    }
+
+    .rbc-btn-group {
+      button {
+        font-size: 1em;
+      }
+    }
+
+    .rbc-toolbar-label {
+      font-size: 1em;
+    }
+
+    .container-menu {
+      h2 {
+        display: none;
+      }
+
+      ul {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        p {
+          text-align: center;
+
+            span {
+              display: none;
+            }
+        }
+
+        li {
+          padding: 0;
+
+          i {
+            font-size: 2em;
+            margin: 0;
+            text-align: center;
+            padding: 0.5em 0;
+          }
+
+          a {
+          text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Media query for medium-sized screens (tablets & etc)
+@media only screen and (max-width: 1024px) {
+  .container-menu {
+    h2, span {
+      display: none;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: 100vh;
+
+      li {
+        padding: 2em 0;
+        text-align: center;
+
+        i {
+          font-size: 2em;
+        }
+      }
+    }
+  }
+}
+
+// Animation for hover on menu item.
+@keyframes bob-on-hover {
+  50% {
+    transform: translateY(-4px);
+  }
 }

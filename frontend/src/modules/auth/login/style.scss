@@ -82,31 +82,6 @@
         font-size: 1.7em;
         font-weight: 100;
     }
-
-    .error {
-        margin: -3em 0 2em 0;
-        font-size: 0.75em;
-        color: red;
-    }
-}
-
-.loginScreen-extras {
-    width: 65%;
-    margin: -5% auto 3% auto;
-
-    input {
-        margin-right: 0.25em;
-    }
-
-    a {
-        float: right;
-        text-decoration: none;
-        color: #145ab6;
-    }
-
-    label {
-        font-weight: 400;
-    }
 }
 
 .loginScreen-rightPanel {
@@ -119,4 +94,73 @@
 
 .registrationHover:hover {
     width: 10%;
+}
+
+@media only screen and (max-width: 1024px) {
+    .loginScreen {
+        width: 70%;
+        height: 50vh;
+
+        h1 {
+            font-size: 3.5em;
+        }
+
+        button {
+            font-size: 1.6em;
+        }
+
+        .loginScreen-inputs {
+
+            label {
+                font-size: 1.4em;
+            }
+
+            label input {
+                font-size: 2em;
+                padding: .2em;
+            }
+
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .loginScreen {
+        width: 60%;
+        height: 40vh;
+
+        h1 {
+            font-size: 1.3em;
+        }
+
+        button {
+            font-size: 0.8em;
+        }
+
+        .loginScreen-inputs {
+
+            label {
+                font-size: 0.7em;
+            }
+
+            label input {
+                font-size: 0.8em;
+                padding: 0.8em;
+            }
+        }
+    }
+}
+
+.error {
+    margin-top: -1.4em;
+    font-size: 0.7em;
+    color: red;
+    transition: 0s;
+}
+
+.success {
+    margin-top: -1.4em;
+    font-size: 0.7em;
+    color: lawngreen;
+    transition: 0s;
 }

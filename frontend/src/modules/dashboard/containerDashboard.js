@@ -1,11 +1,10 @@
 import React from 'react'
-import Calendar from '../../components/Calendar/index'
+import Calendar from '../../components/BigCalendar'
 import Menu from '../../components/Menu'
-import ToDo from '../../components/ToDo'
 import Sidebar from '../../components/Sidebar'
 import './style.scss'
 
-const Container = () => {
+const Dashboard = () => {
     return (
         <div className='dashboard-mainPanel'>
             <div className='dashboard-leftPanel'>
@@ -15,9 +14,6 @@ const Container = () => {
                 <div className='dashboard-calendar'>
                     <Calendar />
                 </div>
-                <div className='dashboard-toDo'>
-                    <ToDo />
-                </div>
                 <div className='dashboard-sidebar'>
                     <Sidebar />
                 </div>
@@ -25,5 +21,4 @@ const Container = () => {
         </div>
     );
 }
-
-export default Container;
+export default Dashboard;

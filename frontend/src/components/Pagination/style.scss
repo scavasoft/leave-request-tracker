@@ -1,0 +1,50 @@
+.pagination{
+  display: flex;
+  justify-content: flex-start;
+  margin: 50vh;
+  padding: 40px;
+
+
+  ul{
+    list-style: none;
+
+    display: flex;
+    padding-top: 50px;
+    margin: 60px;
+
+    li{
+      background: #621eb1;
+      padding: 10px 15px;
+      margin-right: 4px;
+      border-radius: 4px;
+      font-family: sans-serif;
+      color: #fff;
+      font-size: 1.1rem;
+      min-width: 20px;
+      text-align: center;
+      user-select: none;
+
+      &:last-child{
+        margin-right: 0px;
+      }
+
+      &:not(.active):not(.disabled){
+        cursor: pointer;
+      }
+      &:not(.active):not(.disabled):hover{
+        background: #7020cc;
+      }
+      &:not(.active):not(.disabled):active{
+        background: #621eb1;
+      }
+
+      &.active{
+        background: #621eb1;
+      }
+      &.disabled{
+        background: #7020cc;
+        pointer-events: none;
+      }
+    }
+  }
+}

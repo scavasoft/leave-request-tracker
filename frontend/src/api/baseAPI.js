@@ -28,9 +28,10 @@ class BaseAPI {
     setInterceptors() {
         this.api.interceptors.request.use(req => {
             const jwt = localStorage.getItem('token');
-            if (jwt)
-                req.headers['Authorization'] = `Bearer ${jwt}`;
-
+            if (jwt) {
+                const token = `Bearer ${jwt}`;
+                req.headers['Authorization'] = token;
+            }
             return req;
         });
     }

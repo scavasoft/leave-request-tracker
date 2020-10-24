@@ -26,10 +26,6 @@ const RegistrationScreen = () => {
         document.getElementsByClassName('registerScreen-leftPanel')[0].classList.toggle('togglePanel');
         document.getElementsByClassName('registerScreen-mainPanel')[0].classList.toggle('hidden');
         document.getElementsByClassName('registerScreen-rightPanel')[0].classList.toggle('hidden');
-
-        // TODO: toggle the errors visibility on return to login panel & don't
-        // display errors with same name on login (username from register also enable
-        // the username error on login)
     }
 
     // Init state variables
@@ -55,8 +51,6 @@ const RegistrationScreen = () => {
             password: password,
             confirmPassword: confirmPassword,
         }, [username, email, password, confirmPassword]))
-
-        // TODO: On successful registration redirect the user to Login.
     };
 
     return (
@@ -66,7 +60,7 @@ const RegistrationScreen = () => {
                     <h1>register</h1>
                 </div>
                 <div className='registerScreen-mainPanel hidden'>
-                    <form className='registerScreenInputs'>
+                    <form className='registerScreen-inputs'>
                         <label>username
                         <Input
                                 value={username || ''}
@@ -127,6 +121,10 @@ const RegistrationScreen = () => {
                             /></label>
                         {errors.hasOwnProperty('user') &&
                             <div className='error'>{errors['user']}</div>
+                        }
+
+                        {errors.hasOwnProperty('error') &&
+                        <div className='error'>{errors['error']}</div>
                         }
 
                         {success &&

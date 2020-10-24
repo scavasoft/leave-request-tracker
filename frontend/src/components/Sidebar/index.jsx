@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { createLeaveRequest } from "../../reducers/addLeaveRequestReducer";
 import { createSelector } from 'reselect';
@@ -13,18 +13,15 @@ import { attemptStoreDate } from "../../reducers/calendarReducer";
 const selector = createSelector(
     store => store.calendarReducer.calendar.startDate,
     store => store.calendarReducer.calendar.endDate,
-    (startDate, endDate) => ({
-        startDate,
-        endDate,
-    })
-)
-
-const errorSelector = createSelector(
     store => store.addLeaveRequestReducer.requestErrors,
     store => store.addLeaveRequestReducer.success,
-    (errors, success) => ({
+    store => store.authReducer.user,
+    (startDate, endDate, errors, success, user) => ({
+        startDate,
+        endDate,
         errors,
         success,
+        user,
     })
 )
 const Sidebar = () => {
@@ -36,8 +33,7 @@ const Sidebar = () => {
     const [name, setName] = useState('');
 
     //Get calendar state from the Redux store
-    const { startDate, endDate } = useSelector(selector);
-    const { errors, success } = useSelector(errorSelector);
+    const { startDate, endDate, errors, success, user } = useSelector(selector);
 
     //These callbacks call function textChanges which location is in our basic Input component
     const reasonChanged = useCallback(e => setReason(e.target.value), []);
@@ -48,6 +44,14 @@ const Sidebar = () => {
             startDate: e.target.value,
         }), [e.target.value]);
     };
+
+    useEffect((event) => {
+        document.addEventListener('keydown', event => {
+            if (event.keyCode === 27) {
+                closeForm();
+            }
+        })
+    })
 
     const endDateChanged = e => {
         dispatch(attemptStoreDate({
@@ -61,6 +65,7 @@ const Sidebar = () => {
         //Dispatch the information from each field in the right drawer menu
         //Look the function in reducers/addLeaveRequestReducer
         dispatch(createLeaveRequest({
+            userId: user.id,
             name,
             reason,
             type,
@@ -69,9 +74,15 @@ const Sidebar = () => {
         }, [name, reason, type]));
     }
 
+    function closeForm() {
+        document.getElementsByClassName('sidebar')[0].classList.remove('sidebarShow');
+        document.getElementsByClassName('calendar')[0].classList.remove('resize');
+    }
+
     return (
         <div className='sidebar' >
             <form id='sidebarForm'>
+                <span className={'closeFormButton'} onClick={closeForm}>X</span>
                 <label>Name
                     <Input
                         value={name || ''}

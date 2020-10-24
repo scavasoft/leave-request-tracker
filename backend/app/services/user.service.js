@@ -30,7 +30,7 @@ module.exports = class UserService {
     }
 
     findRoleByAuthority(authority, callback) {
-        this.userRepository.findRoleByAuthority(authority,callback);
+        this.userRepository.findRoleByAuthority(authority, callback);
     }
 
     findRoleById(roleId, callback) {
@@ -59,9 +59,9 @@ module.exports = class UserService {
 
         if (object.password.trim().length < 8 || object.password.trim().length === 0) {
             errors.set('password', 'password field can not be empty or less than 8 chars');
-        }else {
-            if(object.password !== object.confirmPassword) {
-                errors.set('password', 'password and confirmPassword are not same');
+        } else {
+            if (object.password !== object.confirmPassword) {
+                errors.set('password', 'password and confirmPassword do not match');
             }
         }
 

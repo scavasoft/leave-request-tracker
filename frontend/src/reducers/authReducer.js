@@ -15,6 +15,7 @@ const initialState = {
     isLoading: false,
     success: {},
     errors: {},
+    logInErrors: {},
     isLoggedIn: false,
     user: {},
 }
@@ -28,26 +29,35 @@ export default (state = initialState, action) => {
         case REGISTER_SUCCESS:
             // On success the state is updated, the success message is returned,
             // errors are cleared and isLoading is set to false.
-            return { ...state, success: payload.success, errors: {}, isLoading: false };
+            return { ...state,
+                success: payload.success,
+                errors: {},
+                isLoading: false
+            };
         case REGISTER_FAILURE:
             // On registration failure, the state is updated, errors are updated,
             // success is cleared and isLoading is set to false.
-            return { ...state, success: {}, errors: payload, isLoading: false }
+            return { ...state,
+                success: {},
+                errors: payload,
+                isLoading: false
+            }
         case LOGIN_SUCCESS:
             // On successful login the state is updated, success message returned,
             // errors cleaned and isLoading set to false.
             return { ...state,
                 errors: {},
+                logInErrors: {},
                 isLoading: false,
                 isLoggedIn: true,
                 user: payload,
             }
         case LOGIN_FAILURE:
-            // On login failure the state is updated, sucess is cleared, errors
-            // are updated and isLoaidng is set to false.
+            // On login failure the state is updated, success is cleared, errors
+            // are updated and isLoading is set to false.
             return { ...state,
                 success: {},
-                errors: payload,
+                logInErrors: payload,
                 isLoading: false,
             }
         case LOGOUT:
@@ -88,10 +98,30 @@ export const requestRegistration = (data) => dispatch => {
         });
 }
 
+export const getUserByToken = () => dispatch => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        dispatch({
+            type: LOADING,
+        });
+
+        authAPI.getUserByToken().then(({ data }) => {
+            if (data) {
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: data,
+                });
+            }
+        });
+    }
+}
+
 export const requestLogin = (data) => dispatch => {
     dispatch({
         type: LOADING,
     })
+
     authAPI.login(data)
         .then(res => {
             const { data } = res;
@@ -126,6 +156,7 @@ export const logout = () => dispatch => {
     })
 
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     dispatch({
         type: LOGOUT,
     })

@@ -1,23 +1,24 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {Redirect, useHistory} from 'react-router';
 import { requestLogin } from '../../../reducers/authReducer';
 import { createSelector } from 'reselect';
 import { Link } from 'react-router-dom';
-import './style.scss';
 import Input from '../../../components/basic/Input/index';
 import Button from '../../../components/basic/Button/index';
+import './style.scss';
 import Register from '../register/index';
 
 // An errorSelector to capture and store a list of errors
-const errorSelector = createSelector(
-    store => store.authReducer.errors,
-    (errors) => ({
-        errors
+const selector = createSelector(
+    store => store.authReducer.logInErrors,
+    (logInErrors) => ({
+        logInErrors,
     })
 )
 const LoginScreen = () => {
-
     const dispatch = useDispatch();
+    const history = useHistory();
 
     // Init state variables
     const [username, setUsername] = useState('');
@@ -28,13 +29,15 @@ const LoginScreen = () => {
     const passwordChanged = useCallback(e => setPassword(e.target.value), []);
 
     // Destructuring the errors from the errorSelector
-    const { errors } = useSelector(errorSelector);
+    const { logInErrors } = useSelector(selector);
 
     const handleLogin = () => {
         dispatch(requestLogin({
             username: username,
             password: password,
         }, [username, password]))
+
+        history.push(`/dashboard`);
     };
 
     return (
@@ -53,9 +56,9 @@ const LoginScreen = () => {
                                 type='text'
                                 margin={'5px 0px 2em 0px'}
                             /></label>
-                        {errors.hasOwnProperty('error') && (
-                            <div className='error'>{errors['error']}</div>
-                        )}
+                        {logInErrors.hasOwnProperty('error') &&
+                        <div className='error'>{logInErrors['error']}</div>
+                        }
                         <label>password
                         <Input
                                 value={password || ''}
@@ -72,8 +75,9 @@ const LoginScreen = () => {
                         <label for='rememberMe'>Remember me</label>
                         <a href='www.google.com' target='blank'>Forgotten password?</a>
                     </div>
-                    <Link to='/dashboard' onClick={handleLogin} style={{ textDecoration: 'none' }}>
+                    <Link to={'/dashboard'}>
                         <Button
+                            onClick={handleLogin}
                             text={'Submit'}
                             borderRadius={'5px'}
                             width={'65%'}
