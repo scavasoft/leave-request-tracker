@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export const FormControl = styled.div`
-    padding-bottom: 20px;
-`;
+export const FormControl = styled.div``;
 
 export const Select = styled.select`${props => {
     const { width, height, fontSize } = props;
