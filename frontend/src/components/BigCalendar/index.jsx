@@ -52,15 +52,12 @@ export class BigDNDCalendar extends React.Component {
         this.startDate = start; //setState
         this.endDate = end; //setState
 
-        const { dispatch } = this.props;
-
-        dispatch(attemptStoreDate({
+        this.props.attemptStoreDate({
             startDate: this.formatDate(this.startDate),
             endDate: this.formatDate(this.endDate),
+        });
 
-        }, [this.startDate, this.endDate]));
-
-        this.selectDateRange()
+        this.selectDateRange();
     }
 
     render() {
@@ -73,8 +70,8 @@ export class BigDNDCalendar extends React.Component {
                 events={this.props.success.map((leave) => ({
                     'title': leave.name,
                     'allDay': true,
-                    'start': new Date(leave.date_end),
-                    'end': new Date(leave.date_start),
+                    'start': new Date(leave.date_start),
+                    'end': new Date(leave.date_end),
                 })
                 )}
             />
@@ -88,5 +85,8 @@ const mapStateToProps = ({ obtainApprovedRequests: { success } }) => ({
 });
 
 //comment?
-const mapDispatchToProps = { obtainApprovedRequests }
+const mapDispatchToProps = {
+    obtainApprovedRequests,
+    attemptStoreDate,
+}
 export default connect(mapStateToProps, mapDispatchToProps)(BigDNDCalendar);
