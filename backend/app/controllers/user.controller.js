@@ -166,7 +166,7 @@ exports.findById = (req, res) => {
     userService.findById(id, (err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Find by id error, try again later ' || err.message
+                error: 'Find by id error, try again later '
             });
             return;
         }
@@ -181,7 +181,7 @@ exports.findAllUsers = (req, res) => {
     userService.findAllUsers((err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Database problem, try again later ' || err.message
+                error: 'Database problem, try again later '
             });
             return;
         }
@@ -205,7 +205,7 @@ exports.delete = (req, res) => {
     userService.delete(userViewModel.id, (err) => {
         if (err) {
             res.status(500).send({
-                error: 'Database problem, try again later ' || err
+                error: 'Database problem, try again later '
             });
         }
 
@@ -224,7 +224,7 @@ exports.findByUsername = (req, res) => {
     userService.findByUsername(username, (err, callback) => {
         if (err) {
             res.status(500).send({
-                error: 'Find by username error, try again later ' || err.message
+                error: 'Find by username error, try again later '
             });
             return;
         }

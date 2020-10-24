@@ -29,7 +29,7 @@ module.exports = class UserLeaveRepository {
 
     findById = (id, callback) => {
         db.get('SELECT * FROM user_leaves WHERE id = ?', [id], (err, row) => {
-            if (err) {
+            if(err) {
                 callback(err, null);
                 return;
             }
@@ -68,7 +68,7 @@ module.exports = class UserLeaveRepository {
 
     delete = (id, callback) => {
         db.run('DELETE FROM user_leaves WHERE id = ?', [id], err => {
-            if (err) {
+            if(err) {
                 callback(err, null);
                 return;
             }

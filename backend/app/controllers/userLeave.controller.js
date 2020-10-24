@@ -84,7 +84,7 @@ exports.findById = (req, res) => {
         });
     }
     userLeaveService.findById(id, (err, callback) => {
-        if (err) {
+        if(err) {
             res.status(500).send({
                 error: 'Database problem, try again later ' || err.message
             });
@@ -149,3 +149,45 @@ exports.delete = (req, res) => {
 
 }
 
+exports.pagination = (req, res) => {
+
+    let page, size;
+    if(req.query !== undefined && req.query.page !== undefined && req.query.size !== undefined){
+        page = parseInt(req.query.page);
+        size = parseInt(req.query.size);
+    } else {
+        // setting new values if not declared for first default page setting size = 10
+        page = 1;
+        size = 10;
+    }
+
+    const startIndex = (page - 1) * size;
+    const endIndex = page * size;
+    const results = {}
+
+    userLeaveService.findAll((err, callback) => {
+        if (err) {
+            res.status(500).send({error: 'DB problem, try again later'});
+            return;
+        }
+
+        if (startIndex > 0) {
+            results.previous = {
+                page: page - 1,
+                size: size,
+            }
+        }
+
+        results.results = callback.slice(startIndex, endIndex);
+
+        const allLeaves = callback.length;
+
+        if (endIndex < allLeaves) {
+            results.next = {
+                page: page + 1,
+                size: size,
+            }
+        }
+        res.send(results);
+    });
+}
