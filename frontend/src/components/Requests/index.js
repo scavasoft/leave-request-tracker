@@ -1,4 +1,6 @@
 import React from 'react';
+import Pagination from '../Pagination';
+
 import './style.scss';
 
 class RequestsTable extends React.Component {
@@ -24,6 +26,7 @@ class RequestsTable extends React.Component {
     selectRange() {
         alert('row selected');
     }
+
     render() {
         return (
             <div className='datatable'>
@@ -51,21 +54,8 @@ class RequestsTable extends React.Component {
                                 <p>Reason</p>
                             </th>
                         </tr>
-                        <tr>
-                            <td>{this.state.searchValue}</td>
-                            <td>exampleType</td>
-                            <td>exampleDate</td>
-                            <td>exampleDate</td>
-                            <td>exampleReason</td>
-                        </tr>
-                        <tr>
-                            <td>{this.state.searchValue}</td>
-                            <td>exampleType</td>
-                            <td>exampleDate</td>
-                            <td>exampleDate</td>
-                            <td>exampleReason</td>
-                        </tr>
                     </table>
+                    <Pagination/>
                 </div>
             </div >
         )

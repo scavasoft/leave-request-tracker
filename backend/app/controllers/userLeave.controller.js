@@ -103,7 +103,6 @@ exports.findAll = (req, res) => {
 exports.pagination = (req, res) => {
 
     let page, size;
-    //check for query values
     if(req.query !== undefined && req.query.page !== undefined && req.query.size !== undefined){
         page = parseInt(req.query.page);
         size = parseInt(req.query.size);
@@ -112,11 +111,9 @@ exports.pagination = (req, res) => {
         page = 1;
         size = 10;
     }
-    //for slicing size
+
     const startIndex = (page - 1) * size;
     const endIndex = page * size;
-
-    //store sliced data
     const results = {}
 
     userLeaveService.findAll((err, callback) => {
@@ -125,7 +122,6 @@ exports.pagination = (req, res) => {
             return;
         }
 
-        //previous page condition
         if (startIndex > 0) {
             results.previous = {
                 page: page - 1,
@@ -133,23 +129,16 @@ exports.pagination = (req, res) => {
             }
         }
 
-        //slicing result in callback
         results.results = callback.slice(startIndex, endIndex);
 
-        //taking the length of all the data
         const allLeaves = callback.length;
 
-        //next page condition
         if (endIndex < allLeaves) {
             results.next = {
                 page: page + 1,
                 size: size,
             }
         }
-
-
-
-        //sending all the result
         res.send(results);
     });
 }

@@ -5,8 +5,6 @@ import * as serviceWorker from './serviceWorker';
 import InitializationLayer from './initializationLayer';
 import { Provider } from 'react-redux';
 import store from "./reduxStore";
-//pagination
-import Pagination from './components/Pagination';
 
 ReactDOM.render(
     <React.StrictMode>
