@@ -1,8 +1,8 @@
 import React from 'react'
 import Calendar from '../../components/Calendar/index'
-import Menu from '../../components/Menu'
-import ToDo from '../../components/ToDo'
-import Sidebar from '../../components/Sidebar'
+import Menu from '../../components/Menu/index'
+import ToDo from '../../components/ToDo/index'
+import Sidebar from '../../components/Sidebar/index'
 import './style.scss'
 
 const Container = () => {

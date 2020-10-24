@@ -252,15 +252,14 @@ exports.getUserByToken = (req, res) => {
         userService.findRoleById(callback.role_id, (err, callback) => {
             if (err) {
                 res.status(500).send({
-                    errors: {
-                        databaseError: 'Database problem, try again later '
-                    },
+                    error: 'Database problem, try again later '
                 });
                 return;
             }
             //Check if role exists in the database
             let role = new Role(callback);
             let user = new User({
+                id: resultUser.id,
                 email: resultUser.email,
                 username: resultUser.username,
                 password: resultUser.password,

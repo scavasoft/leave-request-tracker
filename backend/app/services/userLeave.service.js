@@ -9,6 +9,10 @@ module.exports = class UserLeaveService {
         this.userLeaveRepository.insert(userLeave);
     }
 
+    update(id, userLeaveName) {
+        this.userLeaveRepository.update(id, userLeaveName);
+    }
+
     findById(id, result) {
         this.userLeaveRepository.findById(id, result);
     }
@@ -49,7 +53,7 @@ module.exports = class UserLeaveService {
         }
 
         //Parse dates to long and check them
-        if(Date.parse(object.startDate) >= Date.parse(object.endDate)) {
+        if(Date.parse(object.startDate) > Date.parse(object.endDate)) {
             errors.set('dateError', 'Start date can\'t be larger than end date');
         }
 

@@ -2,8 +2,11 @@ const db = require('../db/database');
 
 class UserRepository {
     insert = (object) => {
-        let user = db.prepare('INSERT INTO users VALUES (?,?,?,?,?)');
-        user.run(null, object.email, object.username, object.password, object.role.id, err => {
+        let user = db.prepare('INSERT INTO users VALUES (?,?,?,?,?,?)');
+
+        //Color generation
+        const generatedColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        user.run(null, object.email, object.username, object.password, object.role.id, generatedColor, err => {
             if (err) {
                 console.log('Error by user creating', err);
                 return;

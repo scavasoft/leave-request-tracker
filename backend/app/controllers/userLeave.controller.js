@@ -21,6 +21,7 @@ exports.insert = (req, resp) => {
         name: req.body.name,
         startDate: req.body.startDate,
         endDate: req.body.endDate,
+        userId: req.body.userId,
     });
 
     userLeaveService.validate(userLeave, callback => {
@@ -40,8 +41,43 @@ exports.insert = (req, resp) => {
     });
 }
 
+exports.update = (req, resp) => {
+    if(Object.keys(req.body).length === 0) {
+        resp.status(400).send({
+            error: 'Body content cannot be empty!'
+        });
+        return;
+    }
+
+    const id = req.body.id;
+    const userLeave = new UserLeave({
+        reason: req.body.reason,
+        type: req.body.type,
+        name: req.body.name,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        userId: req.body.userId,
+    });
+
+    userLeaveService.validate(userLeave, callback => {
+        if (callback.size > 0) {
+            const errors = Object.fromEntries(callback);
+
+            resp.status(400).send({
+                errors
+            });
+            return;
+        }
+
+        userLeaveService.update(id, userLeave.name);
+        resp.send({
+            success: 'Yours information was successfully updated'
+        });
+    });
+}
+
 exports.findById = (req, res) => {
-    const id = req.query['userLeaveId'];
+    const id = req.query['id'];
     if(!id){
         res.status(404).send({
             error: "User not found",
