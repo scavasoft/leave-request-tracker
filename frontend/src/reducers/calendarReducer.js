@@ -48,7 +48,6 @@ export default (state = initialState, action) => {
 }
 
 export const attemptStoreDate = (data) => dispatch => {
-
     const { startDate, endDate } = data;
     if(data !== null && data !== 'undefined') { // If we have some data
         if(typeof startDate !== 'undefined' && typeof endDate === 'undefined') {

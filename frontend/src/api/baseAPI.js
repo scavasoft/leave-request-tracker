@@ -21,6 +21,19 @@ class BaseAPI {
                 'Access-Control-Allow-Origin': '*',
             },
         });
+
+        this.setInterceptors();
+    }
+
+    setInterceptors() {
+        this.api.interceptors.request.use(req => {
+            const jwt = localStorage.getItem('token');
+            if (jwt) {
+                const token = `Bearer ${jwt}`;
+                req.headers['Authorization'] = token;
+            }
+            return req;
+        });
     }
 
     get = (url, options) => this.api.get(url, options);

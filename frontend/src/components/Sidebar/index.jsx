@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { attemptLeaveRequest } from "../../reducers/addLeaveRequestReducer";
+import { createLeaveRequest } from "../../reducers/addLeaveRequestReducer";
 import { createSelector } from 'reselect';
 import Input from '../../components/basic/Input';
 import Button from '../../components/basic/Button';
@@ -13,16 +13,15 @@ import { attemptStoreDate } from "../../reducers/calendarReducer";
 const selector = createSelector(
     store => store.calendarReducer.calendar.startDate,
     store => store.calendarReducer.calendar.endDate,
-    (startDate, endDate) => ({
+    store => store.addLeaveRequestReducer.requestErrors,
+    store => store.addLeaveRequestReducer.success,
+    store => store.authReducer.user,
+    (startDate, endDate, errors, success, user) => ({
         startDate,
         endDate,
-    })
-)
-
-const errorSelector = createSelector(
-    store => store.addLeaveRequestReducer.requestErrors,
-    (errors) => ({
-        errors
+        errors,
+        success,
+        user,
     })
 )
 const Sidebar = () => {
@@ -34,8 +33,7 @@ const Sidebar = () => {
     const [name, setName] = useState('');
 
     //Get calendar state from the Redux store
-    const { startDate, endDate } = useSelector(selector);
-    const { errors } = useSelector(errorSelector);
+    const { startDate, endDate, errors, success, user } = useSelector(selector);
 
     //These callbacks call function textChanges which location is in our basic Input component
     const reasonChanged = useCallback(e => setReason(e.target.value), []);
@@ -66,7 +64,8 @@ const Sidebar = () => {
 
         //Dispatch the information from each field in the right drawer menu
         //Look the function in reducers/addLeaveRequestReducer
-        dispatch(attemptLeaveRequest({
+        dispatch(createLeaveRequest({
+            userId: user.id,
             name,
             reason,
             type,
@@ -85,7 +84,7 @@ const Sidebar = () => {
             <form id='sidebarForm'>
                 <span className={'closeFormButton'} onClick={closeForm}>X</span>
                 <label>Name
-                <Input
+                    <Input
                         value={name || ''}
                         onChange={nameChanged}
                         type={'text'}
@@ -101,7 +100,7 @@ const Sidebar = () => {
                 }
 
                 <label>Reason
-                <Input
+                    <Input
                         type={'text'}
                         inputType={'textarea'}
                         height={'6em'}
@@ -119,7 +118,7 @@ const Sidebar = () => {
                 }
 
                 <label>Type
-                <DropDown
+                    <DropDown
                         values={[TYPE.VACATION, TYPE.SICK_DAY, TYPE.WEDDING, TYPE.DEAD]}
                         onChange={typeChanged}
                         width={'90%'}
@@ -131,7 +130,7 @@ const Sidebar = () => {
                     }</label>
 
                 <label>Beginning Date
-                <Input
+                    <Input
                         type={'date'}
                         width={'90%'}
                         padding={'3px'}
@@ -145,7 +144,7 @@ const Sidebar = () => {
                     }</label>
 
                 <label>End Date
-                <Input
+                    <Input
                         type={'date'}
                         width={'90%'}
                         padding={'3px'}
@@ -153,9 +152,12 @@ const Sidebar = () => {
                         onChange={endDateChanged}
                         value={endDate || ''}
                     /></label>
-                {errors.hasOwnProperty('dateError') && (
+                {errors.hasOwnProperty('dateError') &&
                     <div className='error'>{errors['dateError']}</div>
-                )
+                }
+
+                {success &&
+                <div className='success'>{Object.values(success)}</div>
                 }
 
                 <Button

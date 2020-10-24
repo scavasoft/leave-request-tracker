@@ -8,11 +8,11 @@ exports.TYPE = [
 ]
 
 //user role types
-exports.ROLE = [
-    {ROLE: 'admin'},
-    {ROLE: 'user'},
-    {ROLE: 'supervisor'}
-]
+exports.ROLE = {
+    ADMIN: 'ADMIN',
+    USER: 'USER',
+    MANAGER: 'MANAGER',
+}
 
 
 //token expire time

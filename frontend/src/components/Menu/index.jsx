@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './style.scss';
@@ -16,27 +16,25 @@ const Menu = () => {
         dispatch(logout());
     }
 
+    // const isAdmin = useState(false); // boolean to check whether the user has admin privilege (refactor logic)
+    // const user = JSON.parse(localStorage.getItem('user'));
+    //
+    // if(user !== null) {
+    //     if (user.authority === 'ADMIN') this.state.isAdmin = true;
+    // }
+
     return (
         <div className='container-menu'>
-            <div className='container-menuTitle'>
-                <h2>
-                    <span>A</span>
-                    <i className='fas fa-calendar-alt'></i>
-                    <span>L</span>
-                </h2>
-            </div>
+            <h2>attendor-lite</h2>
             <ul>
                 <Link to='/dashboard' style={clearDecoration}>
-                    <li><p><i className='fas fa-home'></i><span>dashboard</span></p></li>
+                    <li><p><i className='fas fa-home'></i>dashboard</p></li>
                 </Link>
                 <Link to='/requests' style={clearDecoration}>
-                    <li><p><i className='fas fa-location-arrow'></i><span>requests</span></p></li>
-                </Link>
-                <Link to='/' style={clearDecoration}>
-                    <li><p><i className="fas fa-user-plus"></i><span>Switch user</span></p></li>
+                    <li><p><i className='fas fa-calendar-alt'></i>requests [A]</p></li>
                 </Link>
                 <Link to='/' onClick={handleLogout} style={clearDecoration}>
-                    <li><p><i className='fas fa-sign-out-alt'></i><span>logout</span></p></li>
+                    <li><p><i className='fas fa-sign-out-alt'></i>logout</p></li>
                 </Link>
             </ul>
         </div>

@@ -12,7 +12,7 @@
         border-collapse: collapse;
         user-select: none;
     }
-    
+
     th {
         color: rgb(255, 255, 255);
         background-color: rgb(80, 80, 80);
@@ -48,4 +48,34 @@
     font-size: 1.5em;
     padding: 1px;
     font-family: 'Poppins', sans-serif;
+}
+
+.RequestsTable-paper-2 {
+    border: none !important;
+    border-radius: 5px;
+    outline: none;
+}
+
+.RequestsTable-modalButtons-5 {
+    Button {
+        background-color: #414141;
+        cursor: pointer;
+    }
+    
+    Button:hover {
+        background-color: #4e4e4e;
+        box-shadow: none;
+    }
+}
+
+.error {
+    padding: 2px;
+    font-size: 0.8em;
+    color: red;
+}
+
+.success {
+    padding: 2px;
+    font-size: 0.8em;
+    color: #414141;
 }

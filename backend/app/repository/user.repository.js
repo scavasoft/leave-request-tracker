@@ -2,8 +2,11 @@ const db = require('../db/database');
 
 class UserRepository {
     insert = (object) => {
-        let user = db.prepare('INSERT INTO users VALUES (?,?,?,?,?)');
-        user.run(null, object.email, object.username, object.password, object.role.id, err => {
+        let user = db.prepare('INSERT INTO users VALUES (?,?,?,?,?,?)');
+
+        //Color generation
+        const generatedColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        user.run(null, object.email, object.username, object.password, object.role.id, generatedColor, err => {
             if (err) {
                 console.log('Error by user creating', err);
                 return;
@@ -61,19 +64,20 @@ class UserRepository {
     }
 
     //find by username
-    findOne(username, callback) {
+    findByUsername(username, callback) {
         db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
             if (err) {
                 callback(err, null);
                 return;
             }
+
             if (row !== null) {
                 callback(null, row);
             }
         });
     }
 
-    //find by username
+    //find by username or email address
     findByUsernameOrEmail(username, email, callback) {
         db.get('SELECT * FROM users WHERE username = ? OR email = ?', [username, email], (err, row) => {
             if (err) {

@@ -6,9 +6,15 @@ const UserService = require('../services/user.service');
 const AuthBindingModel = require('../models/bindingmodels/auth.binding.model');
 const jwtToken = require('jsonwebtoken');
 const Config = require('../config/config');
+const { ROLE } = require("../config/config");
+const UserRepository = require('../repository/user.repository');
+const UserViewModel = require('../models/viewmodels/user.view.model');
+const User = require('../domain/entities/user.entity');
+const bcrypt = require('bcrypt');
 
-//Initialization services
-const userService = new UserService;
+//Initialization
+const userRepository = new UserRepository;
+const userService = new UserService(userRepository);
 
 //user authenticated login
 exports.auth = (req, res) => {
@@ -17,41 +23,61 @@ exports.auth = (req, res) => {
         password: req.body.password,
     });
 
-    userService.auth(authBindingModel.username, authBindingModel.password,
-        (err, callback) => {
+    if(authBindingModel.username.trim().length <= 0 || authBindingModel.password.trim().length <= 0) {
+        res.status(400).send({
+            error: 'Username or/and password is empty'
+        });
+        return;
+    }
+
+    userService.findByUsername(authBindingModel.username, (err, callback) => {
             if (err) {
                 res.status(500).send({
-                    error: 'Authentication error, try again later ' || err.message
+                    error: 'Database error, try again later..' || err.message
                 });
                 return;
             }
 
             //working with alg: HS256
             const currentUser = callback;
-            if (callback !== 'undefined') {
-                //Find role by id
-                userService.findRoleById(currentUser.role_id, (err, callback) => {
-                    if (err) {
-                        res.status(403).send({
-                            error: 'Forbidden'
-                        });
-                        return;
-                    }
+            if(currentUser === undefined) {
+                res.status(404).send({
+                    error: 'Invalid credentials'
+                });
+                return;
+            }
+            bcrypt.compare(authBindingModel.password, currentUser.password, (err, callback) => {
+                if(callback === false) {
+                    res.status(404).send({
+                        error: 'Passwords doesn\'t match '
+                    })
+                    return;
+                }
 
-                    const role = callback; //An authority of the user
-                    jwtToken.sign({ username: currentUser.username, role: role.authority }, Config.SECRET_TOKEN, Config.EXPIRES_IN, (err, token) => {
-                        res.status(200).send({
-                            token: token
+                //If has an user which we are looking for
+                if (currentUser !== undefined) {
+                    //Find role by id
+                    userService.findRoleById(currentUser.role_id, (err, callback) => {
+                        if (err) {
+                            res.status(403).send({
+                                error: 'Forbidden'
+                            });
+                            return;
+                        }
+
+                        const role = callback; //An authority of the user
+                        jwtToken.sign({ username: currentUser.username, role: role.authority }, Config.SECRET_TOKEN, Config.EXPIRES_IN, (err, token) => {
+                            res.status(200).send({
+                                token: token
+                            });
                         });
                     });
-                });
-
-
-            } else {
-                res.status(404).send({
-                    error: 'User is not exists'
-                });
-            }
+                } else {
+                    res.status(404).send({
+                        error: 'Such a user does not exist'
+                    });
+                }
+            });
         });
 }
 
@@ -59,9 +85,7 @@ exports.auth = (req, res) => {
 exports.insert = (req, res) => {
     if (Object.keys(req.body).length === 0) {
         res.status(400).send({
-            errors: {
-                body: 'Body content cannot be empty!'
-            },
+            error: 'Body content cannot be empty!'
         });
         return;
     }
@@ -76,36 +100,29 @@ exports.insert = (req, res) => {
     userService.findByUsernameAndEmail(registerBindingModel.username, registerBindingModel.email, (err, callback) => {
         if (err) {
             res.status(500).send({
-                errors: {
-                    databaseError: 'Find by username error, try again later '
-                },
+                error: 'Find by username error, try again later '
             });
         } else {
             if (callback !== undefined) {
                 res.status(403).send({
-                    errors: {
-                        user: 'User already exists with this email or username '
-                    },
+                    error: 'User already exists with this email or username '
                 });
                 return;
             }
 
-            userService.findRoleByAuthority('USER', (err, callback) => {
+            userService.findRoleByAuthority(ROLE.USER, (err, callback) => {
                 if (err) {
                     res.status(500).send({
-                        errors: {
-                            databaseError: 'Database problem, try again later '
-                        },
+                        error: 'Database problem, try again later '
                     });
                     return;
                 }
                 //Check if role exists in the database
                 let role = new Role(callback);
-                if (role === undefined || typeof role === undefined) {
-                    res.send({
-                        errors: {
-                            role: 'This role doesn\'t exists in our database '
-                        }
+
+                if (role === undefined) {
+                    res.status(403).send({
+                        error: 'This role doesn\'t exists in our database '
                     });
                     return;
                 }
@@ -117,13 +134,17 @@ exports.insert = (req, res) => {
                         //Send errors in json array
                         res.status(402).send({ errors });
                     } else {
-                        userService.insert(new UserEntity({
-                            email: registerBindingModel.email,
-                            username: registerBindingModel.username,
-                            password: registerBindingModel.password,
-                            role: role,
-                        })
-                        );
+                        //Hash the user password with BCrypt
+                        const saltRounds = 12;
+                        bcrypt.hash(registerBindingModel.password, saltRounds, (err,   hash) => {
+                            userService.insert(new UserEntity({
+                                    email: registerBindingModel.email,
+                                    username: registerBindingModel.username,
+                                    password: hash,
+                                    role: role,
+                                })
+                            );
+                        });
 
                         res.status(200).send({
                             success: 'Your information was saved successfully'
@@ -194,13 +215,13 @@ exports.delete = (req, res) => {
     });
 }
 //by username
-exports.findOne = (req, res) => {
+exports.findByUsername = (req, res) => {
     const username = req.query['username'];
     if (username === undefined) {
         res.send(404);
         return;
     }
-    userService.findOne(username, (err, callback) => {
+    userService.findByUsername(username, (err, callback) => {
         if (err) {
             res.status(500).send({
                 error: 'Find by username error, try again later ' || err.message
@@ -209,6 +230,43 @@ exports.findOne = (req, res) => {
         }
         res.status(200).send({
             ...callback
+        });
+    });
+}
+
+//Check jwt and return user information on the client
+exports.getUserByToken = (req, res) => {
+    const authorizationHeader = req.headers['authorization'];
+    const token = authorizationHeader.split(' ')[1];
+
+    const username = jwtToken.decode(token).username;
+    userService.findByUsername(username, (err, callback) => {
+        if (err) {
+            res.status(500).send({
+                error: 'Find by username error, try again later ' || err.message
+            });
+            return;
+        }
+        const resultUser = callback;
+
+        userService.findRoleById(callback.role_id, (err, callback) => {
+            if (err) {
+                res.status(500).send({
+                    error: 'Database problem, try again later '
+                });
+                return;
+            }
+            //Check if role exists in the database
+            let role = new Role(callback);
+            let user = new User({
+                id: resultUser.id,
+                email: resultUser.email,
+                username: resultUser.username,
+                password: resultUser.password,
+                role: role,
+            });
+
+            res.status(200).send(UserViewModel.toViewModel(user));
         });
     });
 }
