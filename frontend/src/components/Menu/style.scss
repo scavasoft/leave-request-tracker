@@ -25,6 +25,12 @@
 
       span, i {
         font-size: 2.2em;
+        transition: .6s all;
+      }
+
+      i:hover {
+        transform: rotateY(360deg);
+        transition: .6s all;
       }
 
       span:first-of-type {

@@ -103,11 +103,8 @@
 }
 
 @media only screen and (max-width: 1024px) {
-    .loginScreen-rightPanel {
-        width: 10%;
-    }
     .loginScreen {
-        width: 60%;
+        width: 70%;
         height: 50vh;
 
         h1 {
@@ -121,7 +118,7 @@
         .loginScreen-inputs {
 
             label {
-                font-size: 1.2em;
+                font-size: 1.4em;
             }
 
             label input {

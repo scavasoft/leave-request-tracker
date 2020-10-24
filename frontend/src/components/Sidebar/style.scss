@@ -16,11 +16,8 @@
     }
 
     label {
-        color: white;
-    }
-
-    input:focus, input:hover, textarea:focus, textarea:hover, select:focus, select:hover {
-        border: none;
+        color: #ffffff;
+        text-shadow: 1px 1px #000000;
     }
 
     .closeFormButton {
@@ -32,6 +29,11 @@
         cursor: pointer;
         width: 5%;
         font-size: 1.3em;
+        transition: .5s all;
+    }
+
+    .closeFormButton:hover {
+        color: #000000;
     }
 }
 
