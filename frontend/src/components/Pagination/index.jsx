@@ -3,7 +3,7 @@ import createPagination from "../PaginationHelper/createPagination";
 
 import "./style.scss";
 
- const Pagination = () => {
+const Pagination = () => {
     const [currentPage, setCurrentPage] = React.useState(1);
 
     const { pagination } = createPagination({

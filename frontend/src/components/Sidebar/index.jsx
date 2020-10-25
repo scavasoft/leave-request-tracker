@@ -107,7 +107,7 @@ const Sidebar = () => {
                         width={'90%'}
                         fontSize={'1em'}
                         padding={'3px'}
-                        borderRadius={12}
+                        borderRadius={'12px'}
                         withCharacterCount={true}
                         onChange={reasonChanged}
                         value={reason || ''}

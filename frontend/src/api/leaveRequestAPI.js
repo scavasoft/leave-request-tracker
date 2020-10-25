@@ -8,6 +8,8 @@ class LeaveRequestAPI extends BaseAPI {
 
     getAllLeaveRequests = () => this.get('/leaveRequests/admin/findAll');
 
+    paginatedLeaveRequests = (page, size) => this.get(`/leaveRequests/admin/findAll?page=${page}&size=${size}`);
+
     getLeaveRequestById = id => this.get(`/leaveRequests/getById?id=${id}`);
 
     deleteLeaveRequest = id => this.post('/leaveRequests/delete', id);

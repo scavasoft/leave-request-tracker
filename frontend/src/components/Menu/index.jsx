@@ -1,14 +1,24 @@
-import React, {useState} from 'react';
-import { useDispatch } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from "../../reducers/authReducer";
+import { createSelector } from 'reselect';
+
 import './style.scss';
-import {logout} from "../../reducers/authReducer";
 
 // An inline style to clear the text-decoration for the <Link> element.
 const clearDecoration = {
     textDecoration: 'none'
 }
 
+const selector = createSelector(
+    store => store.authReducer.isLoggedIn,
+    store => store.authReducer.user,
+    (isLoggedIn, user) => ({
+        isLoggedIn,
+        user,
+    })
+)
 const Menu = () => {
     const dispatch = useDispatch();
 
@@ -16,25 +26,41 @@ const Menu = () => {
         dispatch(logout());
     }
 
-    // const isAdmin = useState(false); // boolean to check whether the user has admin privilege (refactor logic)
-    // const user = JSON.parse(localStorage.getItem('user'));
-    //
-    // if(user !== null) {
-    //     if (user.authority === 'ADMIN') this.state.isAdmin = true;
-    // }
+    const { isLoggedIn, user } = useSelector(selector);
+
+    const [isAdmin, setAuthority] = useState(false);
+    useEffect(() => {
+        if(isLoggedIn && user.authority === 'ADMIN')
+            setAuthority(true);
+
+        console.group('test')
+        console.log(isLoggedIn)
+        console.groupEnd()
+    });
 
     return (
         <div className='container-menu'>
-            <h2>attendor-lite</h2>
+            <div className='container-menuTitle'>
+                <h2>
+                    <span>A</span>
+                    <i className='fas fa-calendar-alt'></i>
+                    <span>L</span>
+                </h2>
+            </div>
             <ul>
                 <Link to='/dashboard' style={clearDecoration}>
-                    <li><p><i className='fas fa-home'></i>dashboard</p></li>
+                    <li><p><i className='fas fa-home'></i><span>dashboard</span></p></li>
                 </Link>
+                {isAdmin &&
                 <Link to='/requests' style={clearDecoration}>
-                    <li><p><i className='fas fa-calendar-alt'></i>requests [A]</p></li>
+                    <li><p><i className='fas fa-location-arrow'></i><span>requests</span></p></li>
+                </Link>
+                }
+                <Link to='/' style={clearDecoration}>
+                    <li><p><i className="fas fa-user-plus"></i><span>Switch user</span></p></li>
                 </Link>
                 <Link to='/' onClick={handleLogout} style={clearDecoration}>
-                    <li><p><i className='fas fa-sign-out-alt'></i>logout</p></li>
+                    <li><p><i className='fas fa-sign-out-alt'></i><span>logout</span></p></li>
                 </Link>
             </ul>
         </div>
