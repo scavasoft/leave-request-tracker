@@ -63,25 +63,20 @@
     width: 65%;
     margin: 0 auto;
 
-    input {
-        background-color: #e7e7e7;
-        color: black;
-        border-bottom: none;
-    }
-
     label {
         font-family: 'Poppins', sans-serif;
         text-transform: uppercase;
         font-size: 0.7em;
         font-weight: 700;
         letter-spacing: 0.65px;
-    }
 
-    label input {
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.7em;
-        font-weight: 100;
-        margin: 0;
+        input {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.7em;
+            font-weight: 100;
+            background-color: #e7e7e7;
+            margin: 0;
+        }
     }
 
     .loginScreen-inputs-username, .loginScreen-inputs-password {
@@ -111,18 +106,18 @@
         }
 
         button {
-            font-size: 1.2em;
+            font-size: 1em;
         }
 
         .loginScreen-inputs {
 
             label {
                 font-size: 0.8em;
-            }
 
-            label input {
-                font-size: 1.2em;
-                padding: .2em;
+                input {
+                    font-size: 1.2em;
+                    padding: .2em;
+                }
             }
         }
     }
@@ -145,24 +140,22 @@
 
             label {
                 font-size: 0.7em;
-            }
 
-            label input {
-                font-size: 0.8em;
-                padding: 0.8em;
+                input {
+                    font-size: 0.8em;
+                    padding: 0.8em;
+                }
             }
         }
     }
 }
 
-.error {
+.error, .success {
     font-size: 0.7em;
-    color: red;
+    color: #ff0000;
     transition: 0s;
 }
 
-.success {
-    font-size: 0.7em;
-    color: lawngreen;
-    transition: 0s;
-}
+.error { color: #ff0000; }
+
+.success { color: #7cfc00; }

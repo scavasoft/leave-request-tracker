@@ -8,7 +8,7 @@ class UserRepository {
         const generatedColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
         user.run(null, object.email, object.username, object.password, object.role.id, generatedColor, err => {
             if (err) {
-                console.log('Error by user creating', err);
+                console.log('Error creating user ', err);
                 return;
             }
         });

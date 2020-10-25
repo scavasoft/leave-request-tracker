@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from "../../reducers/authReducer";
 import { createSelector } from 'reselect';
@@ -30,7 +30,7 @@ const Menu = () => {
 
     const [isAdmin, setAuthority] = useState(false);
     useEffect(() => {
-        if(isLoggedIn && user.authority === 'ADMIN')
+        if (isLoggedIn && user.authority === 'ADMIN')
             setAuthority(true);
     });
 
@@ -48,9 +48,9 @@ const Menu = () => {
                     <li><p><i className='fas fa-home'></i><span>dashboard</span></p></li>
                 </Link>
                 {isAdmin &&
-                <Link to='/requests' style={clearDecoration}>
-                    <li><p><i className='fas fa-location-arrow'></i><span>requests</span></p></li>
-                </Link>
+                    <Link to='/requests' style={clearDecoration}>
+                        <li><p><i className='fas fa-location-arrow'></i><span>requests</span></p></li>
+                    </Link>
                 }
                 <Link to='/' onClick={handleLogout} style={clearDecoration}>
                     <li><p><i className='fas fa-sign-out-alt'></i><span>logout</span></p></li>

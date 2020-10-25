@@ -36,13 +36,13 @@ exports.insert = (req, resp) => {
 
         userLeaveService.add(userLeave);
         resp.send({
-            success: 'Yours information was successfully saved'
+            success: 'Your information was successfully saved !'
         });
     });
 }
 
 exports.update = (req, resp) => {
-    if(Object.keys(req.body).length === 0) {
+    if (Object.keys(req.body).length === 0) {
         resp.status(400).send({
             error: 'Body content cannot be empty!'
         });
@@ -71,20 +71,20 @@ exports.update = (req, resp) => {
 
         userLeaveService.update(id, userLeave.name);
         resp.send({
-            success: 'Yours information was successfully updated'
+            success: 'Your information was successfully updated !'
         });
     });
 }
 
 exports.findById = (req, res) => {
     const id = req.query['id'];
-    if(!id){
+    if (!id) {
         res.status(404).send({
-            error: "User not found",
+            error: "User not found !",
         });
     }
     userLeaveService.findById(id, (err, callback) => {
-        if(err) {
+        if (err) {
             res.status(500).send({
                 error: 'Database problem, try again later ' || err.message
             });
@@ -106,7 +106,7 @@ exports.findAll = (req, res) => {
             return;
         }
 
-        if(req.query.filter !== undefined && req.query.filterName !== undefined) {
+        if (req.query.filter !== undefined && req.query.filterName !== undefined) {
             let isFilter = req.query.filter; // String
             if (isFilter === 'true') {
                 const filterName = req.query.filterName;
@@ -119,7 +119,7 @@ exports.findAll = (req, res) => {
             } else {
                 res.send(callback);
             }
-        }else {
+        } else {
             res.send(callback);
         }
     });
@@ -158,7 +158,7 @@ exports.delete = (req, res) => {
         }
 
         res.status(200).send({
-            success: 'User leave with id = ' + userViewModel.id + ' is successfully removed'
+            success: 'User leave with id = ' + userViewModel.id + ' has been successfully removed !'
         });
     });
 
@@ -167,7 +167,7 @@ exports.delete = (req, res) => {
 exports.pagination = (req, res) => {
 
     let page, size;
-    if(req.query !== undefined && req.query.page !== undefined && req.query.size !== undefined){
+    if (req.query !== undefined && req.query.page !== undefined && req.query.size !== undefined) {
         page = parseInt(req.query.page);
         size = parseInt(req.query.size);
     } else {
@@ -182,7 +182,7 @@ exports.pagination = (req, res) => {
 
     userLeaveService.findAll((err, callback) => {
         if (err) {
-            res.status(500).send({error: 'DB problem, try again later'});
+            res.status(500).send({ error: 'DB problem, try again later' });
             return;
         }
 
