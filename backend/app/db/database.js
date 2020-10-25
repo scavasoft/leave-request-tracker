@@ -69,19 +69,6 @@ function initializeTables() {
         console.log('Table roles is created successfully');
     });
 
-    //INSERT INTO ROLES authorities (ADMIN, USER)
-    const insertIntoRoles = `INSERT INTO roles VALUES
-    (null, 'ADMIN'),
-    (null, 'USER');`;
-    // db.run(insertIntoRoles, err => {
-    //     if (err) {
-    //         console.error(err.message);
-    //         return;
-    //     }
-    //     console.log('Successfully inserted roles ADMIN and USER');
-    // });
-
-
     db.run(user_roles, err => {
         if (err) {
             console.log('user_roles table was not created');

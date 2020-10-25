@@ -52,9 +52,6 @@ const Menu = () => {
                     <li><p><i className='fas fa-location-arrow'></i><span>requests</span></p></li>
                 </Link>
                 }
-                <Link to='/' style={clearDecoration}>
-                    <li><p><i className="fas fa-user-plus"></i><span>Switch user</span></p></li>
-                </Link>
                 <Link to='/' onClick={handleLogout} style={clearDecoration}>
                     <li><p><i className='fas fa-sign-out-alt'></i><span>logout</span></p></li>
                 </Link>

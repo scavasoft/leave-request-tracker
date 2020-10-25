@@ -9,7 +9,7 @@ import { createSelector } from 'reselect';
 // Check if any errors exist and render them later on if they do.
 const errorSelector = createSelector(
     store => store.authReducer.errors,
-            store => store.authReducer.success,
+    store => store.authReducer.success,
     (errors, success) => ({
         errors,
         success,
@@ -62,7 +62,7 @@ const RegistrationScreen = () => {
                 <div className='registerScreen-mainPanel hidden'>
                     <form className='registerScreen-inputs'>
                         <label>username
-                        <Input
+                            <Input
                                 value={username || ''}
                                 onChange={usernameChanged}
                                 type='text'
@@ -78,7 +78,7 @@ const RegistrationScreen = () => {
                             <div className='error'>{errors['username']}</div>
                         )}
                         <label>email
-                        <Input
+                            <Input
                                 value={email || ''}
                                 onChange={emailChanged}
                                 type='email'
@@ -93,7 +93,7 @@ const RegistrationScreen = () => {
                             <div className='error'>{errors['email']}</div>
                         )}
                         <label>password
-                        <Input
+                            <Input
                                 value={password || ''}
                                 onChange={passwordChanged}
                                 type='password'
@@ -108,7 +108,7 @@ const RegistrationScreen = () => {
                             <div className='error'>{errors['password']}</div>
                         )}
                         <label>confirm password
-                        <Input
+                            <Input
                                 value={confirmPassword || ''}
                                 onChange={confirmPasswordChanged}
                                 width={'100%'}
@@ -124,7 +124,7 @@ const RegistrationScreen = () => {
                         }
 
                         {errors.hasOwnProperty('error') &&
-                        <div className='error'>{errors['error']}</div>
+                            <div className='error'>{errors['error']}</div>
                         }
 
                         {Object.keys(success).length > 0 &&

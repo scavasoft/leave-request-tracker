@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {Redirect, useHistory} from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import { requestLogin } from '../../../reducers/authReducer';
 import { createSelector } from 'reselect';
 import { Link } from 'react-router-dom';
@@ -46,36 +46,35 @@ const LoginScreen = () => {
                 <form className='loginScreen-leftPanel'>
                     <h1>login</h1>
                     <div className='loginScreen-inputs'>
-                        <label>username
+                        <div className='loginScreen-inputs-username'>
+                            <label>username
+                                <Input
+                                    value={username || ''}
+                                    onChange={nameChanged}
+                                    width={'100%'}
+                                    borderRadius={'5px'}
+                                    padding={'0.3em'}
+                                    type='text'
+                                    margin={'5px 0px 2em 0px'}
+                                /></label>
+                            {logInErrors.hasOwnProperty('error') &&
+                                <div className='error'>{logInErrors['error']}</div>
+                            }
+                        </div>
+                        <div className='loginScreen-inputs-password'>
+                            <label>password
                         <Input
-                                value={username || ''}
-                                onChange={nameChanged}
-                                width={'100%'}
-                                borderRadius={'5px'}
-                                padding={'0.3em'}
-                                type='text'
-                                margin={'5px 0px 2em 0px'}
-                            /></label>
-                        {logInErrors.hasOwnProperty('error') &&
-                        <div className='error'>{logInErrors['error']}</div>
-                        }
-                        <label>password
-                        <Input
-                                value={password || ''}
-                                onChange={passwordChanged}
-                                width={'100%'}
-                                borderRadius={'5px'}
-                                padding={'0.3em'}
-                                type='password'
-                                margin={'5px 0px 2em 0px'}
-                            /></label>
+                                    value={password || ''}
+                                    onChange={passwordChanged}
+                                    width={'100%'}
+                                    borderRadius={'5px'}
+                                    padding={'0.3em'}
+                                    type='password'
+                                    margin={'5px 0px 2em 0px'}
+                                /></label>
+                        </div>
                     </div>
-                    <div className='loginScreen-extras'>
-                        <input id='rememberMe' name='rememberMe' type='checkbox'></input>
-                        <label for='rememberMe'>Remember me</label>
-                        <a href='www.google.com' target='blank'>Forgotten password?</a>
-                    </div>
-                    <Link to={'/dashboard'}>
+                    <Link to={'/dashboard'} style={{ textDecoration: 'none' }}>
                         <Button
                             onClick={handleLogin}
                             text={'Submit'}
