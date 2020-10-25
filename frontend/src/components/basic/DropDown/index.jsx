@@ -16,7 +16,7 @@ const DropDown = React.forwardRef((props, ref) => {
     const items = []; // Array with custom tags <MenuItem/>
     for (let i = 0; i < values.length; i++) {
         if (i === 0)
-            items.push(<MenuItem ref={ref} key={0} value={null}>None</MenuItem>)
+            items.push(<MenuItem ref={ref} key={0} hidden value={null}>None</MenuItem>)
         items.push(<MenuItem ref={ref} key={i + 1} value={values[i]}>{values[i]}</MenuItem>)
     }
 

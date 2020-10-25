@@ -1,34 +1,36 @@
-.datatable {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
+.container-datatable {
+    height: 100vh;
 
-    table {
-        float: right;
-        width: 99%;
-        border-collapse: collapse;
-        user-select: none;
-    }
+    .datatable {
+        width: 100%;
+        overflow: scroll;
+        font-family: 'Poppins', sans-serif;
+        height: 100%;
 
-    th {
-        color: rgb(255, 255, 255);
-        background-color: rgb(80, 80, 80);
-    }
-    
-    table, th, td {
-        border: 1px solid white;
-    }
+        table {
+            float: right;
+            width: 99%;
+            border-collapse: collapse;
+            user-select: none;
+        }
 
-    tr {
-        transition: .35s all;
-    }
+        th {
+            color: rgb(255, 255, 255);
+            background-color: rgb(80, 80, 80);
+        }
+        
+        table, th, td {
+            border: 1px solid white;
+        }
 
-    tr:hover {
-        transition: .35s all;
-        background-color: #8d2efa;
+        tr {
+            transition: .35s all;
+        }
+
+        tr:hover {
+            transition: .35s all;
+            background-color: #8d2efa;
+        }
     }
 }
 
@@ -82,11 +84,11 @@
 
 @media only screen and (max-width: 1000px) {
     .datatable {
-        font-size: 0.6em;
+        font-size: 0.5em;
     }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
     .datatable {
         font-size: 0.3em;
     }

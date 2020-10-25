@@ -137,102 +137,104 @@ class RequestsTable extends React.Component {
         const { classes } = this.props;
 
         return (
-            <div className='datatable'>
-                <div className='datatable-upperPanel'>
-                    <input id='filterInput' onChange={this.changeFilter} placeholder='Enter a name:' maxLength='90'></input>
-                </div>
-                <div className='datatable-lowerPanel'>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>
-                                    <p>Name</p>
-                                </th>
-                                <th>
-                                    <p>Type</p>
-                                </th>
-                                <th>
-                                    <p>Date Start</p>
-                                </th>
-                                <th>
-                                    <p>Date End</p>
-                                </th>
-                                <th>
-                                    <p>Reason</p>
-                                </th>
-                            </tr>
+            <div className='container-datatable'>
+                <div className='datatable'>
+                    <div className='datatable-upperPanel'>
+                        <input id='filterInput' onChange={this.changeFilter} placeholder='Enter a name:' maxLength='90'></input>
+                    </div>
+                    <div className='datatable-lowerPanel'>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <p>Name</p>
+                                    </th>
+                                    <th>
+                                        <p>Type</p>
+                                    </th>
+                                    <th>
+                                        <p>Date Start</p>
+                                    </th>
+                                    <th>
+                                        <p>Date End</p>
+                                    </th>
+                                    <th>
+                                        <p>Reason</p>
+                                    </th>
+                                </tr>
 
-                            {this.state.userLeaves.map(userLeave => {
-                                //Data tag substitutes value in this case
-                                //It can be reused in the modal filed through onClick function in the state(targetLeaveValue)
-                                if (userLeave.is_approved === 0) {
-                                    return <tr key={userLeave.id} onClick={this.handleOpen} data-tag={userLeave.id}>
-                                        <td>{userLeave.name}</td>
-                                        <td>{userLeave.type}</td>
-                                        <td>{userLeave.date_start}</td>
-                                        <td>{userLeave.date_end}</td>
-                                        <td>{userLeave.reason}</td>
-                                    </tr>
-                                }
-                            })}
-                        </tbody>
-                    </table>
-                </div>
+                                {this.state.userLeaves.map(userLeave => {
+                                    //Data tag substitutes value in this case
+                                    //It can be reused in the modal filed through onClick function in the state(targetLeaveValue)
+                                    if (userLeave.is_approved === 0) {
+                                        return <tr key={userLeave.id} onClick={this.handleOpen} data-tag={userLeave.id}>
+                                            <td>{userLeave.name}</td>
+                                            <td>{userLeave.type}</td>
+                                            <td>{userLeave.date_start}</td>
+                                            <td>{userLeave.date_end}</td>
+                                            <td>{userLeave.reason}</td>
+                                        </tr>
+                                    }
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
 
-                <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className={classes.modal}
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                        timeout: 500,
-                    }}
-                >
-                    <Fade in={this.state.open}>
-                        <div className={classes.paper}>
-                            <h2 className={classes.modalTitle} id="transition-modal-title">Approve leave?</h2>
+                    <Modal
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        className={classes.modal}
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                            timeout: 500,
+                        }}
+                    >
+                        <Fade in={this.state.open}>
+                            <div className={classes.paper}>
+                                <h2 className={classes.modalTitle} id="transition-modal-title">Approve leave?</h2>
 
-                            <p className={classes.modalText} id="transition-modal-description">
-                                Would you like to approve {this.state.targetLeaveRequest.name}'s leave request?
+                                <p className={classes.modalText} id="transition-modal-description">
+                                    Would you like to approve {this.state.targetLeaveRequest.name}'s leave request?
                             </p>
-                            <div className={classes.modalButtons}>
-                                <Button
-                                    text={'Accept'}
-                                    width={'90%'}
-                                    fontSize={'1em'}
-                                    padding='4px 8px'
-                                    borderRadius='8px'
-                                    boxShadow='2px 2px 2px black'
-                                    onClick={this.handleAccept}
-                                    transition={'.5s all'}
-                                />
-                                <Button
-                                    text={'Deny'}
-                                    width={'90%'}
-                                    fontSize={'1em'}
-                                    padding='4px 8px'
-                                    borderRadius='8px'
-                                    boxShadow='2px 2px 2px black'
-                                    onClick={this.handleDeny}
-                                    transition={'.5s all'}
-                                />
-                            </div>
-                            {this.state.errors !== null && (
-                                <div className='error'>{Object.values(this.state.errors)}</div>
-                            )
-                            }
+                                <div className={classes.modalButtons}>
+                                    <Button
+                                        text={'Accept'}
+                                        width={'90%'}
+                                        fontSize={'1em'}
+                                        padding='4px 8px'
+                                        borderRadius='8px'
+                                        boxShadow='2px 2px 2px black'
+                                        onClick={this.handleAccept}
+                                        transition={'.5s all'}
+                                    />
+                                    <Button
+                                        text={'Deny'}
+                                        width={'90%'}
+                                        fontSize={'1em'}
+                                        padding='4px 8px'
+                                        borderRadius='8px'
+                                        boxShadow='2px 2px 2px black'
+                                        onClick={this.handleDeny}
+                                        transition={'.5s all'}
+                                    />
+                                </div>
+                                {this.state.errors !== null && (
+                                    <div className='error'>{Object.values(this.state.errors)}</div>
+                                )
+                                }
 
-                            {this.state.successMessage !== null && (
-                                <div className='success'>{Object.values(this.state.successMessage)}</div>
-                            )
-                            }
-                        </div>
-                    </Fade>
-                </Modal>
-            </div >
+                                {this.state.successMessage !== null && (
+                                    <div className='success'>{Object.values(this.state.successMessage)}</div>
+                                )
+                                }
+                            </div>
+                        </Fade>
+                    </Modal>
+                </div >
+            </div>
         )
     }
 }
