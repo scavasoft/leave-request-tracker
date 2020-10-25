@@ -1,16 +1,13 @@
 .pagination{
   display: flex;
   justify-content: flex-start;
-  margin: 50vh;
-  padding: 40px;
+  padding: 10px 10px 0 10px;
 
 
   ul{
     list-style: none;
 
     display: flex;
-    padding-top: 50px;
-    margin: 60px;
 
     li{
       background: #621eb1;

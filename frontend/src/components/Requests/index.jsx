@@ -8,6 +8,7 @@ import Fade from '@material-ui/core/Fade';
 
 import './style.scss';
 import LeaveRequestAPI from "../../api/leaveRequestAPI";
+import Pagination from "../Pagination";
 
 const styles = theme => ({
     modal: {
@@ -45,7 +46,6 @@ class RequestsTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchValue: '',
             userLeaves: [],
             open: false,
             targetLeaveRequest: '',
@@ -68,9 +68,11 @@ class RequestsTable extends React.Component {
     }
 
     changeFilter(e) {
-        this.setState({
-            searchValue: e.target.value
-        })
+        leaveRequestAPI.getAllLeaveRequests(true, e.target.value).then(res => {
+            const {data} = res;
+
+            this.setState({userLeaves: data});
+        });
     }
 
     handleOpen(event) {
@@ -177,26 +179,28 @@ class RequestsTable extends React.Component {
                         })}
                         </tbody>
                     </table>
-                    <Modal
-                        aria-labelledby="transition-modal-title"
-                        aria-describedby="transition-modal-description"
-                        className={classes.modal}
-                        open={this.state.open}
-                        onClose={this.handleClose}
-                        closeAfterTransition
-                        BackdropComponent={Backdrop}
-                        BackdropProps={{
-                            timeout: 500,
-                        }}
-                    >
-                        <Fade in={this.state.open}>
-                            <div className={classes.paper}>
-                                <h2 className={classes.modalTitle} id="transition-modal-title">Approve leave?</h2>
+                </div>
 
-                                <p className={classes.modalText} id="transition-modal-description">
-                                    Would you like to approve {this.state.targetLeaveRequest.name}'s leave request?
-                                </p>
-                                <div className={classes.modalButtons}>
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className={classes.modal}
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <Fade in={this.state.open}>
+                        <div className={classes.paper}>
+                            <h2 className={classes.modalTitle} id="transition-modal-title">Approve leave?</h2>
+
+                            <p className={classes.modalText} id="transition-modal-description">
+                                Would you like to approve {this.state.targetLeaveRequest.name}'s leave request?
+                            </p>
+                            <div className={classes.modalButtons}>
                                 <Button
                                     text={'Accept'}
                                     width={'90%'}
@@ -217,20 +221,19 @@ class RequestsTable extends React.Component {
                                     onClick={this.handleDeny}
                                     transition={'.5s all'}
                                 />
-                                </div>
-                                {this.state.errors !== null && (
-                                    <div className='error'>{Object.values(this.state.errors)}</div>
-                                )
-                                }
-
-                                {this.state.successMessage !== null && (
-                                    <div className='success'>{Object.values(this.state.successMessage)}</div>
-                                )
-                                }
                             </div>
-                        </Fade>
-                    </Modal>
-                </div>
+                            {this.state.errors !== null && (
+                                <div className='error'>{Object.values(this.state.errors)}</div>
+                            )
+                            }
+
+                            {this.state.successMessage !== null && (
+                                <div className='success'>{Object.values(this.state.successMessage)}</div>
+                            )
+                            }
+                        </div>
+                    </Fade>
+                </Modal>
             </div >
         )
     }

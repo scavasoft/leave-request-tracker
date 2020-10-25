@@ -29,6 +29,7 @@ export class BigDNDCalendar extends React.Component {
     selectDateRange() {
         document.getElementsByClassName('sidebar')[0].classList.add('sidebarShow');
         document.getElementsByClassName('calendar')[0].classList.add('resize');
+
     }
 
     // Format from Date to SQL date (yyyy-MM-dd)
@@ -68,23 +69,29 @@ export class BigDNDCalendar extends React.Component {
                 selectable
                 localizer={localizer}
                 events={this.props.success.map((leave) => ({
-                    'title': leave.name,
+                    'title': `${leave.reason} by ${leave.name}`,
                     'allDay': true,
                     'start': new Date(leave.date_start),
                     'end': new Date(leave.date_end),
+                    'color': leave.color,
                 })
                 )}
+                eventPropGetter={event => ({
+                    style: {
+                        backgroundColor: event.color
+                    },
+                })}
             />
         )
     }
 }
 
-// comment?
+
 const mapStateToProps = ({ obtainApprovedRequests: { success } }) => ({
     success
 });
 
-//comment?
+// Mapping the dispatch and storing it as a prop, so we can reuse it.
 const mapDispatchToProps = {
     obtainApprovedRequests,
     attemptStoreDate,

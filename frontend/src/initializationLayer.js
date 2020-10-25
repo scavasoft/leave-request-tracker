@@ -6,7 +6,6 @@ import Requests from './modules/leaves/index';
 import Login from './modules/auth/login/index';
 import history from './utils/history';
 import { getUserByToken } from './reducers/authReducer';
-import NotFound from './components/NotFound';
 
 class InitializationLayer extends React.Component {
     constructor(props) {

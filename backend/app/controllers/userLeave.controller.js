@@ -106,7 +106,22 @@ exports.findAll = (req, res) => {
             return;
         }
 
-        res.send(callback);
+        if(req.query.filter !== undefined && req.query.filterName !== undefined) {
+            let isFilter = req.query.filter; // String
+            if (isFilter === 'true') {
+                const filterName = req.query.filterName;
+
+                const filteredArrayByName = callback.filter((userLeave) => {
+                    return userLeave.name.toLowerCase().includes(filterName.toString().toLowerCase());
+                });
+
+                res.send(filteredArrayByName);
+            } else {
+                res.send(callback);
+            }
+        }else {
+            res.send(callback);
+        }
     });
 }
 

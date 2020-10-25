@@ -2,7 +2,7 @@
     background-color: #7020cc;
     z-index: 1;
     color: #ffffff;
-    height: 60vh;
+    height: 55vh;
     display: flex;
     font-family: 'Poppins', sans-serif;
     display: flex;
@@ -14,7 +14,7 @@
         margin: 0;
         padding-top: 8px;
         color: #ffffff;
-        font-size: 2em;
+        font-size: 1.7em;
     }
 }
 
@@ -26,7 +26,7 @@
 .registerScreen-mainPanel {
     width: 70%;
     transition: .3s all;
-    padding: 3%;
+    padding: 0% 3%;
 
     * {
         color: #ffffff;
@@ -52,7 +52,7 @@
 .registerScreen-inputs {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     height: 100%;
 
     input {
@@ -100,25 +100,38 @@
 @media only screen and (max-width: 1024px) {
     .container-registerScreen {
         .registerScreen {
-            height: 50vh;
+            height: 100vh;
 
             h1 {
-                font-size: 2.3em;
+                font-size: 1.5em;
             }
 
             .registerScreen-inputs {
+                display: block;
+
                 label {
-                    font-size: 1em;
-                }   
+                    font-size: 0.5em;
+
+                    input {
+                        font-size: 2em;
+                    }
+                }
+
+                button {
+                    margin-top: 1em;
+                }
             }
         }
     }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 700px) { 
     .container-registerScreen {
         .registerScreen {
-            height: 50vh;
+            
+            .registerScreen-mainPanel {
+                padding-top: 0%;
+            }
 
             h1 {
                 font-size: 0.9em;
@@ -126,11 +139,14 @@
             }
 
             .registerScreen-inputs {
-                label {
-                    font-size: 0.3em;
-                }
 
-                height: 80%;
+                label {
+                    font-size: 0.32em;
+
+                    input {
+                        font-size: 0.5em;
+                    }
+                }
             }
         }
     }

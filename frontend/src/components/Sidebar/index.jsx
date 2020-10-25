@@ -83,82 +83,93 @@ const Sidebar = () => {
         <div className='sidebar' >
             <form id='sidebarForm'>
                 <span className={'closeFormButton'} onClick={closeForm}>X</span>
-                <label>Name
-                    <Input
-                        value={name || ''}
-                        onChange={nameChanged}
-                        type={'text'}
-                        width={'90%'}
-                        height={'2em'}
-                        fontSize={'1em'}
-                        borderRadius={'1px'}
-                        padding={'0.3em'}
-                    /></label>
-                {errors.hasOwnProperty('name') && (
-                    <div className='error'>{errors['name']}</div>
-                )
-                }
+                <div className='sidebarForm-input'>
+                    <label>Name
+                        <Input
+                            value={name || ''}
+                            onChange={nameChanged}
+                            type={'text'}
+                            width={'90%'}
+                            height={'2em'}
+                            fontSize={'1em'}
+                            borderRadius={'1px'}
+                            padding={'0.3em'}
+                        />
+                    </label>
+                    {errors.hasOwnProperty('name') && (
+                        <div className='error'>{errors['name']}</div>
+                    )
+                    }
+                </div>
 
-                <label>Reason
+                <div className='sidebarForm-input'>
+                    <label>Reason
                     <Input
-                        type={'text'}
-                        inputType={'textarea'}
-                        height={'6em'}
-                        width={'90%'}
-                        fontSize={'1em'}
-                        padding={'3px'}
-                        borderRadius={12}
-                        withCharacterCount={true}
-                        onChange={reasonChanged}
-                        value={reason || ''}
-                    /></label>
-                {errors.hasOwnProperty('reason') && (
-                    <div className='error'>{errors['reason']}</div>
-                )
-                }
+                            type={'text'}
+                            inputType={'textarea'}
+                            height={'6em'}
+                            width={'90%'}
+                            fontSize={'1em'}
+                            padding={'3px'}
+                            borderRadius={12}
+                            withCharacterCount={true}
+                            onChange={reasonChanged}
+                            value={reason || ''}
+                        /></label>
+                    {errors.hasOwnProperty('reason') && (
+                        <div className='error'>{errors['reason']}</div>
+                    )
+                    }
+                </div>
 
-                <label>Type
+                <div className='sidebarForm-input'>
+                    <label>Type
                     <DropDown
-                        values={[TYPE.VACATION, TYPE.SICK_DAY, TYPE.WEDDING, TYPE.DEAD]}
-                        onChange={typeChanged}
-                        width={'90%'}
-                        fontSize={'1em'}
-                    />
-                    {errors.hasOwnProperty('type') && (
-                        <div className='error'>{errors['type']}</div>
-                    )
-                    }</label>
+                            values={[TYPE.VACATION, TYPE.SICK_DAY, TYPE.WEDDING, TYPE.DEAD]}
+                            onChange={typeChanged}
+                            width={'90%'}
+                            fontSize={'1em'}
+                        />
+                        {errors.hasOwnProperty('type') && (
+                            <div className='error'>{errors['type']}</div>
+                        )
+                        }</label>
+                </div>
 
-                <label>Beginning Date
+                <div className='sidebarForm-input'>
+                    <label>Beginning Date
                     <Input
-                        type={'date'}
-                        width={'90%'}
-                        padding={'3px'}
-                        fontSize={'1em'}
-                        onChange={startDateChanged}
-                        value={startDate || ''}
-                    />
-                    {errors.hasOwnProperty('date') && (
-                        <div className='error'>{errors['date']}</div>
-                    )
-                    }</label>
+                            type={'date'}
+                            width={'90%'}
+                            padding={'3px'}
+                            fontSize={'1em'}
+                            onChange={startDateChanged}
+                            value={startDate || ''}
+                        />
+                        {errors.hasOwnProperty('date') && (
+                            <div className='error'>{errors['date']}</div>
+                        )
+                        }</label>
+                </div>
 
-                <label>End Date
+                <div className='sidebarForm-input'>
+                    <label>End Date
                     <Input
-                        type={'date'}
-                        width={'90%'}
-                        padding={'3px'}
-                        fontSize={'1em'}
-                        onChange={endDateChanged}
-                        value={endDate || ''}
-                    /></label>
-                {errors.hasOwnProperty('dateError') &&
-                    <div className='error'>{errors['dateError']}</div>
-                }
+                            type={'date'}
+                            width={'90%'}
+                            padding={'3px'}
+                            fontSize={'1em'}
+                            onChange={endDateChanged}
+                            value={endDate || ''}
+                        /></label>
+                    {errors.hasOwnProperty('dateError') &&
+                        <div className='error'>{errors['dateError']}</div>
+                    }
 
-                {success &&
-                <div className='success'>{Object.values(success)}</div>
-                }
+                    {success &&
+                        <div className='success'>{Object.values(success)}</div>
+                    }
+                </div>
 
                 <Button
                     text={'Send request'}
