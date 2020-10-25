@@ -45,14 +45,6 @@ const Sidebar = () => {
         }), [e.target.value]);
     };
 
-    useEffect((event) => {
-        document.addEventListener('keydown', event => {
-            if (event.keyCode === 27) {
-                closeForm();
-            }
-        })
-    })
-
     const endDateChanged = e => {
         dispatch(attemptStoreDate({
             endDate: e.target.value

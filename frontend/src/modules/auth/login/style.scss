@@ -63,25 +63,20 @@
     width: 65%;
     margin: 0 auto;
 
-    input {
-        background-color: #e7e7e7;
-        color: black;
-        border-bottom: none;
-    }
-
     label {
         font-family: 'Poppins', sans-serif;
         text-transform: uppercase;
         font-size: 0.7em;
         font-weight: 700;
         letter-spacing: 0.65px;
-    }
 
-    label input {
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.7em;
-        font-weight: 100;
-        margin: 0;
+        input {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.7em;
+            font-weight: 100;
+            background-color: #e7e7e7;
+            margin: 0;
+        }
     }
 
     .loginScreen-inputs-username, .loginScreen-inputs-password {
@@ -101,68 +96,59 @@
     width: 10%;
 }
 
-@media only screen and (max-width: 1024px) {
-    .loginScreen {
-        width: 40%;
-        height: 60vh;
 
-        h1 {
-            font-size: 2em;
-        }
-
-        button {
-            font-size: 1.2em;
-        }
-
-        .loginScreen-inputs {
-
-            label {
-                font-size: 0.8em;
-            }
-
-            label input {
-                font-size: 1.2em;
-                padding: .2em;
-            }
-        }
-    }
-}
-
-@media only screen and (max-width: 700px) {
-    .loginScreen {
-        width: 100%;
-        height: 100vh;
-
-        h1 {
-            font-size: 1.3em;
-        }
-
-        button {
-            font-size: 1em;
-        }
-
-        .loginScreen-inputs {
-
-            label {
-                font-size: 0.7em;
-            }
-
-            label input {
-                font-size: 0.8em;
-                padding: 0.8em;
-            }
-        }
-    }
-}
-
-.error {
+.error, .success {
     font-size: 0.7em;
-    color: red;
+    color: #ff0000;
     transition: 0s;
 }
 
-.success {
-    font-size: 0.7em;
-    color: lawngreen;
-    transition: 0s;
+.error { color: #ff0000; }
+
+.success { color: #7cfc00; }
+
+@media only screen and (max-width: 1100px) {
+    .container-loginScreen {
+        font-size: 0.8em;
+    }   
+}
+
+@media only screen and (max-width: 800px) {
+    .container-loginScreen {
+        font-size: 0.6em;
+    }   
+}
+
+@media only screen and (max-width: 600px) {
+    .container-loginScreen {
+        font-size: 0.35em;
+    }   
+}
+
+@media only screen and (max-width: 400px) {
+    .container-loginScreen {
+        font-size: 0.1em;
+
+        .loginScreen-inputs {
+            span {
+                font-size: 4px;
+            }
+            input {
+                border-radius: 3px;
+                border-bottom: none;
+            }
+        }
+    }
+
+    .registerScreen-inputs {
+        span {
+            font-size: 4px;
+        }
+
+        label input {
+            font-size: 5px;
+            padding: 0;
+            border-radius: 2px;
+        }
+    }
 }

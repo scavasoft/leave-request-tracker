@@ -135,7 +135,7 @@
           padding: 0;
 
           i {
-            font-size: 2em;
+            font-size: 1.4em;
             margin: 0;
             text-align: center;
             padding: 0.5em 0;
@@ -153,6 +153,7 @@
 // Media query for medium-sized screens (tablets & etc)
 @media only screen and (max-width: 1230px) {
   .container-menu {
+    font-size: 1em;
     h2, span {
       display: none;
     }

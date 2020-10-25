@@ -22,8 +22,8 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         width: '30vw',
-        fontFamily: '\'Poppins\', sans-serif;'
-        // boxShadow: theme.shadows[5],
+        fontFamily: '\'Poppins\', sans-serif',
+        boxShadow: '0px 0px 13px -5px rgba(0,0,0,0.75), inset 0 0 1px #000000',
     },
     modalTitle: {
         margin: 0,
@@ -61,34 +61,32 @@ class RequestsTable extends React.Component {
 
     componentDidMount() {
         leaveRequestAPI.getAllLeaveRequests().then(res => {
-           const { data } = res;
-
-            this.setState({userLeaves: data});
-       });
+            const { data } = res;
+            this.setState({ userLeaves: data });
+        });
     }
 
     changeFilter(e) {
         leaveRequestAPI.getAllLeaveRequests(true, e.target.value).then(res => {
-            const {data} = res;
-
-            this.setState({userLeaves: data});
+            const { data } = res;
+            this.setState({ userLeaves: data });
         });
     }
 
     handleOpen(event) {
-        this.setState({open: true});
+        this.setState({ open: true });
 
         leaveRequestAPI.getLeaveRequestById(event.currentTarget.dataset.tag).then(res => {
             const { data } = res;
 
             //check if user leave request is not approved
-            if(!data.is_approved)
-                this.setState({targetLeaveRequest: data});
+            if (!data.is_approved)
+                this.setState({ targetLeaveRequest: data });
         })
     };
 
     handleClose() {
-        this.setState({open: false});
+        this.setState({ open: false });
     };
 
     handleAccept() {
@@ -103,17 +101,17 @@ class RequestsTable extends React.Component {
             .then(res => {
                 const { data } = res;
 
-                this.setState({successMessage: data});
+                this.setState({ successMessage: data });
                 //refresh page to be updated the list with user leave requests
                 window.location.reload();
             })
             .catch(err => {
                 const { errors } = err.response.data;
                 let res = errors;
-                if(errors === undefined)
+                if (errors === undefined)
                     res = err.response.data;
 
-                this.setState({errors: res});
+                this.setState({ errors: res });
             });
     }
 
@@ -121,16 +119,16 @@ class RequestsTable extends React.Component {
         leaveRequestAPI.deleteLeaveRequest({ id: this.state.targetLeaveRequest.id }).then(res => {
             const { data } = res;
 
-            this.setState({successMessage: data});
+            this.setState({ successMessage: data });
             //refresh page to be updated the list with user leave requests
             window.location.reload();
         }).catch(err => {
             const { errors } = err.response.data;
             let res = errors;
-            if(errors === undefined)
+            if (errors === undefined)
                 res = err.response.data;
 
-            this.setState({errors: res});
+            this.setState({ errors: res });
         });
     }
 
@@ -141,42 +139,42 @@ class RequestsTable extends React.Component {
         return (
             <div className='datatable'>
                 <div className='datatable-upperPanel'>
-                    <input id='filterInput' onChange={this.changeFilter} placeholder='Enter a filter' maxLength='90'></input>
+                    <input id='filterInput' onChange={this.changeFilter} placeholder='Enter a name:' maxLength='90'></input>
                 </div>
                 <div className='datatable-lowerPanel'>
                     <table>
                         <tbody>
-                        <tr>
-                            <th>
-                                <p>Name</p>
-                            </th>
-                            <th>
-                                <p>Type</p>
-                            </th>
-                            <th>
-                                <p>Date Start</p>
-                            </th>
-                            <th>
-                                <p>Date End</p>
-                            </th>
-                            <th>
-                                <p>Reason</p>
-                            </th>
-                        </tr>
+                            <tr>
+                                <th>
+                                    <p>Name</p>
+                                </th>
+                                <th>
+                                    <p>Type</p>
+                                </th>
+                                <th>
+                                    <p>Date Start</p>
+                                </th>
+                                <th>
+                                    <p>Date End</p>
+                                </th>
+                                <th>
+                                    <p>Reason</p>
+                                </th>
+                            </tr>
 
-                        {this.state.userLeaves.map(userLeave => {
-                            //Data tag substitutes value in this case
-                            //It can be reused in the modal filed through onClick function in the state(targetLeaveValue)
-                            if(userLeave.is_approved === 0) {
-                                return <tr key={userLeave.id} onClick={this.handleOpen} data-tag={userLeave.id}>
-                                    <td>{userLeave.name}</td>
-                                    <td>{userLeave.type}</td>
-                                    <td>{userLeave.date_start}</td>
-                                    <td>{userLeave.date_end}</td>
-                                    <td>{userLeave.reason}</td>
-                                </tr>
-                            }
-                        })}
+                            {this.state.userLeaves.map(userLeave => {
+                                //Data tag substitutes value in this case
+                                //It can be reused in the modal filed through onClick function in the state(targetLeaveValue)
+                                if (userLeave.is_approved === 0) {
+                                    return <tr key={userLeave.id} onClick={this.handleOpen} data-tag={userLeave.id}>
+                                        <td>{userLeave.name}</td>
+                                        <td>{userLeave.type}</td>
+                                        <td>{userLeave.date_start}</td>
+                                        <td>{userLeave.date_end}</td>
+                                        <td>{userLeave.reason}</td>
+                                    </tr>
+                                }
+                            })}
                         </tbody>
                     </table>
                 </div>

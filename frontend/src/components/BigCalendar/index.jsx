@@ -29,7 +29,6 @@ export class BigDNDCalendar extends React.Component {
     selectDateRange() {
         document.getElementsByClassName('sidebar')[0].classList.add('sidebarShow');
         document.getElementsByClassName('calendar')[0].classList.add('resize');
-
     }
 
     // Format from Date to SQL date (yyyy-MM-dd)

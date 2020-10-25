@@ -46,7 +46,7 @@
 #filterInput {
     width: 40%;
     font-size: 1.5em;
-    padding: 1px;
+    padding: 0px 5px;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -78,4 +78,16 @@
     padding: 2px;
     font-size: 0.8em;
     color: #414141;
+}
+
+@media only screen and (max-width: 1000px) {
+    .datatable {
+        font-size: 0.6em;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .datatable {
+        font-size: 0.3em;
+    }
 }

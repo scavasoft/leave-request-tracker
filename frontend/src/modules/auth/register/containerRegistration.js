@@ -61,7 +61,7 @@ const RegistrationScreen = () => {
                 </div>
                 <div className='registerScreen-mainPanel hidden'>
                     <form className='registerScreen-inputs'>
-                        <label>username
+                        <label><span>username</span>
                             <Input
                                 value={username || ''}
                                 onChange={usernameChanged}
@@ -77,7 +77,7 @@ const RegistrationScreen = () => {
                         {errors.hasOwnProperty('username') && (
                             <div className='error'>{errors['username']}</div>
                         )}
-                        <label>email
+                        <label><span>email</span>
                             <Input
                                 value={email || ''}
                                 onChange={emailChanged}
@@ -92,7 +92,7 @@ const RegistrationScreen = () => {
                         {errors.hasOwnProperty('email') && (
                             <div className='error'>{errors['email']}</div>
                         )}
-                        <label>password
+                        <label><span>password</span>
                             <Input
                                 value={password || ''}
                                 onChange={passwordChanged}
@@ -107,7 +107,7 @@ const RegistrationScreen = () => {
                         {errors.hasOwnProperty('password') && (
                             <div className='error'>{errors['password']}</div>
                         )}
-                        <label>confirm password
+                        <label><span>confirm password</span>
                             <Input
                                 value={confirmPassword || ''}
                                 onChange={confirmPasswordChanged}
@@ -128,7 +128,7 @@ const RegistrationScreen = () => {
                         }
 
                         {Object.keys(success).length > 0 &&
-                        <div className='success'>{Object.values(success)}</div>
+                            <div className='success'>{Object.values(success)}</div>
                         }
                         <Button
                             text={'register'}

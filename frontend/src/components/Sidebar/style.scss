@@ -108,6 +108,17 @@
 
 @media only screen and (max-width: 600px) {
     .sidebar {
-        font-size: 0.35em;
+        font-size: 0.36em;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .sidebar {
+        font-size: 0.1em;
+        width: 16%;
+
+        input {
+            font-size: 5px;
+        }
     }
 }
