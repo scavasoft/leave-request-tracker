@@ -11,6 +11,8 @@ module.exports = app => {
 
     app.get('/leaveRequests/admin/findAll', UserLeave.findAll);
 
+    app.get('/leaveRequests/admin/findAll', UserLeave.pagination);
+
     app.get('/leaveRequests/obtainApprovedLeaves', UserLeave.obtainApprovedLeaves);
 
 }

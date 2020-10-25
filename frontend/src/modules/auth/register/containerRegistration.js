@@ -127,8 +127,8 @@ const RegistrationScreen = () => {
                         <div className='error'>{errors['error']}</div>
                         }
 
-                        {success &&
-                            <div className='success'>{Object.values(success)}</div>
+                        {Object.keys(success).length > 0 &&
+                        <div className='success'>{Object.values(success)}</div>
                         }
                         <Button
                             text={'register'}

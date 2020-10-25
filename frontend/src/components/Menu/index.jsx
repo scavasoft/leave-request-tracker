@@ -32,10 +32,6 @@ const Menu = () => {
     useEffect(() => {
         if(isLoggedIn && user.authority === 'ADMIN')
             setAuthority(true);
-
-        console.group('test')
-        console.log(isLoggedIn)
-        console.groupEnd()
     });
 
     return (

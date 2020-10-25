@@ -46,7 +46,6 @@ class RequestsTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchValue: '',
             userLeaves: [],
             open: false,
             targetLeaveRequest: '',
@@ -69,11 +68,11 @@ class RequestsTable extends React.Component {
     }
 
     changeFilter(e) {
-        this.setState({
-            searchValue: e.target.value
-        })
+        leaveRequestAPI.getAllLeaveRequests(true, e.target.value).then(res => {
+            const {data} = res;
 
-
+            this.setState({userLeaves: data});
+        });
     }
 
     handleOpen(event) {

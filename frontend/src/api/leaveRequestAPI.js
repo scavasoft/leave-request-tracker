@@ -6,7 +6,7 @@ class LeaveRequestAPI extends BaseAPI {
 
     updateApprove = data => this.post('/leaveRequests/updateApprove', data);
 
-    getAllLeaveRequests = () => this.get('/leaveRequests/admin/findAll');
+    getAllLeaveRequests = (filter, filterName) => this.get(`/leaveRequests/admin/findAll?filter=${filter}&filterName=${filterName}`);
 
     paginatedLeaveRequests = (page, size) => this.get(`/leaveRequests/admin/findAll?page=${page}&size=${size}`);
 
