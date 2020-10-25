@@ -79,3 +79,15 @@
     font-size: 0.8em;
     color: #414141;
 }
+
+@media only screen and (max-width: 1000px) {
+    .datatable {
+        font-size: 0.6em;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .datatable {
+        font-size: 0.3em;
+    }
+}

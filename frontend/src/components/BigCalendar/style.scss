@@ -10,7 +10,17 @@
 }
 
 @media only screen and (max-width: 800px) {
+  .calendar {
+    font-size: 0.7em;
+
     .rbc-btn-group {
       display: none;
     }
   }
+}
+
+@media only screen and (max-width: 400px) {
+  .calendar {
+    font-size: 0.1em;
+  }
+}

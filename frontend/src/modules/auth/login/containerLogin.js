@@ -47,7 +47,7 @@ const LoginScreen = () => {
                     <h1>login</h1>
                     <div className='loginScreen-inputs'>
                         <div className='loginScreen-inputs-username'>
-                            <label>username
+                            <label><span>username</span>
                                 <Input
                                     value={username || ''}
                                     onChange={nameChanged}
@@ -62,8 +62,8 @@ const LoginScreen = () => {
                             }
                         </div>
                         <div className='loginScreen-inputs-password'>
-                            <label>password
-                        <Input
+                            <label><span>password</span>
+                                <Input
                                     value={password || ''}
                                     onChange={passwordChanged}
                                     width={'100%'}
