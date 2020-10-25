@@ -6,7 +6,7 @@ module.exports = class UserLeaveRepository {
         let stmt = db.prepare('INSERT INTO user_leaves VALUES (?,?,?,?,?,?,?,?)');
 
         stmt.run(null, object.reason, object.type, object.name, object.startDate, object.endDate, 0, object.userId, err => {
-            if(err) {
+            if (err) {
                 return console.log("Query was rejected, try again", err);
             }
         });
@@ -29,7 +29,7 @@ module.exports = class UserLeaveRepository {
 
     findById = (id, callback) => {
         db.get('SELECT * FROM user_leaves WHERE id = ?', [id], (err, row) => {
-            if(err) {
+            if (err) {
                 callback(err, null);
                 return;
             }
@@ -51,9 +51,12 @@ module.exports = class UserLeaveRepository {
         });
     }
 
-    obtainApprovedLeaves = callback => {
+    obtainApprovedLeaves = (callback) => {
         const approved = 1;
-        db.all('SELECT * FROM user_leaves WHERE is_approved = ?', [approved], (err, rows) => {
+        db.all(`SELECT reason, type, name, date_start, date_end,
+        is_approved, user_id, color FROM user_leaves
+        INNER JOIN users u ON user_leaves.user_id = u.id
+        WHERE user_leaves.is_approved = ?;`, [approved], (err, rows) => {
             if (err) {
                 callback(err, null);
                 return;
@@ -68,7 +71,7 @@ module.exports = class UserLeaveRepository {
 
     delete = (id, callback) => {
         db.run('DELETE FROM user_leaves WHERE id = ?', [id], err => {
-            if(err) {
+            if (err) {
                 callback(err, null);
                 return;
             }
