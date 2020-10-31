@@ -20,9 +20,9 @@ An HR software for tracking employee absence and paid days off within a company.
   `$ nodemon app.js`  
   
  - #### on Linux:
-   `$ git clone git@github.com:scavasoft/leave-request-tracker.git`  
-   `$ npm install`  
-   `$ on root directory 'npm run dev'`  
+  `$ git clone git@github.com:scavasoft/leave-request-tracker.git`  
+  `$ npm install`  
+  `$ on root directory 'npm run dev'`  
  ## Technologies
   - #### Backend:
     - SQLite for database
